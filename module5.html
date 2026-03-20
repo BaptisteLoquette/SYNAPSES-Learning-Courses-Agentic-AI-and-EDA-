@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 5 — Mastery Modules for AI Engineers | SYNAPSES</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-module-id="module5">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back">← Back to Course</a>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">⚡</div>
+      <span class="nav-logo-text">SYNAPSES</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#mcp">MCP</a></li>
+      <li><a href="#langgraph">LangGraph</a></li>
+      <li><a href="#pillars">12 Pillars</a></li>
+      <li><a href="#quiz">Quiz</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="module-page">
+  <div class="module-hero">
+    <div class="container module-hero-content">
+      <div class="module-breadcrumb">
+        <a href="index.html">SYNAPSES</a>
+        <span class="module-breadcrumb-sep">›</span>
+        <a href="module4.html">Module 4</a>
+        <span class="module-breadcrumb-sep">›</span>
+        <span>Module 5</span>
+      </div>
+      <div class="module-hero-badge" style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);color:var(--accent-green)">
+        🎓 Mastery
+      </div>
+      <h1 class="module-hero-title">Mastery Modules<br/>for AI Engineers</h1>
+      <p class="module-hero-desc">
+        Master the three pillars of production-grade MAS engineering: the Model Context
+        Protocol (MCP) as the universal tool interface, LangGraph's advanced patterns for
+        long-running workflows, and the Twelve Pillars framework for enterprise deployment.
+      </p>
+      <div class="module-objectives">
+        <span class="objective-tag">✓ MCP architecture</span>
+        <span class="objective-tag">✓ Ngspice MCP server</span>
+        <span class="objective-tag">✓ Persistent checkpointing</span>
+        <span class="objective-tag">✓ Conditional routing</span>
+        <span class="objective-tag">✓ Time-travel debugging</span>
+        <span class="objective-tag">✓ 12 Production Pillars</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <aside class="content-sidebar">
+      <div class="sidebar-nav">
+        <div class="sidebar-nav-title">In This Module</div>
+        <ul class="sidebar-nav-list">
+          <li><a href="#mcp">1. Model Context Protocol</a></li>
+          <li><a href="#mcp-server">2. Building MCP Servers</a></li>
+          <li><a href="#langgraph">3. LangGraph Advanced</a></li>
+          <li><a href="#pillars">4. The 12 Pillars</a></li>
+          <li><a href="#quiz">5. Knowledge Check</a></li>
+        </ul>
+        <div class="sidebar-progress">
+          <div class="progress-label">
+            <span>Module Progress</span>
+            <span data-progress-label>0%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" data-module-progress style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="content-main">
+
+      <!-- Section 1: MCP -->
+      <section class="content-section" id="mcp">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(16,185,129,0.1)">🔌</div>
+          <h2>Mastering Model Context Protocol (MCP)</h2>
+        </div>
+
+        <p>
+          The Model Context Protocol (MCP) is rapidly becoming the industry standard
+          for how AI models interact with external tools and resources. It has been called
+          the <strong>"USB-C of AI"</strong> — a universal connector that standardizes
+          how models talk to external tools, eliminating the need for custom glue code.
+        </p>
+
+        <div class="info-box note scroll-reveal">
+          <div class="info-box-header">🔵 Why MCP Matters for EDA</div>
+          <p>
+            Before MCP, every EDA tool integration required custom code: a custom
+            Ngspice adapter, a custom OpenROAD bridge, a custom Cadence connector.
+            With MCP, you implement one standard interface and every MCP-compatible
+            model (Claude, GPT, Gemini) can immediately use all your EDA tools.
+          </p>
+        </div>
+
+        <h3 style="color:var(--text-primary);margin:1.5rem 0 1rem">MCP Architecture</h3>
+
+        <div class="concept-grid scroll-reveal">
+          <div class="concept-card">
+            <div class="concept-card-header">
+              <div class="concept-card-icon" style="background:rgba(59,130,246,0.1)">💻</div>
+              <div class="concept-card-title">MCP Host</div>
+            </div>
+            <div class="concept-card-body">
+              The application managing the LLM and orchestrating MCP connections.
+              Examples: <strong>Claude Desktop</strong>, custom LangGraph workflow,
+              an agentic EDA platform. The host maintains the conversation context
+              and decides which MCP servers to connect to.
+            </div>
+          </div>
+          <div class="concept-card">
+            <div class="concept-card-header">
+              <div class="concept-card-icon" style="background:rgba(16,185,129,0.1)">🖥</div>
+              <div class="concept-card-title">MCP Server</div>
+            </div>
+            <div class="concept-card-body">
+              Exposes capabilities to the model via three primitives:
+              <ul style="margin-top:0.5rem;padding-left:1rem">
+                <li><strong>Tools</strong>: Functions the model can call</li>
+                <li><strong>Resources</strong>: Data the model can read</li>
+                <li><strong>Prompts</strong>: Template prompts to guide reasoning</li>
+              </ul>
+            </div>
+          </div>
+          <div class="concept-card">
+            <div class="concept-card-header">
+              <div class="concept-card-icon" style="background:rgba(139,92,246,0.1)">📡</div>
+              <div class="concept-card-title">MCP Protocol</div>
+            </div>
+            <div class="concept-card-body">
+              Communication happens over <strong>JSON-RPC 2.0</strong> via stdio
+              (local) or HTTP+SSE (remote). The model sends tool call requests;
+              the MCP server executes them and returns structured results.
+            </div>
+          </div>
+        </div>
+
+        <div class="diagram-container scroll-reveal">
+          <svg viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="mcp-arrow" viewBox="0 0 10 10" refX="9" refY="5"
+                markerWidth="5" markerHeight="5" orient="auto">
+                <path d="M0 0L10 5L0 10z" fill="rgba(16,185,129,0.7)"/>
+              </marker>
+              <marker id="mcp-arrow-r" viewBox="0 0 10 10" refX="9" refY="5"
+                markerWidth="5" markerHeight="5" orient="auto">
+                <path d="M0 0L10 5L0 10z" fill="rgba(59,130,246,0.7)"/>
+              </marker>
+            </defs>
+
+            <!-- LLM / Host -->
+            <rect x="10" y="90" width="160" height="80" rx="12" fill="#1a2540" stroke="#3b82f6" stroke-width="2"/>
+            <text x="90" y="118" text-anchor="middle" fill="#60a5fa" font-family="Inter" font-size="12" font-weight="700">MCP HOST</text>
+            <text x="90" y="136" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">LangGraph Workflow</text>
+            <text x="90" y="152" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">Claude / GPT-5</text>
+
+            <!-- MCP Protocol -->
+            <text x="270" y="112" text-anchor="middle" fill="#10b981" font-family="Inter" font-size="10" font-weight="700">JSON-RPC 2.0</text>
+            <text x="270" y="128" text-anchor="middle" fill="#6b7280" font-family="Inter" font-size="9">tool calls ↕ results</text>
+            <text x="270" y="144" text-anchor="middle" fill="#6b7280" font-family="Inter" font-size="9">stdio / HTTP+SSE</text>
+
+            <!-- Arrow Host → Server -->
+            <line x1="172" y1="120" x2="378" y2="120" stroke="rgba(16,185,129,0.6)" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#mcp-arrow)"/>
+            <!-- Arrow Server → Host -->
+            <line x1="378" y1="140" x2="172" y2="140" stroke="rgba(59,130,246,0.6)" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#mcp-arrow-r)"/>
+
+            <!-- MCP Servers -->
+            <rect x="390" y="20" width="150" height="55" rx="8" fill="#0d2818" stroke="rgba(16,185,129,0.5)" stroke-width="1.5"/>
+            <text x="465" y="43" text-anchor="middle" fill="#10b981" font-family="Inter" font-size="10" font-weight="700">Ngspice Server</text>
+            <text x="465" y="59" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">run_sim(), get_waveform()</text>
+
+            <rect x="390" y="100" width="150" height="55" rx="8" fill="#0d2818" stroke="rgba(16,185,129,0.5)" stroke-width="1.5"/>
+            <text x="465" y="123" text-anchor="middle" fill="#10b981" font-family="Inter" font-size="10" font-weight="700">OpenROAD Server</text>
+            <text x="465" y="139" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">place(), route(), drc()</text>
+
+            <rect x="390" y="180" width="150" height="55" rx="8" fill="#0d2818" stroke="rgba(16,185,129,0.5)" stroke-width="1.5"/>
+            <text x="465" y="203" text-anchor="middle" fill="#10b981" font-family="Inter" font-size="10" font-weight="700">PDK Server</text>
+            <text x="465" y="219" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">get_model(), get_rules()</text>
+
+            <!-- Vertical connector for servers -->
+            <line x1="390" y1="47" x2="390" y2="207" stroke="rgba(16,185,129,0.2)" stroke-width="1" stroke-dasharray="3,3"/>
+          </svg>
+        </div>
+      </section>
+
+      <!-- Section 2: Building MCP Server -->
+      <section class="content-section" id="mcp-server">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(16,185,129,0.1)">🔧</div>
+          <h2>Building an Ngspice MCP Server</h2>
+        </div>
+
+        <p>
+          The <strong>Mastery Step</strong> from the course report is to implement an
+          MCP server for a simulator (Ngspice) that allows agents to pull simulation
+          results directly without custom glue code. Here's the complete implementation:
+        </p>
+
+        <div class="tab-system scroll-reveal">
+          <div class="tab-list">
+            <button class="tab-btn active">Server Definition</button>
+            <button class="tab-btn">Tool Implementations</button>
+            <button class="tab-btn">Connecting to LangGraph</button>
+            <button class="tab-btn">Resource Exposure</button>
+          </div>
+
+          <div class="tab-panel active">
+            <div class="code-block">
+              <div class="code-block-header">
+                <div class="code-block-lang">
+                  <div class="code-block-dots">
+                    <div class="code-block-dot" style="background:#ff5f57"></div>
+                    <div class="code-block-dot" style="background:#febc2e"></div>
+                    <div class="code-block-dot" style="background:#28c840"></div>
+                  </div>
+                  Python — ngspice_mcp_server.py
+                </div>
+                <button class="code-copy-btn">Copy</button>
+              </div>
+              <pre><code data-lang="python">#!/usr/bin/env python3
+"""Ngspice MCP Server — EDA simulation via standard MCP interface."""
+
+from mcp.server import Server
+from mcp.server.stdio import stdio_server
+from mcp.types import Tool, TextContent, Resource
+import asyncio
+import json
+
+server = Server("ngspice-eda-server")
+
+@server.list_tools()
+async def list_tools() -> list[Tool]:
+    """Expose available simulation tools."""
+    return [
+        Tool(
+            name="run_ngspice_sim",
+            description="Run an Ngspice SPICE simulation and return results",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "netlist": {"type": "string", "description": "SPICE netlist content"},
+                    "analysis_type": {
+                        "type": "string",
+                        "enum": ["dc", "ac", "transient", "noise"],
+                        "description": "Type of SPICE analysis"
+                    },
+                    "output_variables": {
+                        "type": "array",
+                        "items": {"type": "string"},
+                        "description": "Variables to capture (e.g., ['V(out)', 'I(R1)'])"
+                    }
+                },
+                "required": ["netlist", "analysis_type"]
+            }
+        ),
+        Tool(
+            name="get_bode_plot",
+            description="Run AC analysis and return Bode plot data (gain and phase vs frequency)",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "netlist": {"type": "string"},
+                    "freq_start": {"type": "number", "description": "Start frequency in Hz"},
+                    "freq_stop": {"type": "number", "description": "Stop frequency in Hz"},
+                    "n_points": {"type": "integer", "default": 100}
+                },
+                "required": ["netlist", "freq_start", "freq_stop"]
+            }
+        ),
+        Tool(
+            name="check_drc",
+            description="Run Design Rule Check on a layout file",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "layout_file": {"type": "string", "description": "Path to GDS/OASIS layout"},
+                    "pdk": {"type": "string", "enum": ["sky130", "gf180", "tsmc28"]}
+                },
+                "required": ["layout_file", "pdk"]
+            }
+        )
+    ]
+
+async def main():
+    async with stdio_server() as (read_stream, write_stream):
+        await server.run(read_stream, write_stream, server.create_initialization_options())</code></pre>
+            </div>
+          </div>
+
+          <div class="tab-panel">
+            <div class="code-block">
+              <div class="code-block-header">
+                <div class="code-block-lang">
+                  <div class="code-block-dots">
+                    <div class="code-block-dot" style="background:#ff5f57"></div>
+                    <div class="code-block-dot" style="background:#febc2e"></div>
+                    <div class="code-block-dot" style="background:#28c840"></div>
+                  </div>
+                  Python — Tool Implementations
+                </div>
+                <button class="code-copy-btn">Copy</button>
+              </div>
+              <pre><code data-lang="python">@server.call_tool()
+async def call_tool(name: str, arguments: dict):
+    """Execute tool calls from the LLM."""
+    
+    if name == "run_ngspice_sim":
+        netlist = arguments["netlist"]
+        analysis = arguments["analysis_type"]
+        outputs = arguments.get("output_variables", [])
+        
+        # Write netlist to temp file
+        import tempfile, subprocess
+        with tempfile.NamedTemporaryFile(suffix=".sp", mode="w", delete=False) as f:
+            f.write(netlist)
+            netlist_path = f.name
+        
+        # Run Ngspice in batch mode
+        result = subprocess.run(
+            ["ngspice", "-b", "-o", "/tmp/sim_output.txt", netlist_path],
+            capture_output=True, text=True, timeout=300
+        )
+        
+        if result.returncode != 0:
+            return [TextContent(type="text", text=f"SIMULATION ERROR:\n{result.stderr}")]
+        
+        # Parse output
+        sim_data = parse_ngspice_output("/tmp/sim_output.txt", outputs)
+        
+        return [TextContent(
+            type="text",
+            text=json.dumps({
+                "status": "success",
+                "analysis_type": analysis,
+                "results": sim_data,
+                "convergence": True
+            }, indent=2)
+        )]
+    
+    elif name == "get_bode_plot":
+        # Generate Bode plot data
+        netlist = arguments["netlist"]
+        freq_start = arguments["freq_start"]
+        freq_stop = arguments["freq_stop"]
+        
+        # Add AC analysis to netlist
+        ac_netlist = netlist + f"""
+.ac dec 20 {freq_start} {freq_stop}
+.print ac V(out)
+.end
+"""
+        bode_data = run_ac_analysis(ac_netlist)
+        metrics = extract_bode_metrics(bode_data)
+        
+        return [TextContent(
+            type="text",
+            text=json.dumps({
+                "gain_dB": bode_data["gain"],
+                "phase_deg": bode_data["phase"],
+                "frequencies": bode_data["freq"],
+                "metrics": metrics
+            }, indent=2)
+        )]</code></pre>
+            </div>
+          </div>
+
+          <div class="tab-panel">
+            <div class="code-block">
+              <div class="code-block-header">
+                <div class="code-block-lang">
+                  <div class="code-block-dots">
+                    <div class="code-block-dot" style="background:#ff5f57"></div>
+                    <div class="code-block-dot" style="background:#febc2e"></div>
+                    <div class="code-block-dot" style="background:#28c840"></div>
+                  </div>
+                  Python — Connecting MCP to LangGraph Agent
+                </div>
+                <button class="code-copy-btn">Copy</button>
+              </div>
+              <pre><code data-lang="python">from langchain_mcp_adapters.client import MultiServerMCPClient
+from langgraph.prebuilt import create_react_agent
+from langchain_anthropic import ChatAnthropic
+
+async def create_eda_agent():
+    """Create a LangGraph agent with MCP tool access."""
+    
+    # Connect to all MCP servers
+    async with MultiServerMCPClient({
+        "ngspice": {
+            "command": "python",
+            "args": ["ngspice_mcp_server.py"],
+            "transport": "stdio"
+        },
+        "openroad": {
+            "command": "python",
+            "args": ["openroad_mcp_server.py"],
+            "transport": "stdio"
+        },
+        "pdk": {
+            "url": "http://localhost:8001/mcp",
+            "transport": "sse"
+        }
+    }) as mcp_client:
+        
+        # Get all available tools from all servers
+        tools = await mcp_client.get_tools()
+        
+        # Create a ReAct agent with these tools
+        llm = ChatAnthropic(model="claude-opus-4-5")
+        agent = create_react_agent(llm, tools)
+        
+        # Run the agent
+        result = await agent.ainvoke({
+            "messages": [{
+                "role": "user",
+                "content": """Design a 2-stage OTA with 60dB gain and GBW > 10MHz.
+                Use the ngspice tools to simulate and verify your design.
+                Start with an analytical initial sizing, then iterate using simulation feedback."""
+            }]
+        })
+        
+        return result</code></pre>
+            </div>
+          </div>
+
+          <div class="tab-panel">
+            <div class="code-block">
+              <div class="code-block-header">
+                <div class="code-block-lang">
+                  <div class="code-block-dots">
+                    <div class="code-block-dot" style="background:#ff5f57"></div>
+                    <div class="code-block-dot" style="background:#febc2e"></div>
+                    <div class="code-block-dot" style="background:#28c840"></div>
+                  </div>
+                  Python — MCP Resource Exposure (PDK Data)
+                </div>
+                <button class="code-copy-btn">Copy</button>
+              </div>
+              <pre><code data-lang="python">@server.list_resources()
+async def list_resources() -> list[Resource]:
+    """Expose PDK and design library data as MCP Resources."""
+    return [
+        Resource(
+            uri="pdk://sky130/transistor-models",
+            name="SKY130 Transistor Models",
+            description="SPICE model parameters for all SKY130 transistors",
+            mimeType="application/json"
+        ),
+        Resource(
+            uri="pdk://sky130/design-rules",
+            name="SKY130 Design Rules",
+            description="DRC rules and minimum spacing requirements",
+            mimeType="application/json"
+        ),
+        Resource(
+            uri="library://analog/circuit-templates",
+            name="Analog Circuit Templates",
+            description="Parameterized templates: current mirrors, diff pairs, cascode",
+            mimeType="application/json"
+        )
+    ]
+
+@server.read_resource()
+async def read_resource(uri: str) -> str:
+    """Return resource content when requested by model."""
+    if uri == "pdk://sky130/transistor-models":
+        with open("/pdk/sky130/models/sky130.lib") as f:
+            return f.read()
+    elif uri == "library://analog/circuit-templates":
+        return json.dumps(load_circuit_templates())
+    return ""</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: LangGraph Advanced -->
+      <section class="content-section" id="langgraph">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(59,130,246,0.1)">🔗</div>
+          <h2>LangGraph: Advanced Production Patterns</h2>
+        </div>
+
+        <p>
+          Beyond the basic workflow covered in Module 1, LangGraph offers three
+          advanced capabilities that are <em>essential</em> for production EDA workflows.
+        </p>
+
+        <div class="tab-system scroll-reveal">
+          <div class="tab-list">
+            <button class="tab-btn active">Persistent Checkpointing</button>
+            <button class="tab-btn">Conditional Routing</button>
+            <button class="tab-btn">Time-Travel Debugging</button>
+            <button class="tab-btn">Human-in-the-Loop</button>
+          </div>
+
+          <div class="tab-panel active">
+            <h4 style="color:var(--text-primary);margin-bottom:1rem">Persistent Checkpointing for Long-Running Workflows</h4>
+            <p>
+              EDA workflows can run for <strong>24–48 hours</strong>. Without checkpointing,
+              a server crash or power failure means starting from scratch. LangGraph's
+              checkpointer saves state after every node execution.
+            </p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <div class="code-block-lang">
+                  <div class="code-block-dots">
+                    <div class="code-block-dot" style="background:#ff5f57"></div>
+                    <div class="code-block-dot" style="background:#febc2e"></div>
+                    <div class="code-block-dot" style="background:#28c840"></div>
+                  </div>
+                  Python — Production Checkpointing Setup
+                </div>
+                <button class="code-copy-btn">Copy</button>
+              </div>
+              <pre><code data-lang="python">from langgraph.checkpoint.postgres import PostgresSaver
+from langgraph.checkpoint.sqlite import SqliteSaver
+from psycopg import Connection
+
+# Production: PostgreSQL-backed checkpointing (survives machine reboots)
+conn_string = "postgresql://eda_agent:secret@postgres-host:5432/eda_workflows"
+with Connection.connect(conn_string) as conn:
+    PostgresSaver.create_tables(conn)  # One-time schema setup
+
+checkpointer = PostgresSaver(conn)
+
+# Development: SQLite (simpler, single-file)
+checkpointer_dev = SqliteSaver.from_conn_string("./eda_checkpoint.db")
+
+# Compile workflow with checkpointer
+app = workflow.compile(checkpointer=checkpointer)
+
+# Run with unique thread_id — enables resumption
+config = {"configurable": {"thread_id": "pr-risc-v-001-20260320"}}
+
+# First run (or resume if interrupted)
+result = app.invoke(initial_state, config=config)
+
+# Later — machine crashed, resume from checkpoint:
+# Simply run again with the SAME thread_id
+# LangGraph finds the last checkpoint and continues from there
+result = app.invoke(None, config=config)  # None = continue from checkpoint
+
+# Check current state without executing
+state = app.get_state(config)
+print(f"Last completed node: {state.next}")
+print(f"Current iteration: {state.values['iteration']}")</code></pre>
+            </div>
+          </div>
+
+          <div class="tab-panel">
+            <h4 style="color:var(--text-primary);margin-bottom:1rem">Conditional Routing Based on PPA Results</h4>
+            <p>
+              Conditional routing is how the agent decides whether to proceed to layout
+              or loop back for re-sizing based on simulation results.
+            </p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <div class="code-block-lang">
+                  <div class="code-block-dots">
+                    <div class="code-block-dot" style="background:#ff5f57"></div>
+                    <div class="code-block-dot" style="background:#febc2e"></div>
+                    <div class="code-block-dot" style="background:#28c840"></div>
+                  </div>
+                  Python — Conditional PPA Routing
+                </div>
+                <button class="code-copy-btn">Copy</button>
+              </div>
+              <pre><code data-lang="python">from langgraph.graph import END
+
+def ppa_routing_logic(state: EDADesignState) -> str:
+    """
+    Decide the next action based on PPA results.
+    Returns the name of the next node or END.
+    """
+    achieved = state.get("ppa_achieved", {})
+    targets = state["ppa_targets"]
+    iteration = state["iteration"]
+    max_iter = state["max_iterations"]
+    
+    # Check if all PPA targets are met
+    all_targets_met = all(
+        achieved.get(metric, 0) >= target
+        for metric, target in targets.items()
+    )
+    
+    if all_targets_met:
+        print(f"✓ All PPA targets met at iteration {iteration}")
+        return "layout"  # Proceed to physical layout
+    
+    if iteration >= max_iter:
+        print(f"✗ Max iterations ({max_iter}) reached without convergence")
+        return END  # Give up
+    
+    # Determine which constraint is most violated
+    violations = {
+        k: targets[k] - achieved.get(k, 0) 
+        for k in targets if achieved.get(k, 0) < targets[k]
+    }
+    most_violated = max(violations, key=violations.get)
+    
+    # Route to appropriate specialist
+    if most_violated == "gain_dB":
+        return "topology_selection"  # Need different topology
+    elif most_violated in ["GBW_MHz", "phase_margin_deg"]:
+        return "sizing"  # Just re-size
+    else:
+        return "sizing"  # Default: try re-sizing
+
+# Add conditional edges
+workflow.add_conditional_edges(
+    "critic",
+    ppa_routing_logic,
+    {
+        "layout": "layout",
+        "sizing": "sizing",
+        "topology_selection": "topology_selection",
+        END: END
+    }
+)</code></pre>
+            </div>
+          </div>
+
+          <div class="tab-panel">
+            <h4 style="color:var(--text-primary);margin-bottom:1rem">Time-Travel Debugging</h4>
+            <p>
+              Time-travel debugging is one of LangGraph's most powerful features:
+              inspect any historical state and understand exactly why the agent
+              made each decision.
+            </p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <div class="code-block-lang">
+                  <div class="code-block-dots">
+                    <div class="code-block-dot" style="background:#ff5f57"></div>
+                    <div class="code-block-dot" style="background:#febc2e"></div>
+                    <div class="code-block-dot" style="background:#28c840"></div>
+                  </div>
+                  Python — Time-Travel Debugging &amp; State Forking
+                </div>
+                <button class="code-copy-btn">Copy</button>
+              </div>
+              <pre><code data-lang="python"># ── Inspecting Historical States ──────────────────────────────
+
+history = list(app.get_state_history(config))
+print(f"Total workflow steps recorded: {len(history)}")
+
+# Pretty-print the workflow trace
+for i, snapshot in enumerate(reversed(history)):
+    print(f"\n[Step {i+1}] Node: {snapshot.next}")
+    print(f"  Iteration: {snapshot.values.get('iteration', 0)}")
+    print(f"  PPA achieved: {snapshot.values.get('ppa_achieved', {})}")
+    print(f"  Errors: {snapshot.values.get('errors', [])}")
+
+# ── Understanding a Specific Failure ──────────────────────────
+
+# Find the step where gain degraded
+gain_failure_step = None
+for snapshot in history:
+    ppa = snapshot.values.get("ppa_achieved", {})
+    if ppa.get("gain_dB", 0) < 50:  # Gain dropped below 50dB
+        gain_failure_step = snapshot
+        break
+
+if gain_failure_step:
+    print(f"\nGain failure occurred at node: {gain_failure_step.next}")
+    print(f"Netlist at failure: {gain_failure_step.values['netlist']}")
+    print(f"Topology at failure: {gain_failure_step.values['topology']}")
+
+# ── Forking from a Past State (Alternative Approach) ──────────
+
+# Go back to before the problematic topology was selected
+good_state = history[-8]  # 8 steps back
+
+# Modify the state to try a different topology
+app.update_state(
+    good_state.config,
+    {
+        "topology": "folded_cascode",  # Try a different topology
+        "errors": [],                   # Clear accumulated errors
+        "iteration": good_state.values["iteration"]  # Preserve iteration count
+    },
+    as_node="topology_selection"  # Tag as if topology_selection ran
+)
+
+# Resume from this forked point
+new_result = app.invoke(None, good_state.config)</code></pre>
+            </div>
+          </div>
+
+          <div class="tab-panel">
+            <h4 style="color:var(--text-primary);margin-bottom:1rem">Human-in-the-Loop with Interrupt</h4>
+            <p>
+              Production EDA agents should pause at key decision points for human
+              approval — especially before committing expensive operations (tapeout,
+              48-hour P&R run).
+            </p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <div class="code-block-lang">
+                  <div class="code-block-dots">
+                    <div class="code-block-dot" style="background:#ff5f57"></div>
+                    <div class="code-block-dot" style="background:#febc2e"></div>
+                    <div class="code-block-dot" style="background:#28c840"></div>
+                  </div>
+                  Python — Human Approval Gate
+                </div>
+                <button class="code-copy-btn">Copy</button>
+              </div>
+              <pre><code data-lang="python"># Compile with interrupt_before for human approval gates
+app = workflow.compile(
+    checkpointer=checkpointer,
+    interrupt_before=["layout"]  # Pause before expensive layout step
+)
+
+# Run until the interrupt
+result = app.invoke(initial_state, config=config)
+# → Stops before "layout", saves state
+
+# Human reviews the schematic-level results
+current_state = app.get_state(config)
+ppa = current_state.values["ppa_achieved"]
+netlist = current_state.values["netlist"]
+
+print("Design ready for layout:")
+print(f"  Gain: {ppa['gain_dB']:.1f} dB (target: 60 dB)")
+print(f"  GBW: {ppa['GBW_MHz']:.1f} MHz (target: 10 MHz)")
+print(f"  Phase Margin: {ppa['phase_margin_deg']:.1f}° (target: 60°)")
+
+# Human decision
+human_approval = input("Approve for layout? (y/n): ")
+
+if human_approval.lower() == 'y':
+    # Continue the workflow
+    final_result = app.invoke(None, config=config)
+else:
+    # Override and adjust
+    app.update_state(config, {"topology": "alternative_topology"})
+    final_result = app.invoke(None, config=config)</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: 12 Pillars -->
+      <section class="content-section" id="pillars">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(245,158,11,0.1)">🏛</div>
+          <h2>The Twelve Pillars of Production MAS</h2>
+        </div>
+
+        <p>
+          Moving from a demo prototype to a production-grade enterprise system requires
+          implementing all twelve pillars. Skipping any one of these creates critical
+          gaps in reliability, security, or scalability.
+        </p>
+
+        <div class="pillars-grid scroll-reveal">
+          <div class="pillar-card" data-tooltip="Use your own fine-tuned or proprietary models alongside commercial APIs">
+            <div class="pillar-number">01</div>
+            <div class="pillar-title">Secure Model Integration (BYOM)</div>
+            <div class="pillar-desc">Bring Your Own Model — integrate proprietary and fine-tuned models without vendor lock-in. Essential for IP-sensitive EDA environments.</div>
+          </div>
+
+          <div class="pillar-card" data-tooltip="Full observability into agent decisions and tool calls">
+            <div class="pillar-number">02</div>
+            <div class="pillar-title">End-to-End Observability</div>
+            <div class="pillar-desc">Every agent call, tool invocation, and state transition is logged, traced, and monitored. LangSmith for LangChain/LangGraph. Essential for debugging production failures.</div>
+          </div>
+
+          <div class="pillar-card" data-tooltip="Typed schemas for all agent inputs and outputs">
+            <div class="pillar-number">03</div>
+            <div class="pillar-title">Typed Context Engineering</div>
+            <div class="pillar-desc">All state objects use TypedDict or Pydantic schemas. Prevents "undefined" errors from unstructured agent outputs. Type-checking at workflow definition time.</div>
+          </div>
+
+          <div class="pillar-card" data-tooltip="Formal representation of EDA concepts and relationships">
+            <div class="pillar-number">04</div>
+            <div class="pillar-title">Domain Ontology</div>
+            <div class="pillar-desc">A formal knowledge graph of EDA concepts: transistor types, circuit topologies, design rules, tool commands. Gives agents a shared vocabulary and structured knowledge.</div>
+          </div>
+
+          <div class="pillar-card" data-tooltip="Vector databases for design memory retrieval">
+            <div class="pillar-number">05</div>
+            <div class="pillar-title">Vector / Compute Tool Services</div>
+            <div class="pillar-desc">Vector databases (Pinecone, pgvector) for semantic retrieval of past designs. Compute services (Ray, Dask) for parallel simulation execution. Critical for scalable MAS.</div>
+          </div>
+
+          <div class="pillar-card" data-tooltip="Security, access control, and audit trails">
+            <div class="pillar-number">06</div>
+            <div class="pillar-title">Governance &amp; Security</div>
+            <div class="pillar-desc">Role-based access control for EDA tools, encryption of proprietary netlists, audit trails for all agent actions. Mandatory for semiconductor IP protection.</div>
+          </div>
+
+          <div class="pillar-card" data-tooltip="CI/CD pipelines for agent code and prompt updates">
+            <div class="pillar-number">07</div>
+            <div class="pillar-title">Agent Lifecycle (CI/CD)</div>
+            <div class="pillar-desc">Version control for prompts, automated testing of agent behavior changes, staged rollouts (canary deployments) for agent updates. Treat agents like production software.</div>
+          </div>
+
+          <div class="pillar-card" data-tooltip="Auto-scaling and resource management">
+            <div class="pillar-number">08</div>
+            <div class="pillar-title">Operational Automation</div>
+            <div class="pillar-desc">Auto-scaling simulation compute based on queue depth, automatic retry logic for failed tool calls, SLA monitoring and alerting. Kubernetes + Argo Workflows.</div>
+          </div>
+
+          <div class="pillar-card" data-tooltip="Reproducible development environments">
+            <div class="pillar-number">09</div>
+            <div class="pillar-title">Development Environments</div>
+            <div class="pillar-desc">Containerized EDA tool environments (Docker), mock simulators for fast testing, reproducible build systems (Nix, conda). Enable rapid iteration without tool setup friction.</div>
+          </div>
+
+          <div class="pillar-card" data-tooltip="Interfaces for human oversight and intervention">
+            <div class="pillar-number">10</div>
+            <div class="pillar-title">Human-in-the-Loop UX</div>
+            <div class="pillar-desc">Approval gates before high-risk actions (tapeout, long P&R runs), design review dashboards showing agent reasoning, override mechanisms for human correction.</div>
+          </div>
+
+          <div class="pillar-card" data-tooltip="Containerized deployment and distribution">
+            <div class="pillar-number">11</div>
+            <div class="pillar-title">Package / Release (Docker)</div>
+            <div class="pillar-desc">All agent code, EDA tool wrappers, and MCP servers containerized as Docker images. Helm charts for Kubernetes deployment. Semantic versioning and release notes.</div>
+          </div>
+
+          <div class="pillar-card" data-tooltip="Enterprise-scale deployment and integration">
+            <div class="pillar-number">12</div>
+            <div class="pillar-title">Enterprise Automation</div>
+            <div class="pillar-desc">Integration with enterprise systems: JIRA for design tracking, Confluence for documentation, Git for netlist versioning. Full enterprise IT stack compatibility.</div>
+          </div>
+
+        </div>
+
+        <div class="info-box insight scroll-reveal">
+          <div class="info-box-header">💜 Production Readiness Assessment</div>
+          <p>
+            Rate your current system against each pillar (0–2 points each, max 24).
+            A score of 0–8 = prototype, 9–16 = staging, 17–24 = production-ready.
+            Most early agentic EDA systems score 3–6 — pillars 2 (observability),
+            6 (governance), and 11 (Docker) are the highest-priority upgrades.
+          </p>
+        </div>
+      </section>
+
+      <!-- Quiz -->
+      <section class="content-section" id="quiz">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(245,158,11,0.1)">🎯</div>
+          <h2>Knowledge Check</h2>
+        </div>
+        <div class="quiz-container" data-quiz="module5">
+          <div class="quiz-header">
+            <div class="quiz-icon">🎯</div>
+            <div>
+              <div class="quiz-title">Module 5 Quiz</div>
+              <div class="quiz-subtitle">Test your mastery of production MAS engineering</div>
+            </div>
+          </div>
+          <div class="quiz-body"></div>
+          <div class="quiz-nav"></div>
+        </div>
+      </section>
+
+      <div class="module-nav">
+        <a href="module4.html" class="module-nav-link prev">
+          <span class="module-nav-arrow">←</span>
+          <div><div class="module-nav-label">Previous</div><div class="module-nav-title">The Physical Frontier</div></div>
+        </a>
+        <a href="module6.html" class="module-nav-link next">
+          <div style="text-align:right"><div class="module-nav-label">Next Module</div><div class="module-nav-title">Pedagogical Project</div></div>
+          <span class="module-nav-arrow">→</span>
+        </a>
+      </div>
+    </main>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">⚡ SYNAPSES</div>
+        <p class="footer-text">Module 5 — Mastery Modules for AI Engineers</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="module4.html">← Module 4</a></li>
+        <li><a href="module6.html">Module 6 →</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+window.QUIZ_DATA["module5"] = [
+  {
+    question: "MCP is described as the 'USB-C of AI'. What core problem does it solve?",
+    options: [
+      "It makes AI models run faster by optimizing USB connections",
+      "It standardizes how AI models communicate with external tools, eliminating the need for custom glue code for each tool integration",
+      "It enables AI models to communicate over USB-C cables instead of internet connections",
+      "It reduces the power consumption of AI model inference"
+    ],
+    correct: 1,
+    explanation: "MCP (Model Context Protocol) standardizes the interface between AI models and external tools. Without it, each EDA tool (Ngspice, OpenROAD, Cadence) needs custom integration code. With MCP, implement one standard interface and all MCP-compatible models can use all your tools."
+  },
+  {
+    question: "What are the three primitives that an MCP Server exposes to AI models?",
+    options: [
+      "Input, Output, Middleware",
+      "Models, Datasets, Compute",
+      "Tools (callable functions), Resources (readable data), and Prompts (template guides)",
+      "API keys, Webhooks, and Callbacks"
+    ],
+    correct: 2,
+    explanation: "An MCP Server exposes three primitives: Tools (functions the model can call, like run_ngspice_sim()), Resources (data the model can read, like PDK transistor models), and Prompts (template prompts that guide the model's reasoning)."
+  },
+  {
+    question: "Why is persistent checkpointing essential for EDA workflows, and which LangGraph checkpointer is recommended for production?",
+    options: [
+      "It speeds up execution — use SqliteSaver in production",
+      "It enables fault tolerance for 24-48 hour workflows that may be interrupted by machine failures — use PostgresSaver in production for durability across reboots",
+      "It compresses the agent state to save disk space — use any checkpointer",
+      "It enables multiple agents to share state — use MemorySaver"
+    ],
+    correct: 1,
+    explanation: "Persistent checkpointing saves state after every node execution so long-running workflows (like 48-hour P&R runs) can resume after interruption. PostgresSaver is recommended for production because SQLite can't survive machine reboots or be accessed from multiple workers."
+  },
+  {
+    question: "In LangGraph's time-travel debugging, what does 'forking' from a past state allow you to do?",
+    options: [
+      "Delete unwanted historical states from the checkpoint database",
+      "Create parallel universes where the agent runs with different random seeds",
+      "Inject a modified state at a past checkpoint and re-run the workflow from that point with a different approach (e.g., trying a different topology)",
+      "Accelerate the workflow by skipping past nodes"
+    ],
+    correct: 2,
+    explanation: "Forking allows you to update the state at any past checkpoint (using app.update_state()) and then invoke the workflow again from that point. This lets you explore alternative design paths — e.g., at the point where a topology failed, inject a different topology and re-run."
+  },
+  {
+    question: "Which of the Twelve Pillars of Production MAS is MOST critical for IP protection in semiconductor EDA environments?",
+    options: [
+      "Pillar 1: Secure Model Integration (BYOM) — controls which models see the design",
+      "Pillar 6: Governance & Security — provides role-based access control, encryption, and audit trails for proprietary netlists",
+      "Pillar 11: Package/Release (Docker) — containerization prevents data leakage",
+      "Pillar 3: Typed Context Engineering — structured data is harder to exfiltrate"
+    ],
+    correct: 1,
+    explanation: "Pillar 6 (Governance & Security) is most critical for IP protection: it provides role-based access control (who can run which tools), encryption of proprietary netlists at rest and in transit, and full audit trails for all agent actions. This is mandatory for any semiconductor company using agentic EDA."
+  }
+];
+</script>
+</body>
+</html>

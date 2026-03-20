@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 3 — Specialized Analog EDA | SYNAPSES</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-module-id="module3">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back">← Back to Course</a>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">⚡</div>
+      <span class="nav-logo-text">SYNAPSES</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#analog-frontier">Analog Frontier</a></li>
+      <li><a href="#analogcoder">AnalogCoder</a></li>
+      <li><a href="#analogsage">AnalogSAGE</a></li>
+      <li><a href="#genie">GENIE-ASI</a></li>
+      <li><a href="#quiz">Quiz</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="module-page">
+  <div class="module-hero">
+    <div class="container module-hero-content">
+      <div class="module-breadcrumb">
+        <a href="index.html">SYNAPSES</a>
+        <span class="module-breadcrumb-sep">›</span>
+        <a href="module2.html">Module 2</a>
+        <span class="module-breadcrumb-sep">›</span>
+        <span>Module 3</span>
+      </div>
+      <div class="module-hero-badge" style="background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.3);color:var(--accent-purple)">
+        〰 Analog Design
+      </div>
+      <h1 class="module-hero-title">Specialized Agentic EDA<br/>for Analog Design</h1>
+      <p class="module-hero-desc">
+        Analog design remains the "final frontier" of EDA automation due to continuous-valued
+        signals, extreme sensitivity to layout parasitics, and the non-digital nature of
+        performance metrics. This module covers four breakthrough frameworks.
+      </p>
+      <div class="module-objectives">
+        <span class="objective-tag">✓ AnalogCoder &amp; Pro</span>
+        <span class="objective-tag">✓ AnalogSAGE stratified memory</span>
+        <span class="objective-tag">✓ GENIE-ASI subcircuit ID</span>
+        <span class="objective-tag">✓ Schemato visualization</span>
+        <span class="objective-tag">✓ Multimodal waveform analysis</span>
+        <span class="objective-tag">✓ PySpice netlist generation</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <aside class="content-sidebar">
+      <div class="sidebar-nav">
+        <div class="sidebar-nav-title">In This Module</div>
+        <ul class="sidebar-nav-list">
+          <li><a href="#analog-frontier">1. The Analog Frontier</a></li>
+          <li><a href="#analogcoder">2. AnalogCoder &amp; Pro</a></li>
+          <li><a href="#analogsage">3. AnalogSAGE</a></li>
+          <li><a href="#genie">4. GENIE-ASI</a></li>
+          <li><a href="#schemato">5. Schemato</a></li>
+          <li><a href="#quiz">6. Knowledge Check</a></li>
+        </ul>
+        <div class="sidebar-progress">
+          <div class="progress-label">
+            <span>Module Progress</span>
+            <span data-progress-label>0%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" data-module-progress style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="content-main">
+
+      <!-- Section 1: Analog Frontier -->
+      <section class="content-section" id="analog-frontier">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(139,92,246,0.1)">🌊</div>
+          <h2>The Analog Final Frontier</h2>
+        </div>
+
+        <p>
+          Digital EDA automation has made remarkable progress — tools like OpenROAD can
+          complete place-and-route with minimal human intervention. But analog design
+          remains fundamentally harder to automate, for several deep reasons.
+        </p>
+
+        <div class="concept-grid scroll-reveal">
+          <div class="concept-card">
+            <div class="concept-card-header">
+              <div class="concept-card-icon" style="background:rgba(139,92,246,0.1)">〰</div>
+              <div class="concept-card-title">Continuous-Valued Signals</div>
+            </div>
+            <div class="concept-card-body">
+              Unlike digital (1 or 0), analog signals have infinite precision.
+              Performance specs like <strong>Gain-Bandwidth Product</strong>, <strong>
+              PSRR</strong>, and <strong>phase margin</strong> require continuous
+              optimization over a multidimensional design space.
+            </div>
+          </div>
+          <div class="concept-card">
+            <div class="concept-card-header">
+              <div class="concept-card-icon" style="background:rgba(239,68,68,0.1)">⚠</div>
+              <div class="concept-card-title">Layout Parasitics</div>
+            </div>
+            <div class="concept-card-body">
+              Performance is inseparable from physical implementation. A
+              <strong>10fF parasitic capacitance</strong> from poor layout can collapse
+              gain by 6dB. Agents must reason about both schematic and physical
+              domains simultaneously.
+            </div>
+          </div>
+          <div class="concept-card">
+            <div class="concept-card-header">
+              <div class="concept-card-icon" style="background:rgba(245,158,11,0.1)">⏱</div>
+              <div class="concept-card-title">Slow Simulation Feedback</div>
+            </div>
+            <div class="concept-card-body">
+              A full SPICE simulation across all process corners can take
+              <strong>hours per run</strong>. This makes iterative RL-style training
+              prohibitively expensive and demands clever approximation strategies.
+            </div>
+          </div>
+          <div class="concept-card">
+            <div class="concept-card-header">
+              <div class="concept-card-icon" style="background:rgba(16,185,129,0.1)">📊</div>
+              <div class="concept-card-title">Non-Functional Specs</div>
+            </div>
+            <div class="concept-card-body">
+              Metrics like <strong>stability</strong> (phase margin &gt; 45°),
+              <strong>noise</strong> (input-referred noise floor), and
+              <strong>linearity</strong> (THD) cannot be expressed as simple binary
+              pass/fail — they require nuanced interpretation.
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box insight scroll-reveal">
+          <div class="info-box-header">💜 Why This Matters for Agent Design</div>
+          <p>
+            These challenges force analog EDA agents to be fundamentally different from
+            digital ones. They need: <strong>multimodal perception</strong> (reading waveforms),
+            <strong>stratified memory</strong> (remembering cross-task insights), and
+            <strong>physics-grounded reasoning</strong> (understanding parasitics cause
+            and effect). The four systems in this module each address a different facet
+            of this challenge.
+          </p>
+        </div>
+      </section>
+
+      <!-- Section 2: AnalogCoder -->
+      <section class="content-section" id="analogcoder">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(59,130,246,0.1)">💻</div>
+          <h2>AnalogCoder &amp; AnalogCoder-Pro</h2>
+        </div>
+
+        <p>
+          AnalogCoder is an AAAI 2025 Oral paper that reconceptualizes analog circuit
+          design as a <strong>code generation problem</strong>. Instead of directly
+          predicting SPICE netlists (which have complex syntax and no abstraction),
+          it generates Python code using PySpice — a more natural medium for LLMs.
+        </p>
+
+        <div class="tab-system scroll-reveal">
+          <div class="tab-list">
+            <button class="tab-btn active">Core Concept</button>
+            <button class="tab-btn">Training-Free Approach</button>
+            <button class="tab-btn">AnalogCoder-Pro (Multimodal)</button>
+            <button class="tab-btn">Code Example</button>
+          </div>
+
+          <div class="tab-panel active">
+            <h4 style="color:var(--text-primary);margin-bottom:1rem">Design as Python Code Generation</h4>
+            <p>
+              The core insight: LLMs are much better at generating Python code than raw
+              SPICE syntax. PySpice provides a Pythonic API to SPICE, so AnalogCoder:
+            </p>
+            <ol style="color:var(--text-secondary)">
+              <li style="margin-bottom:0.5rem">Receives a natural language spec: <em>"Design a 2-stage Miller OTA with 60dB DC gain, GBW &gt; 10MHz, PM &gt; 60°"</em></li>
+              <li style="margin-bottom:0.5rem">Generates Python code using PySpice to describe the circuit netlist</li>
+              <li style="margin-bottom:0.5rem">Executes the code to produce a SPICE netlist</li>
+              <li style="margin-bottom:0.5rem">Runs Ngspice simulation and captures results</li>
+              <li>Analyzes results and refines the code if specs are not met</li>
+            </ol>
+            <div class="info-box success" style="margin-top:1rem">
+              <div class="info-box-header">✓ Key Advantage</div>
+              <p>
+                Python code is easier to modify incrementally than SPICE netlist syntax.
+                When an agent needs to change a transistor W/L ratio, it modifies a
+                Python variable — not a raw text substitution in a netlist file.
+              </p>
+            </div>
+          </div>
+
+          <div class="tab-panel">
+            <h4 style="color:var(--text-primary);margin-bottom:1rem">Training-Free Approach (Zero-Shot)</h4>
+            <p>
+              AnalogCoder is explicitly <strong>training-free</strong> — it uses
+              foundation LLMs (GPT-4, Claude) directly with carefully engineered
+              prompts, rather than requiring expensive fine-tuning on hardware data.
+            </p>
+            <p style="margin-top:1rem">This is critical because:</p>
+            <ul>
+              <li>High-quality labeled analog design data is extremely scarce</li>
+              <li>Fine-tuning requires significant compute and expertise</li>
+              <li>Training-free methods can immediately leverage new foundation models</li>
+            </ul>
+            <div class="concept-grid" style="margin-top:1rem">
+              <div class="concept-card">
+                <div class="concept-card-header">
+                  <div class="concept-card-icon" style="background:rgba(59,130,246,0.1)">📚</div>
+                  <div class="concept-card-title">Circuit Function Library</div>
+                </div>
+                <div class="concept-card-body">
+                  A curated library of circuit templates (current mirrors, differential
+                  pairs, cascode stages) is provided as context. The LLM assembles
+                  these building blocks rather than generating circuits from scratch.
+                </div>
+              </div>
+              <div class="concept-card">
+                <div class="concept-card-header">
+                  <div class="concept-card-icon" style="background:rgba(16,185,129,0.1)">🔄</div>
+                  <div class="concept-card-title">Feedback Loop</div>
+                </div>
+                <div class="concept-card-body">
+                  Simulation results (gain, bandwidth, phase margin) are fed back to
+                  the LLM as text, which then generates modified Python code. This
+                  creates a closed-loop design optimization cycle.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-panel">
+            <h4 style="color:var(--text-primary);margin-bottom:1rem">AnalogCoder-Pro: Multimodal Waveform Analysis</h4>
+            <p>
+              AnalogCoder-Pro extends the base system with <strong>multimodal perception</strong>:
+              instead of reading simulation results as text numbers, the agent
+              <em>visually analyzes waveform plots</em> using a vision-capable LLM.
+            </p>
+            <div class="concept-grid" style="margin-top:1rem">
+              <div class="concept-card">
+                <div class="concept-card-header">
+                  <div class="concept-card-icon" style="background:rgba(245,158,11,0.1)">👁</div>
+                  <div class="concept-card-title">Visual Analysis</div>
+                </div>
+                <div class="concept-card-body">
+                  The agent generates a <code>.png</code> of the Bode plot (gain/phase
+                  vs. frequency). A multimodal LLM (Gemini 3 Pro or Claude 4.5 Vision)
+                  analyzes the image, identifying visual patterns like gain peaking
+                  (instability indicator) or bandwidth roll-off too early.
+                </div>
+              </div>
+              <div class="concept-card">
+                <div class="concept-card-header">
+                  <div class="concept-card-icon" style="background:rgba(139,92,246,0.1)">🎯</div>
+                  <div class="concept-card-title">Structured Insight</div>
+                </div>
+                <div class="concept-card-body">
+                  After image analysis, the LLM produces structured feedback:
+                  <em>"Phase margin is ~35° at GBW — below the 60° target. Recommend
+                  increasing Miller capacitor by 2× to add phase lead."</em>
+                </div>
+              </div>
+            </div>
+            <div class="code-block" style="margin-top:1rem">
+              <div class="code-block-header">
+                <div class="code-block-lang">
+                  <div class="code-block-dots">
+                    <div class="code-block-dot" style="background:#ff5f57"></div>
+                    <div class="code-block-dot" style="background:#febc2e"></div>
+                    <div class="code-block-dot" style="background:#28c840"></div>
+                  </div>
+                  Python — Multimodal Waveform Analysis
+                </div>
+                <button class="code-copy-btn">Copy</button>
+              </div>
+              <pre><code data-lang="python">import base64
+import matplotlib.pyplot as plt
+import numpy as np
+from langchain_anthropic import ChatAnthropic
+from langchain_core.messages import HumanMessage
+
+def analyze_bode_plot_visually(frequencies, gain_dB, phase_deg):
+    """Generate Bode plot and analyze it with a vision LLM."""
+    
+    # Generate the Bode plot
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 8))
+    ax1.semilogx(frequencies, gain_dB, 'b-', linewidth=2)
+    ax1.set_ylabel('Gain (dB)')
+    ax1.set_title('Bode Plot — Gain')
+    ax1.grid(True, which='both', alpha=0.3)
+    ax1.axhline(y=0, color='r', linestyle='--', alpha=0.5, label='0 dB')
+    
+    ax2.semilogx(frequencies, phase_deg, 'r-', linewidth=2)
+    ax2.set_ylabel('Phase (degrees)')
+    ax2.set_xlabel('Frequency (Hz)')
+    ax2.set_title('Bode Plot — Phase')
+    ax2.grid(True, which='both', alpha=0.3)
+    ax2.axhline(y=-180, color='k', linestyle='--', alpha=0.5, label='-180°')
+    
+    plt.tight_layout()
+    plt.savefig('/tmp/bode_plot.png', dpi=150, bbox_inches='tight')
+    plt.close()
+    
+    # Encode as base64 for the vision API
+    with open('/tmp/bode_plot.png', 'rb') as f:
+        image_data = base64.b64encode(f.read()).decode('utf-8')
+    
+    # Send to vision-capable LLM for analysis
+    claude = ChatAnthropic(model="claude-opus-4-5")
+    message = HumanMessage(content=[
+        {
+            "type": "image",
+            "source": {"type": "base64", "media_type": "image/png", "data": image_data}
+        },
+        {
+            "type": "text",
+            "text": """Analyze this Bode plot for an operational transconductance amplifier (OTA).
+            
+            Identify:
+            1. DC gain (dB) — read the flat region value
+            2. Gain-Bandwidth Product (GBW) — frequency where gain crosses 0dB
+            3. Phase margin — phase at GBW frequency relative to -180°
+            4. Any instability indicators (gain peaking, phase dropping below -180° before GBW)
+            5. Specific design changes to improve phase margin if below 60°
+            
+            Provide structured JSON output."""
+        }
+    ])
+    
+    analysis = claude.invoke([message])
+    return analysis.content</code></pre>
+            </div>
+          </div>
+
+          <div class="tab-panel">
+            <h4 style="color:var(--text-primary);margin-bottom:1rem">Complete AnalogCoder Example</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <div class="code-block-lang">
+                  <div class="code-block-dots">
+                    <div class="code-block-dot" style="background:#ff5f57"></div>
+                    <div class="code-block-dot" style="background:#febc2e"></div>
+                    <div class="code-block-dot" style="background:#28c840"></div>
+                  </div>
+                  Python — AnalogCoder Netlist Generation
+                </div>
+                <button class="code-copy-btn">Copy</button>
+              </div>
+              <pre><code data-lang="python">from PySpice.Spice.Netlist import Circuit
+from PySpice.Unit import *
+from langchain_openai import ChatOpenAI
+
+# AnalogCoder generates Python code like this:
+def design_two_stage_ota(spec: dict) -> str:
+    """Generated by AnalogCoder — 2-stage Miller OTA."""
+    
+    circuit = Circuit('Two-Stage Miller OTA')
+    
+    # Supply
+    circuit.V('dd', 'VDD', circuit.gnd, 1.8@u_V)
+    
+    # Bias current
+    circuit.I('bias', 'VDD', 'IBIAS', spec['Ibias']@u_µA)
+    
+    # Input differential pair (M1, M2)
+    circuit.MOSFET('M1', 'vout1', 'vinp', 'vs', 'vs',
+                   model='NMOS_SKY130', w=spec['W1']@u_µm, l=spec['L1']@u_µm)
+    circuit.MOSFET('M2', 'vout1b', 'vinn', 'vs', 'vs',
+                   model='NMOS_SKY130', w=spec['W1']@u_µm, l=spec['L1']@u_µm)
+    
+    # Tail current source (M5)
+    circuit.MOSFET('M5', 'vs', 'IBIAS', circuit.gnd, circuit.gnd,
+                   model='NMOS_SKY130', w=spec['W5']@u_µm, l=spec['L5']@u_µm)
+    
+    # Load current mirror (M3, M4) 
+    circuit.MOSFET('M3', 'vout1', 'vout1', 'VDD', 'VDD',
+                   model='PMOS_SKY130', w=spec['W3']@u_µm, l=spec['L3']@u_µm)
+    circuit.MOSFET('M4', 'vout1b', 'vout1', 'VDD', 'VDD',
+                   model='PMOS_SKY130', w=spec['W3']@u_µm, l=spec['L3']@u_µm)
+    
+    # Second stage (M6)
+    circuit.MOSFET('M6', 'vout', 'vout1b', circuit.gnd, circuit.gnd,
+                   model='NMOS_SKY130', w=spec['W6']@u_µm, l=spec['L6']@u_µm)
+    
+    # Miller compensation
+    circuit.C('c', 'vout', 'vout1b', spec['Cc']@u_pF)
+    circuit.R('z', 'vout', 'vout1b', spec['Rz']@u_kΩ)
+    
+    return circuit.str()
+
+# LLM determines specs based on requirements
+llm = ChatOpenAI(model="gpt-4o")
+response = llm.invoke("""Given: 60dB gain, GBW=10MHz, PM>60°, VDD=1.8V, Ibias=10µA
+Determine: W1,L1,W3,L3,W5,L5,W6,L6,Cc,Rz in SKY130 PDK
+Output JSON.""")
+
+spec = parse_json(response.content)
+netlist = design_two_stage_ota(spec)</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: AnalogSAGE -->
+      <section class="content-section" id="analogsage">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(245,158,11,0.1)">🧬</div>
+          <h2>AnalogSAGE: Self-Evolving Framework</h2>
+        </div>
+
+        <p>
+          AnalogSAGE (Self-Evolving Analog Generative Engine) introduces a breakthrough
+          in agentic memory: the <strong>Stratified Memory Hierarchy</strong>. Instead of
+          treating all agent experience uniformly, it organizes memory into three distinct
+          layers that serve different functions.
+        </p>
+
+        <h3 style="color:var(--text-primary);margin:1.5rem 0 1rem">The Stratified Memory Hierarchy</h3>
+
+        <div class="concept-grid scroll-reveal">
+          <div class="concept-card" style="border-color:rgba(59,130,246,0.4)">
+            <div class="concept-card-header">
+              <div class="concept-card-icon" style="background:rgba(59,130,246,0.15)">🌐</div>
+              <div class="concept-card-title" style="color:var(--accent-blue)">Layer 1: Evolution Memory</div>
+            </div>
+            <div class="concept-card-body">
+              <strong>Scope: Cross-task insights</strong>
+              <p style="margin-top:0.5rem">
+                Stores generalizable knowledge gained across multiple design tasks.
+                Example: <em>"Folded-cascode topologies consistently achieve better PSRR
+                than standard differential pairs in 1.8V designs. When PSRR &gt; 60dB is
+                required, start with folded-cascode."</em>
+              </p>
+              <p style="margin-top:0.5rem">
+                This layer evolves continuously as the agent completes more designs,
+                becoming an ever-richer repository of analog design wisdom.
+              </p>
+            </div>
+          </div>
+
+          <div class="concept-card" style="border-color:rgba(139,92,246,0.4)">
+            <div class="concept-card-header">
+              <div class="concept-card-icon" style="background:rgba(139,92,246,0.15)">🔍</div>
+              <div class="concept-card-title" style="color:var(--accent-purple)">Layer 2: Introspective Memory</div>
+            </div>
+            <div class="concept-card-body">
+              <strong>Scope: Within-task failure reflections</strong>
+              <p style="margin-top:0.5rem">
+                Records what went wrong <em>during the current design task</em> and
+                how it was resolved. Example: <em>"Tried Cc=2pF → PM=32° (insufficient).
+                Increased to 4pF → PM=58° (marginal). With Rz=1kΩ added → PM=68° ✓."</em>
+              </p>
+              <p style="margin-top:0.5rem">
+                This enables the agent to avoid repeating the same failures within
+                a single design session — critical given SPICE simulation costs.
+              </p>
+            </div>
+          </div>
+
+          <div class="concept-card" style="border-color:rgba(16,185,129,0.4)">
+            <div class="concept-card-header">
+              <div class="concept-card-icon" style="background:rgba(16,185,129,0.15)">🗜</div>
+              <div class="concept-card-title" style="color:var(--accent-green)">Layer 3: Fusion Memory</div>
+            </div>
+            <div class="concept-card-body">
+              <strong>Scope: Compressed reasoning traces</strong>
+              <p style="margin-top:0.5rem">
+                A compressed, dense representation of the agent's reasoning process.
+                Strips away verbose LLM output and retains only the key causal chain:
+                <em>Observation → Hypothesis → Experiment → Conclusion.</em>
+              </p>
+              <p style="margin-top:0.5rem">
+                Enables efficient retrieval — when facing a new design, the agent
+                retrieves relevant compressed traces from past experience.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block scroll-reveal">
+          <div class="code-block-header">
+            <div class="code-block-lang">
+              <div class="code-block-dots">
+                <div class="code-block-dot" style="background:#ff5f57"></div>
+                <div class="code-block-dot" style="background:#febc2e"></div>
+                <div class="code-block-dot" style="background:#28c840"></div>
+              </div>
+              Python — AnalogSAGE Stratified Memory
+            </div>
+            <button class="code-copy-btn">Copy</button>
+          </div>
+          <pre><code data-lang="python">from dataclasses import dataclass, field
+from typing import List, Optional
+import json
+from datetime import datetime
+
+@dataclass
+class MemoryEntry:
+    content: str
+    timestamp: str = field(default_factory=lambda: datetime.now().isoformat())
+    embedding: Optional[List[float]] = None
+    relevance_score: float = 0.0
+
+class StratifiedMemoryHierarchy:
+    """AnalogSAGE three-layer memory system."""
+    
+    def __init__(self, embedder):
+        self.embedder = embedder
+        self.evolution_memory: List[MemoryEntry] = []    # Cross-task
+        self.introspective_memory: List[MemoryEntry] = [] # Within-task
+        self.fusion_memory: List[MemoryEntry] = []        # Compressed traces
+    
+    def record_failure(self, observation: str, action: str, result: str):
+        """Layer 2: Record within-task failure and recovery."""
+        entry = MemoryEntry(
+            content=f"TRIED: {action} | RESULT: {result} | OBS: {observation}"
+        )
+        entry.embedding = self.embedder.embed(entry.content)
+        self.introspective_memory.append(entry)
+    
+    def record_cross_task_insight(self, insight: str, source_tasks: List[str]):
+        """Layer 1: Record generalizable insight from multiple tasks."""
+        entry = MemoryEntry(
+            content=f"INSIGHT: {insight} | SOURCE: {source_tasks}"
+        )
+        entry.embedding = self.embedder.embed(entry.content)
+        self.evolution_memory.append(entry)
+    
+    def compress_and_store_trace(self, full_trace: List[dict], llm):
+        """Layer 3: Compress reasoning trace for efficient retrieval."""
+        trace_text = "\n".join([f"{t['step']}: {t['action']} → {t['outcome']}" 
+                                 for t in full_trace])
+        
+        compression_prompt = f"""Compress this design reasoning trace to its essential 
+        causal chain (Observation → Hypothesis → Experiment → Conclusion):
+        
+        {trace_text}
+        
+        Output a dense 3-5 sentence summary capturing only causal relationships."""
+        
+        compressed = llm.invoke(compression_prompt)
+        entry = MemoryEntry(content=compressed.content)
+        entry.embedding = self.embedder.embed(entry.content)
+        self.fusion_memory.append(entry)
+    
+    def retrieve_relevant(self, query: str, top_k: int = 3) -> dict:
+        """Retrieve relevant memories from all layers for a new design task."""
+        query_embedding = self.embedder.embed(query)
+        
+        def cosine_sim(a, b):
+            import numpy as np
+            return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+        
+        # Search all layers
+        results = {"evolution": [], "introspective": [], "fusion": []}
+        
+        for layer_name, layer in [("evolution", self.evolution_memory),
+                                    ("introspective", self.introspective_memory),
+                                    ("fusion", self.fusion_memory)]:
+            scored = [(cosine_sim(query_embedding, e.embedding), e) 
+                      for e in layer if e.embedding]
+            scored.sort(reverse=True)
+            results[layer_name] = [e.content for _, e in scored[:top_k]]
+        
+        return results</code></pre>
+        </div>
+      </section>
+
+      <!-- Section 4: GENIE-ASI -->
+      <section class="content-section" id="genie">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(6,182,212,0.1)">🔍</div>
+          <h2>GENIE-ASI: Subcircuit Identification (Sony AI)</h2>
+        </div>
+
+        <p>
+          GENIE-ASI (Generative Netlist Inspector for Analog Subcircuit Identification)
+          is a training-free system from Sony AI that addresses a specific but critical
+          problem: <strong>automatically identifying functional blocks within a complex
+          SPICE netlist</strong>.
+        </p>
+
+        <div class="info-box note scroll-reveal">
+          <div class="info-box-header">🔵 The Problem GENIE-ASI Solves</div>
+          <p>
+            A modern analog IC can have hundreds of transistors in a single SPICE netlist.
+            Before any optimization agent can operate, it needs to know <em>where</em> the
+            current mirrors are, where the differential pairs are, and what each subcircuit
+            does. GENIE-ASI automates this structural analysis.
+          </p>
+        </div>
+
+        <div class="concept-grid scroll-reveal">
+          <div class="concept-card">
+            <div class="concept-card-header">
+              <div class="concept-card-icon" style="background:rgba(6,182,212,0.1)">📝</div>
+              <div class="concept-card-title">Training-Free Method</div>
+            </div>
+            <div class="concept-card-body">
+              Like AnalogCoder, GENIE-ASI requires no specialized training. It uses
+              <strong>few-shot examples</strong> of known subcircuits (current mirrors,
+              diff pairs, cascode structures) provided as context to identify patterns
+              in unseen netlists.
+            </div>
+          </div>
+          <div class="concept-card">
+            <div class="concept-card-header">
+              <div class="concept-card-icon" style="background:rgba(16,185,129,0.1)">🐍</div>
+              <div class="concept-card-title">Python Code Generation</div>
+            </div>
+            <div class="concept-card-body">
+              GENIE-ASI generates Python code to <em>parse</em> the SPICE netlist and
+              identify functional blocks. This is more reliable than direct LLM text
+              matching — the code can inspect graph topology rigorously.
+            </div>
+          </div>
+          <div class="concept-card">
+            <div class="concept-card-header">
+              <div class="concept-card-icon" style="background:rgba(245,158,11,0.1)">🧩</div>
+              <div class="concept-card-title">Generalization</div>
+            </div>
+            <div class="concept-card-body">
+              Works on <strong>unseen netlists</strong> — including proprietary designs
+              the system has never encountered. The structural patterns of analog circuits
+              (gate-drain connections, symmetry) are universal.
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block scroll-reveal">
+          <div class="code-block-header">
+            <div class="code-block-lang">
+              <div class="code-block-dots">
+                <div class="code-block-dot" style="background:#ff5f57"></div>
+                <div class="code-block-dot" style="background:#febc2e"></div>
+                <div class="code-block-dot" style="background:#28c840"></div>
+              </div>
+              Python — GENIE-ASI Subcircuit Identification
+            </div>
+            <button class="code-copy-btn">Copy</button>
+          </div>
+          <pre><code data-lang="python">from langchain_openai import ChatOpenAI
+import networkx as nx
+import re
+
+CURRENT_MIRROR_EXAMPLE = """
+# Current mirror: gate-drain of M_ref connected, same gate drives M_out
+# Pattern: gate(M_ref) == drain(M_ref) AND gate(M_ref) == gate(M_out)
+"""
+
+DIFF_PAIR_EXAMPLE = """
+# Differential pair: two matched devices share a tail node
+# Pattern: source(M1) == source(M2) == tail_node, symmetric
+"""
+
+def genie_identify_subcircuits(spice_netlist: str, llm: ChatOpenAI) -> dict:
+    """GENIE-ASI: Generate Python code to identify subcircuits."""
+    
+    prompt = f"""You are an analog IC expert. Generate Python code using networkx
+to identify functional subcircuits in the SPICE netlist below.
+
+Few-shot examples of what to detect:
+{CURRENT_MIRROR_EXAMPLE}
+{DIFF_PAIR_EXAMPLE}
+
+SPICE Netlist:
+{spice_netlist}
+
+Generate Python code that:
+1. Parses the netlist into a networkx directed graph
+2. Identifies current mirrors, differential pairs, cascode structures
+3. Returns a dict: {{subcircuit_type: [transistor_names]}}
+
+Output only executable Python code."""
+    
+    code = llm.invoke(prompt).content
+    
+    # Execute the generated identification code safely
+    safe_globals = {"nx": nx, "re": re, "netlist": spice_netlist}
+    exec(code, safe_globals)
+    
+    return safe_globals.get("identified_subcircuits", {})
+
+# Example usage
+netlist = """
+M1 vout1 vinp vs vss NMOS W=2u L=0.18u
+M2 vout2 vinn vs vss NMOS W=2u L=0.18u  
+M3 vout1 vout1 vdd vdd PMOS W=4u L=0.18u
+M4 vout2 vout1 vdd vdd PMOS W=4u L=0.18u
+M5 vs ibias vss vss NMOS W=4u L=0.18u
+"""
+
+llm = ChatOpenAI(model="gpt-4o")
+subcircuits = genie_identify_subcircuits(netlist, llm)
+# Returns: {"differential_pair": ["M1", "M2"], "current_mirror": ["M3", "M4"], 
+#           "tail_current": ["M5"]}</code></pre>
+        </div>
+      </section>
+
+      <!-- Section 5: Schemato -->
+      <section class="content-section" id="schemato">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(16,185,129,0.1)">🗺</div>
+          <h2>Schemato: Netlist → Schematic Visualization</h2>
+        </div>
+
+        <p>
+          Schemato is a fine-tuned <strong>Llama 3.1-8B model</strong> that converts raw
+          SPICE netlists into human-readable <strong>LTSpice schematic files (.asc)</strong>.
+          It bridges the critical visualization gap in analog design workflows.
+        </p>
+
+        <div class="info-box warning scroll-reveal">
+          <div class="info-box-header">⚠ The Visualization Problem</div>
+          <p>
+            When an agent generates a SPICE netlist, neither the engineer nor other agents
+            can quickly verify its correctness — raw netlist text is extremely hard to
+            read for complex circuits. Schemato solves this by converting the text
+            representation to a visual schematic that engineers can immediately
+            understand and validate.
+          </p>
+        </div>
+
+        <div class="concept-grid scroll-reveal">
+          <div class="concept-card">
+            <div class="concept-card-header">
+              <div class="concept-card-icon" style="background:rgba(16,185,129,0.1)">🧠</div>
+              <div class="concept-card-title">Fine-Tuned Llama 3.1-8B</div>
+            </div>
+            <div class="concept-card-body">
+              Trained on paired (SPICE netlist, LTSpice .asc) examples. The model learns
+              the mapping from SPICE syntax to LTSpice's proprietary schematic format
+              with correct component placement and wiring.
+            </div>
+          </div>
+          <div class="concept-card">
+            <div class="concept-card-header">
+              <div class="concept-card-icon" style="background:rgba(59,130,246,0.1)">🔗</div>
+              <div class="concept-card-title">Human-in-the-Loop Bridge</div>
+            </div>
+            <div class="concept-card-body">
+              Enables the <strong>Human-in-the-Loop</strong> design pattern: the agent
+              generates a netlist, Schemato converts it to a schematic, the engineer
+              visually approves it, then the agent continues with physical design.
+            </div>
+          </div>
+          <div class="concept-card">
+            <div class="concept-card-header">
+              <div class="concept-card-icon" style="background:rgba(245,158,11,0.1)">✅</div>
+              <div class="concept-card-title">LVS Pre-Check</div>
+            </div>
+            <div class="concept-card-body">
+              The generated schematic can also feed into LVS (Layout vs. Schematic) checks,
+              providing a reference schematic without requiring manual re-entry by the
+              design engineer.
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block scroll-reveal">
+          <div class="code-block-header">
+            <div class="code-block-lang">
+              <div class="code-block-dots">
+                <div class="code-block-dot" style="background:#ff5f57"></div>
+                <div class="code-block-dot" style="background:#febc2e"></div>
+                <div class="code-block-dot" style="background:#28c840"></div>
+              </div>
+              Python — Schemato Integration
+            </div>
+            <button class="code-copy-btn">Copy</button>
+          </div>
+          <pre><code data-lang="python">from langchain_community.llms import Ollama
+
+# Schemato: fine-tuned Llama 3.1-8B for SPICE→LTSpice conversion
+schemato = Ollama(model="schemato-llama3.1-8b")
+
+def convert_spice_to_ltspice(spice_netlist: str) -> str:
+    """Convert SPICE netlist to LTSpice .asc schematic format."""
+    
+    prompt = f"""Convert the following SPICE netlist to an LTSpice schematic (.asc format).
+    
+Place components with proper spatial layout:
+- Differential pair transistors symmetrically
+- Supply rails at top, ground at bottom
+- Input ports on left, output on right
+
+SPICE Input:
+{spice_netlist}
+
+Generate the complete .asc file content."""
+    
+    asc_content = schemato.invoke(prompt)
+    
+    # Save the schematic
+    with open("/tmp/generated_schematic.asc", "w") as f:
+        f.write(asc_content)
+    
+    return asc_content
+
+# Example .asc output (LTSpice format)
+EXAMPLE_ASC = """
+Version 4
+SHEET 1 880 680
+WIRE 160 80 96 80
+WIRE 256 80 160 80
+SYMBOL nmos4 208 32 R0
+SYMATTR InstName M1
+SYMATTR Value NMOS_SKY130
+SYMATTR SpiceModel .param W=2u L=0.18u
+"""</code></pre>
+        </div>
+      </section>
+
+      <!-- Quiz -->
+      <section class="content-section" id="quiz">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(245,158,11,0.1)">🎯</div>
+          <h2>Knowledge Check</h2>
+        </div>
+        <div class="quiz-container" data-quiz="module3">
+          <div class="quiz-header">
+            <div class="quiz-icon">🎯</div>
+            <div>
+              <div class="quiz-title">Module 3 Quiz</div>
+              <div class="quiz-subtitle">Test your understanding of analog EDA frameworks</div>
+            </div>
+          </div>
+          <div class="quiz-body"></div>
+          <div class="quiz-nav"></div>
+        </div>
+      </section>
+
+      <div class="module-nav">
+        <a href="module2.html" class="module-nav-link prev">
+          <span class="module-nav-arrow">←</span>
+          <div><div class="module-nav-label">Previous</div><div class="module-nav-title">SOTA AI EDA Solutions</div></div>
+        </a>
+        <a href="module4.html" class="module-nav-link next">
+          <div style="text-align:right"><div class="module-nav-label">Next Module</div><div class="module-nav-title">The Physical Frontier</div></div>
+          <span class="module-nav-arrow">→</span>
+        </a>
+      </div>
+    </main>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">⚡ SYNAPSES</div>
+        <p class="footer-text">Module 3 — Specialized Agentic EDA for Analog Design</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="module2.html">← Module 2</a></li>
+        <li><a href="module4.html">Module 4 →</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+window.QUIZ_DATA["module3"] = [
+  {
+    question: "Why does AnalogCoder generate Python code (PySpice) rather than directly generating SPICE netlist syntax?",
+    options: [
+      "Python is faster to execute than SPICE",
+      "LLMs are much better at generating Python code than raw SPICE syntax, and Python allows easier incremental modification (e.g., changing a variable vs. text substitution)",
+      "PySpice supports more circuit types than SPICE",
+      "SPICE is a proprietary format that LLMs cannot generate"
+    ],
+    correct: 1,
+    explanation: "AnalogCoder's key insight is that LLMs trained on vast code datasets are naturally better at Python than SPICE syntax. Additionally, Python code is structurally easier to modify — changing W/L ratios is a variable assignment, not raw text parsing."
+  },
+  {
+    question: "In AnalogSAGE's Stratified Memory Hierarchy, which layer stores cross-task insights like 'folded-cascode topologies consistently achieve better PSRR'?",
+    options: [
+      "Introspective Memory (Layer 2)",
+      "Fusion Memory (Layer 3)",
+      "Evolution Memory (Layer 1)",
+      "Working Memory (Layer 0)"
+    ],
+    correct: 2,
+    explanation: "Evolution Memory (Layer 1) stores cross-task insights — generalizable knowledge gained across multiple design sessions. Introspective Memory stores within-task failure reflections, and Fusion Memory stores compressed reasoning traces."
+  },
+  {
+    question: "AnalogCoder-Pro uses multimodal LLMs to analyze Bode plots visually. What specific failure mode can this catch that text-based metrics might miss?",
+    options: [
+      "Wrong transistor model names",
+      "Syntax errors in the netlist",
+      "Visual patterns like gain peaking (instability indicator) or unexpected phase behavior visible in the plot shape",
+      "Missing power supply connections"
+    ],
+    correct: 2,
+    explanation: "Visual waveform analysis catches instability patterns like gain peaking (a hump in the magnitude response) or phase crossing -180° before the gain crossover frequency — patterns that are immediately obvious visually but require complex interpretation of numerical data."
+  },
+  {
+    question: "What critical visualization gap does Schemato address in the agentic EDA workflow?",
+    options: [
+      "It generates 3D layout visualizations",
+      "It converts raw SPICE netlists into human-readable LTSpice (.asc) schematics, enabling engineers and other agents to visually verify circuit correctness",
+      "It creates power consumption heat maps",
+      "It generates timing diagrams from simulation results"
+    ],
+    correct: 1,
+    explanation: "Schemato (fine-tuned Llama 3.1-8B) bridges the visualization gap: when an agent generates a SPICE netlist, humans cannot easily verify complex circuit correctness from text. Schemato converts it to a standard LTSpice schematic that engineers can immediately understand."
+  },
+  {
+    question: "GENIE-ASI is described as 'training-free' — what does it use instead of model fine-tuning to identify subcircuits?",
+    options: [
+      "Hard-coded pattern matching rules written by engineers",
+      "Few-shot examples of known subcircuit patterns (current mirrors, differential pairs) provided as context to a foundation LLM",
+      "A pre-compiled subcircuit database with exact netlist matching",
+      "Transfer learning from digital circuit analysis"
+    ],
+    correct: 1,
+    explanation: "GENIE-ASI is training-free: it uses few-shot examples of known analog building blocks (current mirrors, diff pairs, cascode structures) as context for a foundation LLM, which then generates Python code to identify these patterns in unseen netlists. No fine-tuning required."
+  }
+];
+</script>
+</body>
+</html>
