@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 1 — Core Agentic Architectures | SYNAPSES</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-module-id="module1">
+
+<!-- Navigation -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back">← Back to Course</a>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">⚡</div>
+      <span class="nav-logo-text">SYNAPSES</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#architectures">Architectures</a></li>
+      <li><a href="#patterns">Design Patterns</a></li>
+      <li><a href="#langgraph">LangGraph</a></li>
+      <li><a href="#quiz">Quiz</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Module Hero -->
+<div class="module-page">
+  <div class="module-hero">
+    <div class="container module-hero-content">
+      <div class="module-breadcrumb">
+        <a href="index.html">SYNAPSES</a>
+        <span class="module-breadcrumb-sep">›</span>
+        <span>Module 1</span>
+      </div>
+      <div class="module-hero-badge" style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);color:var(--accent-blue)">
+        ⚙ Core Architectures
+      </div>
+      <h1 class="module-hero-title">Core Agentic Architectures<br/>and Mechanisms</h1>
+      <p class="module-hero-desc">
+        Production-grade agentic systems require explicit control over reasoning paths.
+        This module covers stateful graph workflows, the key MAS design patterns,
+        and how to model EDA flows as Directed Acyclic Graphs with LangGraph.
+      </p>
+      <div class="module-objectives">
+        <span class="objective-tag">✓ Stateful graph workflows</span>
+        <span class="objective-tag">✓ Supervisor-Worker pattern</span>
+        <span class="objective-tag">✓ Consensus-based reasoning</span>
+        <span class="objective-tag">✓ Handoff pattern</span>
+        <span class="objective-tag">✓ LangGraph DAGs</span>
+        <span class="objective-tag">✓ Cyclic loops for iteration</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content-body">
+
+    <!-- Sidebar -->
+    <aside class="content-sidebar">
+      <div class="sidebar-nav">
+        <div class="sidebar-nav-title">In This Module</div>
+        <ul class="sidebar-nav-list">
+          <li><a href="#intro">1. Introduction</a></li>
+          <li><a href="#architectures">2. Agentic Architectures</a></li>
+          <li><a href="#patterns">3. Key Design Patterns</a></li>
+          <li><a href="#langgraph">4. LangGraph &amp; Stateful DAGs</a></li>
+          <li><a href="#quiz">5. Knowledge Check</a></li>
+        </ul>
+        <div class="sidebar-progress">
+          <div class="progress-label">
+            <span>Module Progress</span>
+            <span data-progress-label>0%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" data-module-progress style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content-main">
+
+      <!-- SECTION 1: Introduction -->
+      <section class="content-section" id="intro">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(59,130,246,0.1)">🎯</div>
+          <h2>Introduction: Why Agentic Architectures?</h2>
+        </div>
+
+        <p>
+          The semiconductor industry is in the midst of a profound transformation. As chips
+          scale to <strong>hundreds of billions of transistors</strong>, the traditional
+          AI-assisted model — where a human engineer orchestrates static Tcl/Python scripts —
+          has broken down. The so-called <strong>"Productivity Gap"</strong> has emerged:
+          design complexity grows exponentially while engineering productivity grows only linearly.
+        </p>
+
+        <div class="info-box note scroll-reveal">
+          <div class="info-box-header">🔵 Key Insight</div>
+          <p>
+            Verification now consumes up to <strong>70% of the design cycle</strong>. This
+            single bottleneck has driven the shift toward Agentic EDA, where Multi-Agent
+            Systems can autonomously run, evaluate, and iterate on designs.
+          </p>
+        </div>
+
+        <p>
+          Unlike early "black box" autonomous agents, <strong>2026-standard systems</strong>
+          utilize <em>Agentic Workflows modeled as stateful graphs</em>. This is a critical
+          distinction: the agent's reasoning path is not opaque — it is explicit, inspectable,
+          and controllable. This enables engineers to:
+        </p>
+
+        <ul>
+          <li>Understand <em>why</em> an agent made a specific design choice</li>
+          <li>Intervene at precise points (Human-in-the-Loop)</li>
+          <li>Resume long-running workflows after interruption (persistent checkpointing)</li>
+          <li>Replay historical states for debugging (time-travel debugging)</li>
+        </ul>
+
+        <div class="stats-grid scroll-reveal">
+          <div class="stat-card">
+            <div class="stat-value gradient-text" data-counter="70%">0%</div>
+            <div class="stat-label">Verification overhead</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value gradient-text" data-counter="100+">0</div>
+            <div class="stat-label">Billion transistors (modern SoC)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value gradient-text-green" data-counter="4">0</div>
+            <div class="stat-label">Core MAS design patterns</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: Agentic Architectures -->
+      <section class="content-section" id="architectures">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(139,92,246,0.1)">🏗</div>
+          <h2>Agentic Architectures: The Stateful Graph Paradigm</h2>
+        </div>
+
+        <p>
+          The fundamental building block of 2026-standard agentic systems is the
+          <strong>stateful graph</strong>. Rather than a simple pipeline (input → LLM → output),
+          a stateful graph maintains <em>persistent state</em> that evolves as agents execute.
+          This allows for iteration, backtracking, and conditional branching.
+        </p>
+
+        <div class="tab-system scroll-reveal">
+          <div class="tab-list">
+            <button class="tab-btn active">Stateful Graphs</button>
+            <button class="tab-btn">DAG Execution</button>
+            <button class="tab-btn">Cyclic Loops</button>
+            <button class="tab-btn">State Schema</button>
+          </div>
+
+          <div class="tab-panel active">
+            <h4 style="color:var(--text-primary);margin-bottom:1rem">Stateful Graph Workflows</h4>
+            <p>
+              A stateful graph workflow is a directed graph where:
+            </p>
+            <ul>
+              <li><strong>Nodes</strong> represent agent actions or tools (e.g., "generate netlist", "run SPICE")</li>
+              <li><strong>Edges</strong> represent control flow between nodes (possibly conditional)</li>
+              <li><strong>State</strong> is a persistent data structure passed between nodes and modified as the workflow runs</li>
+            </ul>
+            <p style="margin-top:1rem">
+              The state typically contains the design specifications, intermediate results,
+              error messages, iteration counter, and any accumulated memory from past runs.
+              This state persists across the entire design closure process — potentially spanning days.
+            </p>
+            <div class="info-box success" style="margin-top:1rem">
+              <div class="info-box-header">✓ Why This Matters</div>
+              <p>
+                Persistent state enables <strong>long-running agentic workflows</strong> like
+                a 48-hour Place &amp; Route run to be resumed after machine failure,
+                without losing the agent's reasoning context.
+              </p>
+            </div>
+          </div>
+
+          <div class="tab-panel">
+            <h4 style="color:var(--text-primary);margin-bottom:1rem">DAG (Directed Acyclic Graph) Execution</h4>
+            <p>
+              In a DAG, the design flow has no cycles — each task completes before
+              downstream tasks begin. This is suitable for well-defined sequential flows:
+            </p>
+            <div class="diagram-container" style="margin-top:1rem">
+              <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                    <path d="M0 0L10 5L0 10z" fill="rgba(59,130,246,0.7)"/>
+                  </marker>
+                </defs>
+                <!-- Nodes -->
+                <rect x="10" y="75" width="110" height="50" rx="8" fill="#1a2540" stroke="rgba(59,130,246,0.5)" stroke-width="1.5"/>
+                <text x="65" y="96" text-anchor="middle" fill="#60a5fa" font-family="Inter" font-size="10" font-weight="700">SPEC PARSER</text>
+                <text x="65" y="111" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">NER → JSON</text>
+
+                <rect x="165" y="75" width="110" height="50" rx="8" fill="#1a2540" stroke="rgba(59,130,246,0.5)" stroke-width="1.5"/>
+                <text x="220" y="96" text-anchor="middle" fill="#60a5fa" font-family="Inter" font-size="10" font-weight="700">TOPOLOGY SEL.</text>
+                <text x="220" y="111" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">LLM Reasoning</text>
+
+                <rect x="320" y="40" width="110" height="50" rx="8" fill="#1a2540" stroke="rgba(139,92,246,0.5)" stroke-width="1.5"/>
+                <text x="375" y="61" text-anchor="middle" fill="#a78bfa" font-family="Inter" font-size="10" font-weight="700">SYNTHESIS</text>
+                <text x="375" y="76" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">RTL Generation</text>
+
+                <rect x="320" y="110" width="110" height="50" rx="8" fill="#1a2540" stroke="rgba(139,92,246,0.5)" stroke-width="1.5"/>
+                <text x="375" y="131" text-anchor="middle" fill="#a78bfa" font-family="Inter" font-size="10" font-weight="700">VERIFICATION</text>
+                <text x="375" y="146" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">DFT + LVS</text>
+
+                <rect x="480" y="75" width="110" height="50" rx="8" fill="#0d2818" stroke="rgba(16,185,129,0.5)" stroke-width="1.5"/>
+                <text x="535" y="96" text-anchor="middle" fill="#10b981" font-family="Inter" font-size="10" font-weight="700">CLOSURE</text>
+                <text x="535" y="111" text-anchor="middle" fill="#6ee7b7" font-family="Inter" font-size="9">PPA ✓</text>
+
+                <!-- Arrows -->
+                <line x1="122" y1="100" x2="163" y2="100" stroke="rgba(59,130,246,0.6)" stroke-width="1.5" marker-end="url(#a1)"/>
+                <line x1="277" y1="90" x2="318" y2="68" stroke="rgba(59,130,246,0.6)" stroke-width="1.5" marker-end="url(#a1)"/>
+                <line x1="277" y1="110" x2="318" y2="132" stroke="rgba(59,130,246,0.6)" stroke-width="1.5" marker-end="url(#a1)"/>
+                <line x1="432" y1="68" x2="478" y2="93" stroke="rgba(59,130,246,0.6)" stroke-width="1.5" marker-end="url(#a1)"/>
+                <line x1="432" y1="132" x2="478" y2="107" stroke="rgba(59,130,246,0.6)" stroke-width="1.5" marker-end="url(#a1)"/>
+              </svg>
+            </div>
+            <p>DAGs guarantee that every agent executes exactly once, making them ideal for
+            deterministic, well-understood design flows.</p>
+          </div>
+
+          <div class="tab-panel">
+            <h4 style="color:var(--text-primary);margin-bottom:1rem">Cyclic Loops for Iterative Refinement</h4>
+            <p>
+              Unlike DAGs, <strong>cyclic graphs</strong> allow agents to loop back when
+              verification fails. This is essential for EDA, where a design rarely passes
+              first-time verification:
+            </p>
+            <div class="info-box warning" style="margin-top:1rem">
+              <div class="info-box-header">⚠ Example: The Sizing Loop</div>
+              <p>
+                A Sizing Agent computes transistor sizes → SPICE simulation runs → if gain
+                &lt; target, the agent loops back with updated parameters. This cycle may
+                repeat <strong>50–200 times</strong> before convergence in analog design.
+              </p>
+            </div>
+            <p style="margin-top:1rem">
+              The key to safe cyclic workflows is having:
+            </p>
+            <ul>
+              <li>A <strong>termination condition</strong> (max iterations, PPA target met)</li>
+              <li>A <strong>state delta check</strong> (did parameters actually change?)</li>
+              <li>A <strong>Critic Agent</strong> that validates progress before each cycle</li>
+            </ul>
+          </div>
+
+          <div class="tab-panel">
+            <h4 style="color:var(--text-primary);margin-bottom:1rem">Typed State Schema</h4>
+            <p>
+              The state object passed between agents must have a well-defined, typed schema.
+              This is called <strong>Typed Context Engineering</strong> and is one of the
+              Twelve Pillars of Production MAS.
+            </p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <div class="code-block-lang">
+                  <div class="code-block-dots">
+                    <div class="code-block-dot" style="background:#ff5f57"></div>
+                    <div class="code-block-dot" style="background:#febc2e"></div>
+                    <div class="code-block-dot" style="background:#28c840"></div>
+                  </div>
+                  Python — State Schema
+                </div>
+                <button class="code-copy-btn">Copy</button>
+              </div>
+              <pre><code data-lang="python">from typing import TypedDict, Annotated, List, Optional
+from langgraph.graph import StateGraph
+
+class EDADesignState(TypedDict):
+    # Input specification
+    spec: str
+    topology: Optional[str]
+    
+    # Intermediate results
+    netlist: Optional[str]
+    simulation_results: Optional[dict]
+    
+    # Iteration control
+    iteration: int
+    max_iterations: int
+    ppa_targets: dict
+    ppa_achieved: Optional[dict]
+    
+    # Error tracking
+    errors: Annotated[List[str], lambda x, y: x + y]
+    
+    # Memory (agent reasoning traces)
+    reasoning_trace: List[dict]
+
+# Build the stateful graph
+workflow = StateGraph(EDADesignState)</code></pre>
+            </div>
+            <p>
+              Using <code>TypedDict</code> with LangGraph's <code>StateGraph</code> gives you
+              compile-time type safety, making the agent's state explicit and auditable.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3: Design Patterns -->
+      <section class="content-section" id="patterns">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(245,158,11,0.1)">🎨</div>
+          <h2>Key MAS Design Patterns</h2>
+        </div>
+
+        <p>
+          Production MAS for EDA uses four core architectural patterns. Each pattern
+          addresses a specific class of design challenge. Understanding when to apply
+          each is fundamental to building effective agentic systems.
+        </p>
+
+        <!-- Pattern 1: Supervisor-Worker -->
+        <div class="accordion scroll-reveal">
+
+          <div class="accordion-item open">
+            <div class="accordion-header">
+              <div class="accordion-header-content">
+                <span class="accordion-icon">👑</span>
+                <span class="accordion-title">Pattern 1: Supervisor-Worker</span>
+              </div>
+              <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-body">
+              <p>
+                A <strong>central orchestrator agent</strong> (the Supervisor) decomposes a
+                high-level design intent into concrete sub-tasks and dispatches them to
+                specialized worker agents. The Supervisor tracks progress, handles failures,
+                and decides when the overall objective is met.
+              </p>
+              <div class="concept-grid" style="margin-top:1rem">
+                <div class="concept-card">
+                  <div class="concept-card-header">
+                    <div class="concept-card-icon" style="background:rgba(59,130,246,0.1)">🧠</div>
+                    <div class="concept-card-title">Supervisor Agent</div>
+                  </div>
+                  <div class="concept-card-body">
+                    Powered by a capable model (e.g., GPT-5.2 or Claude 4.5). Receives the
+                    high-level intent: <em>"Implement a low-power RISC-V core"</em>. Decomposes
+                    into sub-tasks, assigns priority, and monitors completion.
+                  </div>
+                </div>
+                <div class="concept-card">
+                  <div class="concept-card-header">
+                    <div class="concept-card-icon" style="background:rgba(16,185,129,0.1)">⚙</div>
+                    <div class="concept-card-title">Specialized Workers</div>
+                  </div>
+                  <div class="concept-card-body">
+                    Domain-expert agents: Synthesis Agent (RTL → gate-level), DFT Agent
+                    (Design for Testability), Timing Agent (STA), Power Agent (CPF/UPF).
+                    Each is fine-tuned for its specific task.
+                  </div>
+                </div>
+              </div>
+              <div class="diagram-container" style="margin-top:1.5rem">
+                <svg viewBox="0 0 560 300" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <marker id="sup-arrow" viewBox="0 0 10 10" refX="9" refY="5"
+                      markerWidth="6" markerHeight="6" orient="auto">
+                      <path d="M0 0L10 5L0 10z" fill="rgba(59,130,246,0.7)"/>
+                    </marker>
+                    <marker id="ret-arrow" viewBox="0 0 10 10" refX="9" refY="5"
+                      markerWidth="6" markerHeight="6" orient="auto">
+                      <path d="M0 0L10 5L0 10z" fill="rgba(16,185,129,0.7)"/>
+                    </marker>
+                  </defs>
+                  <!-- Supervisor -->
+                  <rect x="185" y="20" width="190" height="60" rx="12" fill="#1a2540" stroke="#3b82f6" stroke-width="2"/>
+                  <text x="280" y="46" text-anchor="middle" fill="#60a5fa" font-family="Inter" font-size="12" font-weight="800">SUPERVISOR AGENT</text>
+                  <text x="280" y="63" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="10">GPT-5.2 / Claude 4.5 Orchestrator</text>
+
+                  <!-- Worker nodes -->
+                  <rect x="20" y="160" width="120" height="55" rx="10" fill="#141d35" stroke="rgba(59,130,246,0.4)" stroke-width="1.5"/>
+                  <text x="80" y="183" text-anchor="middle" fill="#f0f4ff" font-family="Inter" font-size="10" font-weight="600">⚙ Synthesis</text>
+                  <text x="80" y="199" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">RTLCoder Worker</text>
+
+                  <rect x="160" y="160" width="120" height="55" rx="10" fill="#141d35" stroke="rgba(59,130,246,0.4)" stroke-width="1.5"/>
+                  <text x="220" y="183" text-anchor="middle" fill="#f0f4ff" font-family="Inter" font-size="10" font-weight="600">🔬 Verification</text>
+                  <text x="220" y="199" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">DFT Agent</text>
+
+                  <rect x="300" y="160" width="120" height="55" rx="10" fill="#141d35" stroke="rgba(59,130,246,0.4)" stroke-width="1.5"/>
+                  <text x="360" y="183" text-anchor="middle" fill="#f0f4ff" font-family="Inter" font-size="10" font-weight="600">⏱ Timing</text>
+                  <text x="360" y="199" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">STA Agent</text>
+
+                  <rect x="440" y="160" width="110" height="55" rx="10" fill="#141d35" stroke="rgba(59,130,246,0.4)" stroke-width="1.5"/>
+                  <text x="495" y="183" text-anchor="middle" fill="#f0f4ff" font-family="Inter" font-size="10" font-weight="600">⚡ Power</text>
+                  <text x="495" y="199" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">CPF/UPF Agent</text>
+
+                  <!-- Dispatch arrows (blue) -->
+                  <line x1="220" y1="81" x2="80" y2="159" stroke="rgba(59,130,246,0.5)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#sup-arrow)"/>
+                  <line x1="260" y1="81" x2="220" y2="159" stroke="rgba(59,130,246,0.5)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#sup-arrow)"/>
+                  <line x1="300" y1="81" x2="360" y2="159" stroke="rgba(59,130,246,0.5)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#sup-arrow)"/>
+                  <line x1="340" y1="81" x2="495" y2="159" stroke="rgba(59,130,246,0.5)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#sup-arrow)"/>
+
+                  <!-- Return arrows (green) -->
+                  <path d="M 80 215 Q 80 260 280 260 Q 280 240 280 215" stroke="rgba(16,185,129,0.4)" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#ret-arrow)"/>
+                  <text x="180" y="275" text-anchor="middle" fill="#6ee7b7" font-family="Inter" font-size="9">results returned to supervisor</text>
+                </svg>
+              </div>
+              <div class="code-block" style="margin-top:1.5rem">
+                <div class="code-block-header">
+                  <div class="code-block-lang">
+                    <div class="code-block-dots">
+                      <div class="code-block-dot" style="background:#ff5f57"></div>
+                      <div class="code-block-dot" style="background:#febc2e"></div>
+                      <div class="code-block-dot" style="background:#28c840"></div>
+                    </div>
+                    Python — Supervisor Node Implementation
+                  </div>
+                  <button class="code-copy-btn">Copy</button>
+                </div>
+                <pre><code data-lang="python">from langgraph.graph import StateGraph, END
+from langchain_openai import ChatOpenAI
+
+supervisor_llm = ChatOpenAI(model="gpt-5.2", temperature=0)
+
+def supervisor_node(state: EDADesignState) -> dict:
+    """Decomposes intent and dispatches to workers."""
+    prompt = f"""
+    You are the EDA Supervisor. High-level goal: {state['spec']}
+    Current iteration: {state['iteration']}
+    PPA targets: {state['ppa_targets']}
+    
+    Determine the next worker to dispatch. 
+    Options: synthesis, verification, timing, power, DONE
+    Respond with ONLY the worker name.
+    """
+    response = supervisor_llm.invoke(prompt)
+    next_worker = response.content.strip()
+    
+    return {"next_worker": next_worker, "iteration": state["iteration"] + 1}
+
+def route_to_worker(state: EDADesignState) -> str:
+    return state.get("next_worker", END)
+
+workflow = StateGraph(EDADesignState)
+workflow.add_node("supervisor", supervisor_node)
+workflow.add_node("synthesis", synthesis_agent)
+workflow.add_node("verification", verification_agent)
+workflow.add_conditional_edges("supervisor", route_to_worker)</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pattern 2: Consensus-Based Reasoning -->
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-header-content">
+                <span class="accordion-icon">🤝</span>
+                <span class="accordion-title">Pattern 2: Consensus-Based Reasoning</span>
+              </div>
+              <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-body">
+              <p>
+                Multiple <strong>divergent thought agents</strong> independently propose
+                different design topologies or solutions. A <em>decision-making agent</em>
+                acts as an arbiter, selecting the optimal proposal based on quantitative
+                PPA (Power, Performance, Area) metrics.
+              </p>
+              <p>
+                This pattern prevents the system from getting stuck in a local optimum —
+                a critical failure mode in analog topology selection where there are many
+                valid but non-equivalent circuit architectures.
+              </p>
+              <div class="concept-grid">
+                <div class="concept-card">
+                  <div class="concept-card-header">
+                    <div class="concept-card-icon" style="background:rgba(245,158,11,0.1)">💡</div>
+                    <div class="concept-card-title">Divergent Agents</div>
+                  </div>
+                  <div class="concept-card-body">
+                    Each agent uses <strong>different few-shot CoT prompts</strong>,
+                    different temperature settings, or different model weights to explore
+                    distinct areas of the design space in parallel.
+                  </div>
+                </div>
+                <div class="concept-card">
+                  <div class="concept-card-header">
+                    <div class="concept-card-icon" style="background:rgba(59,130,246,0.1)">⚖</div>
+                    <div class="concept-card-title">Arbiter Agent</div>
+                  </div>
+                  <div class="concept-card-body">
+                    Receives all proposals, runs a comparative PPA evaluation, and
+                    selects the winner. May also propose a <strong>hybrid</strong>
+                    solution that combines the best elements of multiple proposals.
+                  </div>
+                </div>
+                <div class="concept-card">
+                  <div class="concept-card-header">
+                    <div class="concept-card-icon" style="background:rgba(16,185,129,0.1)">📊</div>
+                    <div class="concept-card-title">PPA Scoring</div>
+                  </div>
+                  <div class="concept-card-body">
+                    <strong>Power · Performance · Area</strong> — the three dimensions of
+                    chip design quality. A weighted scoring function converts these into
+                    a single comparable metric for decision-making.
+                  </div>
+                </div>
+              </div>
+              <div class="code-block">
+                <div class="code-block-header">
+                  <div class="code-block-lang">
+                    <div class="code-block-dots">
+                      <div class="code-block-dot" style="background:#ff5f57"></div>
+                      <div class="code-block-dot" style="background:#febc2e"></div>
+                      <div class="code-block-dot" style="background:#28c840"></div>
+                    </div>
+                    Python — Consensus Node
+                  </div>
+                  <button class="code-copy-btn">Copy</button>
+                </div>
+                <pre><code data-lang="python">from langgraph.graph import Send
+import asyncio
+
+async def parallel_topology_agents(state: EDADesignState):
+    """Launch divergent topology agents in parallel."""
+    # Each agent gets a different CoT prompt seed
+    seeds = ["differential-pair-centric", "current-mirror-centric", "folded-cascode"]
+    
+    # Send to parallel workers using LangGraph's Send API
+    return [
+        Send("topology_agent", {**state, "cot_seed": seed})
+        for seed in seeds
+    ]
+
+def arbiter_node(state: EDADesignState) -> dict:
+    """Select best topology based on PPA scoring."""
+    proposals = state.get("topology_proposals", [])
+    
+    scores = []
+    for p in proposals:
+        score = (
+            0.4 * p["ppa"]["performance_score"] +
+            0.35 * (1 - p["ppa"]["power_normalized"]) +
+            0.25 * (1 - p["ppa"]["area_normalized"])
+        )
+        scores.append((score, p))
+    
+    best = max(scores, key=lambda x: x[0])
+    return {"topology": best[1]["topology"], "ppa_achieved": best[1]["ppa"]}</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pattern 3: Handoff -->
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-header-content">
+                <span class="accordion-icon">🤲</span>
+                <span class="accordion-title">Pattern 3: Handoff Pattern</span>
+              </div>
+              <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-body">
+              <p>
+                Control flows <strong>dynamically between specialists</strong> based on
+                runtime conditions. A failing agent can hand back control to an earlier
+                specialist with specific error context — enabling targeted recovery rather
+                than full restart.
+              </p>
+              <div class="info-box insight">
+                <div class="info-box-header">💜 Example: Sizing Agent Failure</div>
+                <p>
+                  The Sizing Agent attempts to achieve 60dB gain but can only reach 52dB
+                  with the current topology. Instead of failing, it <strong>hands off</strong>
+                  back to the Topology Selection Agent with:
+                  <code>{"error": "gain_deficit_8dB", "constraint": "power_budget_1mW"}</code>.
+                  The Topology Agent then selects a cascode structure and hands forward to
+                  Sizing with an updated starting point.
+                </p>
+              </div>
+              <div class="code-block">
+                <div class="code-block-header">
+                  <div class="code-block-lang">
+                    <div class="code-block-dots">
+                      <div class="code-block-dot" style="background:#ff5f57"></div>
+                      <div class="code-block-dot" style="background:#febc2e"></div>
+                      <div class="code-block-dot" style="background:#28c840"></div>
+                    </div>
+                    Python — Handoff with Error Context
+                  </div>
+                  <button class="code-copy-btn">Copy</button>
+                </div>
+                <pre><code data-lang="python">def sizing_agent(state: EDADesignState) -> dict:
+    """Attempt to size transistors. Hand off on failure."""
+    gain_achieved = run_small_signal_sim(state["netlist"])
+    gain_target = state["ppa_targets"]["gain_dB"]
+    
+    if gain_achieved >= gain_target:
+        return {"ppa_achieved": {"gain_dB": gain_achieved}, "next": "layout"}
+    
+    # Handoff back to topology selection with error context
+    deficit = gain_target - gain_achieved
+    return {
+        "errors": [f"gain_deficit_{deficit:.1f}dB"],
+        "handoff_context": {
+            "failed_topology": state["topology"],
+            "deficit": deficit,
+            "suggestion": "consider_cascode" if deficit > 5 else "adjust_bias"
+        },
+        "next": "topology_selection"  # Handoff
+    }
+
+def conditional_route(state: EDADesignState) -> str:
+    return state.get("next", "sizing")</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pattern 4: Reflection/Critic -->
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-header-content">
+                <span class="accordion-icon">🔍</span>
+                <span class="accordion-title">Pattern 4: Reflection / Critic Agent</span>
+              </div>
+              <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-body">
+              <p>
+                A dedicated <strong>Critic Agent</strong> is separate from the generator.
+                It receives the output of a generator agent and evaluates it against defined
+                criteria. This separation of concerns is essential for trust and reliability
+                in production systems.
+              </p>
+              <p>
+                The Critic pattern implements the core principle of 2026 AI engineering:
+                <em>"One agent generates, a separate Critic Agent judges the output."</em>
+              </p>
+              <div class="concept-grid">
+                <div class="concept-card">
+                  <div class="concept-card-header">
+                    <div class="concept-card-icon" style="background:rgba(59,130,246,0.1)">✍</div>
+                    <div class="concept-card-title">Generator Agent</div>
+                  </div>
+                  <div class="concept-card-body">
+                    Produces netlist, RTL, or layout. Optimized for creativity and coverage
+                    of the design space. Uses high temperature for diversity.
+                  </div>
+                </div>
+                <div class="concept-card">
+                  <div class="concept-card-header">
+                    <div class="concept-card-icon" style="background:rgba(239,68,68,0.1)">🔴</div>
+                    <div class="concept-card-title">Critic Agent</div>
+                  </div>
+                  <div class="concept-card-body">
+                    Evaluates output against specifications, DRC rules, and PPA targets.
+                    Uses low temperature for precision. Provides structured feedback for
+                    the generator to improve.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- end accordion -->
+      </section>
+
+      <!-- SECTION 4: LangGraph -->
+      <section class="content-section" id="langgraph">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(16,185,129,0.1)">🔗</div>
+          <h2>LangGraph: Stateful DAGs in Practice</h2>
+        </div>
+
+        <p>
+          <strong>LangGraph</strong> is the leading framework for implementing stateful
+          multi-agent workflows. It extends LangChain with the ability to define
+          <em>persistent state graphs</em> that can cycle, branch conditionally, and
+          checkpoint their state automatically.
+        </p>
+
+        <div class="info-box note">
+          <div class="info-box-header">🔵 LangGraph Key Concepts</div>
+          <ul>
+            <li><strong>StateGraph</strong> — defines the workflow with a typed state schema</li>
+            <li><strong>Nodes</strong> — Python functions that receive state and return partial state updates</li>
+            <li><strong>Edges</strong> — define flow between nodes (normal or conditional)</li>
+            <li><strong>Checkpointer</strong> — persists state to disk/database after each node</li>
+            <li><strong>Send API</strong> — enables parallel fan-out to multiple workers</li>
+          </ul>
+        </div>
+
+        <h3 style="color:var(--text-primary);margin:1.5rem 0 1rem">Complete EDA Workflow Example</h3>
+
+        <div class="code-block scroll-reveal">
+          <div class="code-block-header">
+            <div class="code-block-lang">
+              <div class="code-block-dots">
+                <div class="code-block-dot" style="background:#ff5f57"></div>
+                <div class="code-block-dot" style="background:#febc2e"></div>
+                <div class="code-block-dot" style="background:#28c840"></div>
+              </div>
+              Python — Full LangGraph EDA Workflow
+            </div>
+            <button class="code-copy-btn">Copy</button>
+          </div>
+          <pre><code data-lang="python">from langgraph.graph import StateGraph, END
+from langgraph.checkpoint.sqlite import SqliteSaver
+
+# Initialize persistent checkpointer for long-running P&R
+checkpointer = SqliteSaver.from_conn_string("eda_workflow.db")
+
+# Define the workflow graph
+workflow = StateGraph(EDADesignState)
+
+# Add nodes
+workflow.add_node("spec_parser", parse_specifications)
+workflow.add_node("topology_selection", select_topology)
+workflow.add_node("sizing", sizing_agent)
+workflow.add_node("simulation", run_spice_simulation)
+workflow.add_node("critic", evaluate_ppa)
+workflow.add_node("layout", physical_layout_agent)
+
+# Define the main flow
+workflow.set_entry_point("spec_parser")
+workflow.add_edge("spec_parser", "topology_selection")
+workflow.add_edge("topology_selection", "sizing")
+workflow.add_edge("sizing", "simulation")
+workflow.add_edge("simulation", "critic")
+
+# Conditional routing: pass or fail
+def ppa_routing(state: EDADesignState) -> str:
+    achieved = state.get("ppa_achieved", {})
+    targets = state["ppa_targets"]
+    
+    if all(achieved.get(k, 0) >= v for k, v in targets.items()):
+        return "layout"  # All targets met → proceed
+    elif state["iteration"] >= state["max_iterations"]:
+        return END      # Max iterations → give up
+    else:
+        return "sizing"  # Re-size with SPICE feedback
+
+workflow.add_conditional_edges("critic", ppa_routing, {
+    "layout": "layout",
+    "sizing": "sizing",
+    END: END
+})
+
+workflow.add_edge("layout", END)
+
+# Compile with checkpointer for fault tolerance
+app = workflow.compile(checkpointer=checkpointer)
+
+# Run with a thread_id for state persistence
+config = {"configurable": {"thread_id": "design-risc-v-001"}}
+result = app.invoke({
+    "spec": "Low-power RISC-V RV32I core, 100MHz, 28nm",
+    "ppa_targets": {"power_mW": 50, "area_um2": 50000, "freq_MHz": 100},
+    "iteration": 0,
+    "max_iterations": 20,
+    "errors": [],
+    "reasoning_trace": []
+}, config=config)</code></pre>
+        </div>
+
+        <h3 style="color:var(--text-primary);margin:1.5rem 0 1rem">Time-Travel Debugging</h3>
+        <p>
+          One of LangGraph's most powerful features for EDA is <strong>time-travel
+          debugging</strong>: the ability to inspect the agent's state at any historical
+          point and understand <em>exactly why</em> a design decision was made.
+        </p>
+
+        <div class="code-block scroll-reveal">
+          <div class="code-block-header">
+            <div class="code-block-lang">
+              <div class="code-block-dots">
+                <div class="code-block-dot" style="background:#ff5f57"></div>
+                <div class="code-block-dot" style="background:#febc2e"></div>
+                <div class="code-block-dot" style="background:#28c840"></div>
+              </div>
+              Python — Time-Travel Debugging
+            </div>
+            <button class="code-copy-btn">Copy</button>
+          </div>
+          <pre><code data-lang="python"># Get full history of the design run
+history = list(app.get_state_history(config))
+
+print(f"Total steps: {len(history)}")
+
+# Inspect state at iteration 5 (e.g., why did sizing fail?)
+state_at_iter5 = history[-5]  # -N goes N steps back
+print(f"Node: {state_at_iter5.next}")
+print(f"Netlist at that point: {state_at_iter5.values['netlist']}")
+print(f"PPA achieved: {state_at_iter5.values['ppa_achieved']}")
+print(f"Errors: {state_at_iter5.values['errors']}")
+
+# Fork from a past state and try a different approach
+app.update_state(state_at_iter5.config, {
+    "topology": "folded_cascode",  # Try different topology
+    "errors": []                    # Clear errors
+})
+
+# Resume from the fork point
+result = app.invoke(None, state_at_iter5.config)</code></pre>
+        </div>
+
+        <div class="info-box success scroll-reveal">
+          <div class="info-box-header">✓ Production Best Practice</div>
+          <p>
+            Always compile LangGraph workflows with a <code>checkpointer</code> (SqliteSaver
+            for local, PostgresSaver for production). This gives you fault tolerance, audit
+            trails, and time-travel debugging — all essential for production EDA workflows
+            that can run for 24–48 hours.
+          </p>
+        </div>
+      </section>
+
+      <!-- Quiz -->
+      <section class="content-section" id="quiz">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(245,158,11,0.1)">🎯</div>
+          <h2>Knowledge Check</h2>
+        </div>
+
+        <div class="quiz-container" data-quiz="module1">
+          <div class="quiz-header">
+            <div class="quiz-icon">🎯</div>
+            <div>
+              <div class="quiz-title">Module 1 Quiz</div>
+              <div class="quiz-subtitle">Test your understanding of core agentic architectures</div>
+            </div>
+          </div>
+          <div class="quiz-body">
+            <!-- Populated by JavaScript -->
+          </div>
+          <div class="quiz-nav"></div>
+        </div>
+      </section>
+
+      <!-- Module Navigation -->
+      <div class="module-nav">
+        <a href="index.html" class="module-nav-link prev">
+          <span class="module-nav-arrow">←</span>
+          <div>
+            <div class="module-nav-label">Previous</div>
+            <div class="module-nav-title">Course Overview</div>
+          </div>
+        </a>
+        <a href="module2.html" class="module-nav-link next">
+          <div style="text-align:right">
+            <div class="module-nav-label">Next Module</div>
+            <div class="module-nav-title">SOTA AI EDA Solutions</div>
+          </div>
+          <span class="module-nav-arrow">→</span>
+        </a>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">⚡ SYNAPSES</div>
+        <p class="footer-text">Module 1 — Core Agentic Architectures and Mechanisms</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="module2.html">Next: Module 2 →</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+window.QUIZ_DATA["module1"] = [
+  {
+    question: "What percentage of the design cycle does verification consume in modern SoC design, driving the need for agentic EDA?",
+    options: ["30%", "50%", "70%", "90%"],
+    correct: 2,
+    explanation: "Verification now consumes up to 70% of the design cycle, making it the primary bottleneck that agentic EDA aims to address through continuous inner-loop feedback."
+  },
+  {
+    question: "In the Supervisor-Worker pattern, which component decomposes a high-level intent like 'Implement a low-power RISC-V core' into sub-tasks?",
+    options: ["The Worker Agent", "The Critic Agent", "The Supervisor Agent", "The Checkpointer"],
+    correct: 2,
+    explanation: "The Supervisor Agent (e.g., GPT-5.2 or Claude 4.5) acts as the central orchestrator, decomposing the high-level design intent into concrete sub-tasks for specialized worker agents."
+  },
+  {
+    question: "What is the primary purpose of the Handoff pattern in EDA multi-agent systems?",
+    options: [
+      "To run multiple agents in parallel for faster execution",
+      "To allow a failing agent to pass control back to an earlier specialist with specific error context",
+      "To checkpoint the state for fault tolerance",
+      "To select the best design topology based on PPA"
+    ],
+    correct: 1,
+    explanation: "The Handoff pattern allows a failing agent (e.g., Sizing Agent that cannot meet gain requirements) to hand control back to an earlier agent (e.g., Topology Selection Agent) with specific error context — enabling targeted recovery."
+  },
+  {
+    question: "What is 'time-travel debugging' in LangGraph?",
+    options: [
+      "A feature that predicts future design failures",
+      "The ability to inspect and fork from any historical state of the agent workflow",
+      "A simulation technique that models circuit aging",
+      "A method to run agents faster than real-time"
+    ],
+    correct: 1,
+    explanation: "Time-travel debugging allows engineers to inspect the agent's state at any historical node, understand why a design choice was made, and even fork from a past state to try a different approach."
+  },
+  {
+    question: "In the Consensus-Based Reasoning pattern, what prevents the system from getting stuck in a local optimum?",
+    options: [
+      "Using a single highly capable model",
+      "Running agents sequentially instead of in parallel",
+      "Using multiple divergent agents with different CoT prompts that explore distinct design space regions",
+      "Setting a maximum iteration limit"
+    ],
+    correct: 2,
+    explanation: "Multiple divergent thought agents use different few-shot Chain-of-Thought prompts (or temperature settings) to independently explore different areas of the design space in parallel, preventing the system from converging prematurely on a suboptimal solution."
+  }
+];
+</script>
+</body>
+</html>

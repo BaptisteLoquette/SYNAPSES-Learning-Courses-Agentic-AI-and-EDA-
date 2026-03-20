@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SYNAPSES — Agentic AI & EDA Master Course</title>
+  <meta name="description" content="A deep, interactive, visual master course on Production-Grade Multi-Agent Systems for Analog and Digital Electronic Design Automation." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">⚡</div>
+      <span class="nav-logo-text">SYNAPSES</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#modules">Modules</a></li>
+      <li><a href="#curriculum">Curriculum</a></li>
+      <li><a href="#project">Project</a></li>
+      <li><a href="module1.html" class="btn btn-primary btn-sm">Start Learning</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          2026 Master Guide · Production-Grade
+        </div>
+        <h1 class="hero-title">
+          <span>Agentic AI</span> &amp;<br/>
+          Electronic Design<br/>
+          Automation
+        </h1>
+        <p class="hero-description">
+          A comprehensive technical master course on designing and implementing
+          production-grade <strong>Multi-Agent Systems (MAS)</strong> for analog and
+          digital EDA — covering core architectures, SOTA frameworks, analog
+          specialization, and a complete hands-on project.
+        </p>
+
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="hero-stat-value" data-counter="6">0</div>
+            <div class="hero-stat-label">Modules</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-value" data-counter="30+">0</div>
+            <div class="hero-stat-label">Topics</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-value" data-counter="4">0</div>
+            <div class="hero-stat-label">Project Stages</div>
+          </div>
+        </div>
+
+        <div class="hero-cta">
+          <a href="module1.html" class="btn btn-primary">
+            ▶ Start Course
+          </a>
+          <a href="#modules" class="btn btn-outline">
+            View Curriculum
+          </a>
+        </div>
+      </div>
+
+      <!-- Animated Agent Network SVG -->
+      <div class="agent-network animate-float">
+        <svg viewBox="0 0 480 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="bg-glow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.1"/>
+              <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+            </radialGradient>
+            <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
+                    markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(59,130,246,0.6)"/>
+            </marker>
+            <marker id="arrow-g" viewBox="0 0 10 10" refX="9" refY="5"
+                    markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(16,185,129,0.6)"/>
+            </marker>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- Background glow -->
+          <circle cx="240" cy="240" r="220" fill="url(#bg-glow)"/>
+
+          <!-- Connection lines -->
+          <line x1="240" y1="90" x2="100" y2="200" stroke="rgba(59,130,246,0.3)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+          <line x1="240" y1="90" x2="380" y2="200" stroke="rgba(59,130,246,0.3)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+          <line x1="100" y1="230" x2="100" y2="340" stroke="rgba(59,130,246,0.2)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+          <line x1="380" y1="230" x2="380" y2="340" stroke="rgba(59,130,246,0.2)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+          <line x1="130" y1="370" x2="240" y2="400" stroke="rgba(16,185,129,0.4)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-g)"/>
+          <line x1="350" y1="370" x2="240" y2="400" stroke="rgba(16,185,129,0.4)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-g)"/>
+          <!-- Feedback loop -->
+          <path d="M 80 350 Q 40 240 80 200" stroke="rgba(245,158,11,0.4)" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arrow)"/>
+
+          <!-- Supervisor node -->
+          <rect x="170" y="60" width="140" height="60" rx="12" fill="#1a2540" stroke="#3b82f6" stroke-width="2" filter="url(#glow)"/>
+          <text x="240" y="84" text-anchor="middle" fill="#60a5fa" font-family="Inter,sans-serif" font-size="11" font-weight="700">SUPERVISOR</text>
+          <text x="240" y="100" text-anchor="middle" fill="#94a3b8" font-family="Inter,sans-serif" font-size="10">GPT-5 / Claude 4.5</text>
+
+          <!-- Worker nodes -->
+          <rect x="50" y="175" width="120" height="55" rx="10" fill="#141d35" stroke="rgba(59,130,246,0.4)" stroke-width="1.5"/>
+          <text x="110" y="197" text-anchor="middle" fill="#f0f4ff" font-family="Inter,sans-serif" font-size="10" font-weight="600">⚙ Synthesis</text>
+          <text x="110" y="213" text-anchor="middle" fill="#94a3b8" font-family="Inter,sans-serif" font-size="9">RTLCoder Agent</text>
+
+          <rect x="310" y="175" width="120" height="55" rx="10" fill="#141d35" stroke="rgba(59,130,246,0.4)" stroke-width="1.5"/>
+          <text x="370" y="197" text-anchor="middle" fill="#f0f4ff" font-family="Inter,sans-serif" font-size="10" font-weight="600">🔬 Verification</text>
+          <text x="370" y="213" text-anchor="middle" fill="#94a3b8" font-family="Inter,sans-serif" font-size="9">DFT Agent</text>
+
+          <!-- Sizing agent -->
+          <rect x="50" y="315" width="120" height="55" rx="10" fill="#141d35" stroke="rgba(139,92,246,0.4)" stroke-width="1.5"/>
+          <text x="110" y="337" text-anchor="middle" fill="#f0f4ff" font-family="Inter,sans-serif" font-size="10" font-weight="600">📐 Sizing</text>
+          <text x="110" y="353" text-anchor="middle" fill="#94a3b8" font-family="Inter,sans-serif" font-size="9">AnalogCoder</text>
+
+          <!-- Layout agent -->
+          <rect x="310" y="315" width="120" height="55" rx="10" fill="#141d35" stroke="rgba(139,92,246,0.4)" stroke-width="1.5"/>
+          <text x="370" y="337" text-anchor="middle" fill="#f0f4ff" font-family="Inter,sans-serif" font-size="10" font-weight="600">🗺 Layout</text>
+          <text x="370" y="353" text-anchor="middle" fill="#94a3b8" font-family="Inter,sans-serif" font-size="9">OpenROAD Agent</text>
+
+          <!-- Output node -->
+          <rect x="170" y="390" width="140" height="55" rx="12" fill="#0d2818" stroke="#10b981" stroke-width="2" filter="url(#glow)"/>
+          <text x="240" y="413" text-anchor="middle" fill="#10b981" font-family="Inter,sans-serif" font-size="11" font-weight="700">✓ DESIGN CLOSURE</text>
+          <text x="240" y="430" text-anchor="middle" fill="#6ee7b7" font-family="Inter,sans-serif" font-size="9">PPA Verified</text>
+
+          <!-- Animated pulse on supervisor -->
+          <circle cx="240" cy="90" r="45" fill="none" stroke="rgba(59,130,246,0.2)" stroke-width="1">
+            <animate attributeName="r" values="45;60;45" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.4;0;0.4" dur="3s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- What is Agentic EDA -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header scroll-reveal">
+      <span class="section-label">Context</span>
+      <h2 class="section-title">The <span>Paradigm Shift</span> in EDA</h2>
+      <p class="section-subtitle">
+        From AI-assisted manual flows to fully autonomous multi-agent design systems.
+      </p>
+    </div>
+
+    <div class="concept-grid">
+      <div class="concept-card scroll-reveal">
+        <div class="concept-card-header">
+          <div class="concept-card-icon" style="background: rgba(239,68,68,0.1)">🔴</div>
+          <div class="concept-card-title">The Productivity Gap</div>
+        </div>
+        <div class="concept-card-body">
+          As SoC complexity scales to <strong>hundreds of billions of transistors</strong>,
+          manual script-based flows have become insufficient. Verification alone
+          now consumes up to <strong style="color:var(--accent-red)">70%</strong> of the design cycle.
+        </div>
+      </div>
+
+      <div class="concept-card scroll-reveal animate-delay-1">
+        <div class="concept-card-header">
+          <div class="concept-card-icon" style="background: rgba(59,130,246,0.1)">🤖</div>
+          <div class="concept-card-title">From AI4EDA → Agentic EDA</div>
+        </div>
+        <div class="concept-card-body">
+          The industry is moving from <em>AI-Assisted</em> automation (static scripts + human
+          oversight) to <strong>Agentic EDA</strong>: autonomous MAS where agents
+          close the design loop without human intervention.
+        </div>
+      </div>
+
+      <div class="concept-card scroll-reveal animate-delay-2">
+        <div class="concept-card-header">
+          <div class="concept-card-icon" style="background: rgba(16,185,129,0.1)">⚡</div>
+          <div class="concept-card-title">Your New Role</div>
+        </div>
+        <div class="concept-card-body">
+          In 2026, AI engineers no longer write code — they orchestrate agents.
+          Mastery means designing <strong>separation of concerns</strong>:
+          one agent generates, a separate <em>Critic Agent</em> validates.
+        </div>
+      </div>
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="scroll-reveal" style="overflow-x:auto">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>AI-Assisted (AI4EDA)</th>
+            <th>Agentic EDA (2026)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Orchestration</td>
+            <td>Manual (Human Engineer)</td>
+            <td><span class="table-badge badge-green">Autonomous (MAS Supervisor)</span></td>
+          </tr>
+          <tr>
+            <td>Logic Flow</td>
+            <td>Static Tcl/Python Scripts</td>
+            <td><span class="table-badge badge-blue">Dynamic Graphs (DAGs/Cycles)</span></td>
+          </tr>
+          <tr>
+            <td>Memory</td>
+            <td>None (Per-execution)</td>
+            <td><span class="table-badge badge-purple">Stratified (Evolution/Introspective/Fusion)</span></td>
+          </tr>
+          <tr>
+            <td>Verification</td>
+            <td>Final Check</td>
+            <td><span class="table-badge badge-green">Continuous Inner-Loop Feedback</span></td>
+          </tr>
+          <tr>
+            <td>Outcome</td>
+            <td>Assistant results</td>
+            <td><span class="table-badge badge-green">Self-correcting design closure</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Course Modules -->
+<section class="section" id="modules">
+  <div class="container">
+    <div class="section-header scroll-reveal">
+      <span class="section-label">Curriculum</span>
+      <h2 class="section-title">Course <span>Modules</span></h2>
+      <p class="section-subtitle">
+        Six comprehensive modules taking you from foundations to a production-ready
+        agentic EDA system.
+      </p>
+    </div>
+
+    <div class="module-grid">
+
+      <!-- Module 1 -->
+      <a href="module1.html" class="module-card scroll-reveal" data-module-id="module1">
+        <div class="module-card-accent" style="background: var(--gradient-accent)"></div>
+        <div class="module-number">Module 01</div>
+        <div class="module-title">Core Agentic Architectures &amp; Mechanisms</div>
+        <div class="module-desc">
+          Master stateful graph workflows, the Supervisor-Worker pattern, consensus-based
+          reasoning, handoff patterns, and how LangGraph maps design flows as DAGs.
+        </div>
+        <div class="tag-cloud">
+          <span class="tag tag-blue">Supervisor-Worker</span>
+          <span class="tag tag-purple">LangGraph</span>
+          <span class="tag tag-cyan">DAG Workflows</span>
+        </div>
+        <div class="module-meta">
+          <span class="module-meta-item">📚 4 Sections</span>
+          <span class="module-meta-item">🎯 Quiz Included</span>
+        </div>
+      </a>
+
+      <!-- Module 2 -->
+      <a href="module2.html" class="module-card scroll-reveal animate-delay-1" data-module-id="module2">
+        <div class="module-card-accent" style="background: linear-gradient(135deg,#06b6d4,#3b82f6)"></div>
+        <div class="module-number">Module 02</div>
+        <div class="module-title">SOTA AI EDA Solutions Deep Dive</div>
+        <div class="module-desc">
+          Explore ChatEDA's AutoMage controller, RTLCoder's quality-based training
+          scheme, and EDAid's divergent thought collaboration system in depth.
+        </div>
+        <div class="tag-cloud">
+          <span class="tag tag-blue">ChatEDA</span>
+          <span class="tag tag-green">RTLCoder</span>
+          <span class="tag tag-cyan">EDAid</span>
+        </div>
+        <div class="module-meta">
+          <span class="module-meta-item">📚 3 Sections</span>
+          <span class="module-meta-item">🎯 Quiz Included</span>
+        </div>
+      </a>
+
+      <!-- Module 3 -->
+      <a href="module3.html" class="module-card scroll-reveal animate-delay-2" data-module-id="module3">
+        <div class="module-card-accent" style="background: linear-gradient(135deg,#8b5cf6,#ec4899)"></div>
+        <div class="module-number">Module 03</div>
+        <div class="module-title">Specialized Agentic EDA for Analog Design</div>
+        <div class="module-desc">
+          Dive into the "final frontier" — AnalogCoder, AnalogSAGE's stratified memory,
+          GENIE-ASI subcircuit identification, and Schemato netlist visualization.
+        </div>
+        <div class="tag-cloud">
+          <span class="tag tag-purple">AnalogCoder</span>
+          <span class="tag tag-orange">AnalogSAGE</span>
+          <span class="tag tag-cyan">GENIE-ASI</span>
+        </div>
+        <div class="module-meta">
+          <span class="module-meta-item">📚 4 Sections</span>
+          <span class="module-meta-item">🎯 Quiz Included</span>
+        </div>
+      </a>
+
+      <!-- Module 4 -->
+      <a href="module4.html" class="module-card scroll-reveal" data-module-id="module4">
+        <div class="module-card-accent" style="background: var(--gradient-orange)"></div>
+        <div class="module-number">Module 04</div>
+        <div class="module-title">The Physical Frontier: Challenges &amp; Bottlenecks</div>
+        <div class="module-desc">
+          Understand the Feedback Loop Crisis, layout interdependency (WPE, STI),
+          the Data Wall, and how physics-grounded reasoning tackles Joule heating
+          and RF crosstalk.
+        </div>
+        <div class="tag-cloud">
+          <span class="tag tag-orange">SPICE Simulation</span>
+          <span class="tag tag-orange">WPE/STI</span>
+          <span class="tag tag-orange">Data Wall</span>
+        </div>
+        <div class="module-meta">
+          <span class="module-meta-item">📚 4 Sections</span>
+          <span class="module-meta-item">🎯 Quiz Included</span>
+        </div>
+      </a>
+
+      <!-- Module 5 -->
+      <a href="module5.html" class="module-card scroll-reveal animate-delay-1" data-module-id="module5">
+        <div class="module-card-accent" style="background: var(--gradient-green)"></div>
+        <div class="module-number">Module 05</div>
+        <div class="module-title">Mastery Modules for AI Engineers</div>
+        <div class="module-desc">
+          Master the Model Context Protocol (MCP), LangChain/LangGraph patterns
+          (checkpointing, time-travel debugging), and all Twelve Pillars of
+          production MAS architecture.
+        </div>
+        <div class="tag-cloud">
+          <span class="tag tag-green">MCP</span>
+          <span class="tag tag-blue">LangGraph</span>
+          <span class="tag tag-green">12 Pillars</span>
+        </div>
+        <div class="module-meta">
+          <span class="module-meta-item">📚 3 Sections</span>
+          <span class="module-meta-item">🎯 Quiz Included</span>
+        </div>
+      </a>
+
+      <!-- Module 6 -->
+      <a href="module6.html" class="module-card scroll-reveal animate-delay-2" data-module-id="module6">
+        <div class="module-card-accent" style="background: linear-gradient(135deg,#f59e0b,#10b981)"></div>
+        <div class="module-number">Module 06</div>
+        <div class="module-title">Pedagogical Project: Self-Evolving Analog Block Designer</div>
+        <div class="module-desc">
+          Build a complete agentic EDA system module-by-module across four stages:
+          Identification Agent → Netlist Generator → Waveform Debugger → Layout Synthesis.
+        </div>
+        <div class="tag-cloud">
+          <span class="tag tag-orange">Stage A–D</span>
+          <span class="tag tag-green">PySpice</span>
+          <span class="tag tag-purple">OpenROAD</span>
+        </div>
+        <div class="module-meta">
+          <span class="module-meta-item">🛠 4 Build Stages</span>
+          <span class="module-meta-item">💻 Code-Along</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- Key Stats -->
+<section class="section section-alt" id="curriculum">
+  <div class="container">
+    <div class="section-header scroll-reveal">
+      <span class="section-label">By the Numbers</span>
+      <h2 class="section-title">Why This <span>Matters</span></h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card scroll-reveal">
+        <div class="stat-value gradient-text" data-counter="70%">0%</div>
+        <div class="stat-label">Design Cycle</div>
+        <div class="stat-sublabel">consumed by verification</div>
+      </div>
+      <div class="stat-card scroll-reveal animate-delay-1">
+        <div class="stat-value gradient-text-green" data-counter="7">0</div>
+        <div class="stat-label">RTLCoder Parameters</div>
+        <div class="stat-sublabel">billion — runs on 4GB RAM</div>
+      </div>
+      <div class="stat-card scroll-reveal animate-delay-2">
+        <div class="stat-value gradient-text-orange" data-counter="10000">0</div>
+        <div class="stat-label">Training Tuples</div>
+        <div class="stat-sublabel">AutoMage self-instruction dataset</div>
+      </div>
+      <div class="stat-card scroll-reveal animate-delay-3">
+        <div class="stat-value gradient-text" data-counter="12">0</div>
+        <div class="stat-label">Production Pillars</div>
+        <div class="stat-sublabel">for enterprise-grade MAS</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Learning Path -->
+<section class="section" id="project">
+  <div class="container">
+    <div class="section-header scroll-reveal">
+      <span class="section-label">Learning Path</span>
+      <h2 class="section-title">Your <span>Journey</span></h2>
+      <p class="section-subtitle">A chronological path from foundations to a deployed agentic EDA system.</p>
+    </div>
+
+    <div class="timeline">
+
+      <div class="timeline-item scroll-reveal">
+        <div class="timeline-item-label">Foundation</div>
+        <div class="timeline-item-title">Module 1–2: Architecture &amp; SOTA Systems</div>
+        <div class="timeline-item-body">
+          Understand MAS design patterns (Supervisor-Worker, Consensus, Handoff) and
+          dive into real-world EDA systems: ChatEDA, RTLCoder, and EDAid. Learn how
+          stateful graph workflows enable iterative design refinement.
+        </div>
+      </div>
+
+      <div class="timeline-item scroll-reveal">
+        <div class="timeline-item-label">Specialization</div>
+        <div class="timeline-item-title">Module 3–4: Analog Domain &amp; Physical Limits</div>
+        <div class="timeline-item-body">
+          Explore the unique challenges of analog design: continuous-valued signals,
+          layout parasitics, the feedback loop crisis with SPICE simulation, and
+          physics-grounded reasoning for Joule heating and RF crosstalk.
+        </div>
+      </div>
+
+      <div class="timeline-item scroll-reveal">
+        <div class="timeline-item-label">Mastery</div>
+        <div class="timeline-item-title">Module 5: Production Engineering</div>
+        <div class="timeline-item-body">
+          Master MCP (the "USB-C of AI"), LangGraph's persistent checkpointing and
+          time-travel debugging, and all Twelve Pillars needed to move from demo to
+          production-grade enterprise MAS.
+        </div>
+      </div>
+
+      <div class="timeline-item scroll-reveal">
+        <div class="timeline-item-label">Capstone Project</div>
+        <div class="timeline-item-title">Module 6: Build a Self-Evolving Analog System</div>
+        <div class="timeline-item-body">
+          Four progressive stages: build an Identification Agent, add a feedback-enhanced
+          Netlist Generator, implement a Multimodal Waveform Debugger using vision LLMs,
+          and finally automate physical layout with ALIGN/OpenROAD.
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center; margin-top: var(--spacing-xl)">
+      <a href="module1.html" class="btn btn-primary">Begin Module 1 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">⚡ SYNAPSES</div>
+        <p class="footer-text">
+          Agentic AI &amp; Electronic Design Automation Master Course · 2026 Edition
+        </p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="module1.html">Module 1</a></li>
+        <li><a href="module2.html">Module 2</a></li>
+        <li><a href="module3.html">Module 3</a></li>
+        <li><a href="module4.html">Module 4</a></li>
+        <li><a href="module5.html">Module 5</a></li>
+        <li><a href="module6.html">Module 6</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
