@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 2 — SOTA AI EDA Solutions | SYNAPSES</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-module-id="module2">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back">← Back to Course</a>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">⚡</div>
+      <span class="nav-logo-text">SYNAPSES</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#chateda">ChatEDA</a></li>
+      <li><a href="#rtlcoder">RTLCoder</a></li>
+      <li><a href="#edaid">EDAid</a></li>
+      <li><a href="#quiz">Quiz</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="module-page">
+  <div class="module-hero">
+    <div class="container module-hero-content">
+      <div class="module-breadcrumb">
+        <a href="index.html">SYNAPSES</a>
+        <span class="module-breadcrumb-sep">›</span>
+        <a href="module1.html">Module 1</a>
+        <span class="module-breadcrumb-sep">›</span>
+        <span>Module 2</span>
+      </div>
+      <div class="module-hero-badge" style="background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.3);color:var(--accent-cyan)">
+        🔬 SOTA Systems
+      </div>
+      <h1 class="module-hero-title">SOTA AI EDA Solutions Deep Dive</h1>
+      <p class="module-hero-desc">
+        Modern agentic systems leverage domain-specialized models to outperform
+        general-purpose LLMs. This module dissects three production-grade EDA
+        AI systems: ChatEDA, RTLCoder, and EDAid.
+      </p>
+      <div class="module-objectives">
+        <span class="objective-tag">✓ ChatEDA architecture</span>
+        <span class="objective-tag">✓ AutoMage controller</span>
+        <span class="objective-tag">✓ RTLCoder training scheme</span>
+        <span class="objective-tag">✓ Quality-Based Training</span>
+        <span class="objective-tag">✓ EDAid divergent thought</span>
+        <span class="objective-tag">✓ ChipLlama foundation</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <aside class="content-sidebar">
+      <div class="sidebar-nav">
+        <div class="sidebar-nav-title">In This Module</div>
+        <ul class="sidebar-nav-list">
+          <li><a href="#overview">1. Overview</a></li>
+          <li><a href="#chateda">2. ChatEDA & AutoMage</a></li>
+          <li><a href="#rtlcoder">3. RTLCoder</a></li>
+          <li><a href="#edaid">4. EDAid — Divergent Thought</a></li>
+          <li><a href="#comparison">5. System Comparison</a></li>
+          <li><a href="#quiz">6. Knowledge Check</a></li>
+        </ul>
+        <div class="sidebar-progress">
+          <div class="progress-label">
+            <span>Module Progress</span>
+            <span data-progress-label>0%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" data-module-progress style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="content-main">
+
+      <!-- Section 1: Overview -->
+      <section class="content-section" id="overview">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(6,182,212,0.1)">🌐</div>
+          <h2>Why Domain-Specialized Models?</h2>
+        </div>
+
+        <p>
+          General-purpose LLMs (GPT-5, Claude 4.5) are powerful, but they lack
+          deep familiarity with hardware description languages, EDA tool syntax,
+          and SPICE conventions. Domain-specialized models bridge this gap by
+          training on curated hardware corpora — achieving dramatically better
+          results on RTL generation, netlist analysis, and design script tasks.
+        </p>
+
+        <div class="info-box note scroll-reveal">
+          <div class="info-box-header">🔵 Key Finding from Research</div>
+          <p>
+            RTLCoder, a 7B-parameter model, <strong>outperforms GPT-3.5</strong> on RTL
+            generation benchmarks while running locally on just 4GB of RAM. Domain
+            specialization is more efficient than raw model size for EDA tasks.
+          </p>
+        </div>
+
+        <div class="concept-grid scroll-reveal">
+          <div class="concept-card">
+            <div class="concept-card-header">
+              <div class="concept-card-icon" style="background:rgba(59,130,246,0.1)">💬</div>
+              <div class="concept-card-title">ChatEDA</div>
+            </div>
+            <div class="concept-card-body">
+              Three-stage pipeline: task decomposition → script generation (Python/Tcl) →
+              task execution. Uses AutoMage as its specialized controller model.
+            </div>
+          </div>
+          <div class="concept-card">
+            <div class="concept-card-header">
+              <div class="concept-card-icon" style="background:rgba(16,185,129,0.1)">⚡</div>
+              <div class="concept-card-title">RTLCoder</div>
+            </div>
+            <div class="concept-card-body">
+              Lightweight, privacy-preserving RTL generation. 7B params, runs locally.
+              Quality-based training with simulator feedback for synthesizable outputs.
+            </div>
+          </div>
+          <div class="concept-card">
+            <div class="concept-card-header">
+              <div class="concept-card-icon" style="background:rgba(245,158,11,0.1)">🧠</div>
+              <div class="concept-card-title">EDAid</div>
+            </div>
+            <div class="concept-card-body">
+              Multi-agent divergent thought collaboration. Multiple ChipLlama agents
+              use different CoT prompts to explore diverse design pathways.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: ChatEDA -->
+      <section class="content-section" id="chateda">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(59,130,246,0.1)">💬</div>
+          <h2>ChatEDA and the AutoMage Controller</h2>
+        </div>
+
+        <p>
+          ChatEDA represents one of the first production-grade LLM-powered autonomous
+          agents for EDA. It transforms natural language design specifications into
+          executable EDA tool flows, closing the gap between intent and implementation.
+        </p>
+
+        <h3 style="color:var(--text-primary);margin:1.5rem 0 1rem">The Three-Stage Pipeline</h3>
+
+        <div class="timeline scroll-reveal">
+          <div class="timeline-item">
+            <div class="timeline-item-label">Stage 1</div>
+            <div class="timeline-item-title">Task Decomposition</div>
+            <div class="timeline-item-body">
+              The AutoMage controller receives a natural language specification (e.g.,
+              "Synthesize this RTL for a 28nm TSMC process targeting 500MHz") and
+              decomposes it into a structured list of atomic EDA tasks with dependencies.
+              This is analogous to the Supervisor pattern from Module 1.
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-item-label">Stage 2</div>
+            <div class="timeline-item-title">Script Generation (Python/Tcl)</div>
+            <div class="timeline-item-body">
+              For each decomposed task, AutoMage generates the corresponding EDA tool
+              script — Tcl for synthesis flows, Python for post-processing. The model
+              has been trained specifically on EDA tool APIs (Synopsys DC, Cadence
+              Innovus, OpenROAD).
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-item-label">Stage 3</div>
+            <div class="timeline-item-title">Task Execution &amp; Feedback</div>
+            <div class="timeline-item-body">
+              Scripts are executed in an EDA tool environment. Output logs are parsed
+              by AutoMage, which identifies errors and updates the task plan accordingly.
+              This creates a closed-loop generation-execution-refinement cycle.
+            </div>
+          </div>
+        </div>
+
+        <h3 style="color:var(--text-primary);margin:1.5rem 0 1rem">AutoMage: The Controller Model</h3>
+
+        <p>
+          AutoMage is an expert model <strong>fine-tuned on Llama 2</strong> using a
+          sophisticated self-instruction paradigm. Rather than expensive human annotation,
+          the training dataset was generated synthetically using GPT-4.
+        </p>
+
+        <div class="info-box insight scroll-reveal">
+          <div class="info-box-header">💜 Self-Instruction Paradigm (Key Innovation)</div>
+          <p>
+            GPT-4 was used to generate a <strong>10,000-tuple training dataset</strong>
+            in the format: <code>&lt;requirement, decomposition, script&gt;</code>.
+          </p>
+          <ul style="margin-top:0.75rem">
+            <li><strong>requirement</strong>: Natural language design task (e.g., "run timing analysis with clock uncertainty 100ps")</li>
+            <li><strong>decomposition</strong>: Structured breakdown into atomic subtasks</li>
+            <li><strong>script</strong>: The correct Tcl/Python EDA script for each subtask</li>
+          </ul>
+          <p style="margin-top:0.75rem">
+            This approach allows training a specialized expert model without requiring
+            expensive domain expert annotation at scale.
+          </p>
+        </div>
+
+        <div class="code-block scroll-reveal">
+          <div class="code-block-header">
+            <div class="code-block-lang">
+              <div class="code-block-dots">
+                <div class="code-block-dot" style="background:#ff5f57"></div>
+                <div class="code-block-dot" style="background:#febc2e"></div>
+                <div class="code-block-dot" style="background:#28c840"></div>
+              </div>
+              Python — ChatEDA-style Pipeline Implementation
+            </div>
+            <button class="code-copy-btn">Copy</button>
+          </div>
+          <pre><code data-lang="python">from langchain_community.llms import Ollama
+from langgraph.graph import StateGraph
+from typing import TypedDict, List
+
+class ChatEDAState(TypedDict):
+    requirement: str
+    subtasks: List[dict]
+    scripts: List[str]
+    execution_logs: List[str]
+    completed: bool
+
+# AutoMage-style decomposition (using fine-tuned Llama)
+automage = Ollama(model="automage-llama2-7b")
+
+def decompose_task(state: ChatEDAState) -> dict:
+    """Stage 1: Decompose NL requirement into subtasks."""
+    prompt = f"""You are an EDA expert. Decompose this requirement into atomic EDA tasks:
+    
+Requirement: {state['requirement']}
+
+Output JSON list with fields: task_name, tool, description, dependencies"""
+    
+    response = automage.invoke(prompt)
+    subtasks = parse_json(response)
+    return {"subtasks": subtasks}
+
+def generate_scripts(state: ChatEDAState) -> dict:
+    """Stage 2: Generate Tcl/Python scripts for each subtask."""
+    scripts = []
+    for task in state["subtasks"]:
+        prompt = f"""Generate a {task['tool']} script for: {task['description']}
+        Output ONLY the executable script, no explanation."""
+        script = automage.invoke(prompt)
+        scripts.append(script)
+    return {"scripts": scripts}
+
+def execute_and_verify(state: ChatEDAState) -> dict:
+    """Stage 3: Execute scripts and capture feedback."""
+    logs = []
+    for i, (task, script) in enumerate(zip(state["subtasks"], state["scripts"])):
+        log = run_eda_tool(task["tool"], script)
+        logs.append(log)
+        if "ERROR" in log:
+            # Trigger re-generation for this specific subtask
+            return {"execution_logs": logs, "failed_subtask": i}
+    return {"execution_logs": logs, "completed": True}
+
+# Build ChatEDA workflow
+workflow = StateGraph(ChatEDAState)
+workflow.add_node("decompose", decompose_task)
+workflow.add_node("generate", generate_scripts)
+workflow.add_node("execute", execute_and_verify)</code></pre>
+        </div>
+      </section>
+
+      <!-- Section 3: RTLCoder -->
+      <section class="content-section" id="rtlcoder">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(16,185,129,0.1)">⚡</div>
+          <h2>RTLCoder: Lightweight Verifiable Synthesis</h2>
+        </div>
+
+        <p>
+          RTLCoder addresses a critical gap in EDA AI: the need for a <strong>locally
+          deployable, IP-privacy-preserving</strong> model for RTL code generation that
+          produces <em>synthesizable</em> (not just syntactically correct) Verilog.
+        </p>
+
+        <div class="concept-grid scroll-reveal">
+          <div class="concept-card">
+            <div class="concept-card-header">
+              <div class="concept-card-icon" style="background:rgba(16,185,129,0.1)">📦</div>
+              <div class="concept-card-title">Model Specifications</div>
+            </div>
+            <div class="concept-card-body">
+              <ul style="margin:0;padding-left:1.25rem">
+                <li><strong>7B parameters</strong> — Deepseek or Mistral base</li>
+                <li>Runs on <strong>4GB RAM</strong> — laptop-deployable</li>
+                <li>Fully <strong>open-source</strong> weights</li>
+                <li>No cloud API calls required</li>
+              </ul>
+            </div>
+          </div>
+          <div class="concept-card">
+            <div class="concept-card-header">
+              <div class="concept-card-icon" style="background:rgba(245,158,11,0.1)">🎯</div>
+              <div class="concept-card-title">Key Innovation</div>
+            </div>
+            <div class="concept-card-body">
+              Quality-Based Training Scheme uses actual simulator feedback
+              (Icarus Verilog) to reward synthesizable code during training —
+              not just syntactically correct code.
+            </div>
+          </div>
+          <div class="concept-card">
+            <div class="concept-card-header">
+              <div class="concept-card-icon" style="background:rgba(139,92,246,0.1)">🏆</div>
+              <div class="concept-card-title">Performance</div>
+            </div>
+            <div class="concept-card-body">
+              Outperforms GPT-3.5 on RTL generation benchmarks despite being
+              dramatically smaller. Competitive with GPT-4 on synthesizability metrics.
+            </div>
+          </div>
+        </div>
+
+        <h3 style="color:var(--text-primary);margin:1.5rem 0 1rem">Quality-Based Training Scheme</h3>
+
+        <p>
+          The core innovation of RTLCoder is how it trains: using <strong>dual feedback
+          signals</strong> from actual EDA tools to distinguish truly synthesizable code
+          from merely syntactically valid code.
+        </p>
+
+        <div class="tab-system scroll-reveal">
+          <div class="tab-list">
+            <button class="tab-btn active">Training Pipeline</button>
+            <button class="tab-btn">Feedback Signal 1: Syntax</button>
+            <button class="tab-btn">Feedback Signal 2: Simulation</button>
+            <button class="tab-btn">Reward Function</button>
+          </div>
+
+          <div class="tab-panel active">
+            <h4 style="color:var(--text-primary);margin-bottom:1rem">The Quality-Based Training Pipeline</h4>
+            <p>
+              Standard instruction fine-tuning rewards code that <em>looks</em> like
+              Verilog. RTLCoder's quality-based training rewards code that <em>actually
+              works</em> in a simulator:
+            </p>
+            <ol style="color:var(--text-secondary);margin-top:1rem">
+              <li style="margin-bottom:0.75rem">
+                <strong>Generate candidates</strong>: For each RTL specification, generate
+                N candidate solutions using the current model checkpoint.
+              </li>
+              <li style="margin-bottom:0.75rem">
+                <strong>Syntax check</strong>: Pass each candidate through Icarus Verilog
+                (<code>iverilog -t null</code>) to check for syntax errors. Assign a binary
+                syntax score.
+              </li>
+              <li style="margin-bottom:0.75rem">
+                <strong>Functional simulation</strong>: For syntax-valid candidates, run a
+                testbench simulation. Check if output matches the golden reference.
+                Assign a functional score.
+              </li>
+              <li style="margin-bottom:0.75rem">
+                <strong>Compute weighted reward</strong>: Combine syntax and functional scores
+                into a single quality metric per candidate.
+              </li>
+              <li>
+                <strong>RLHF-style training</strong>: Use quality scores to weight the
+                loss function — high-quality samples get lower loss weight, effectively
+                reinforcing synthesizable patterns.
+              </li>
+            </ol>
+          </div>
+
+          <div class="tab-panel">
+            <h4 style="color:var(--text-primary);margin-bottom:1rem">Feedback Signal 1: Icarus Verilog Syntax Check</h4>
+            <p>
+              The first quality gate is a syntax check using <strong>Icarus Verilog</strong>
+              (iverilog), an open-source Verilog compiler. This catches common LLM failure
+              modes like:
+            </p>
+            <ul style="margin-top:1rem">
+              <li>Missing <code>endmodule</code> keywords</li>
+              <li>Mismatched port declarations</li>
+              <li>Invalid signal widths or types</li>
+              <li>Undefined variables</li>
+            </ul>
+            <div class="code-block" style="margin-top:1rem">
+              <div class="code-block-header">
+                <div class="code-block-lang">
+                  <div class="code-block-dots">
+                    <div class="code-block-dot" style="background:#ff5f57"></div>
+                    <div class="code-block-dot" style="background:#febc2e"></div>
+                    <div class="code-block-dot" style="background:#28c840"></div>
+                  </div>
+                  Python — Syntax Feedback
+                </div>
+                <button class="code-copy-btn">Copy</button>
+              </div>
+              <pre><code data-lang="python">import subprocess
+import tempfile
+
+def check_verilog_syntax(code: str) -> dict:
+    """Run Icarus Verilog syntax check and return score."""
+    with tempfile.NamedTemporaryFile(suffix=".v", mode="w", delete=False) as f:
+        f.write(code)
+        filepath = f.name
+    
+    result = subprocess.run(
+        ["iverilog", "-t", "null", filepath],
+        capture_output=True, text=True, timeout=10
+    )
+    
+    syntax_ok = result.returncode == 0
+    errors = result.stderr.strip() if not syntax_ok else ""
+    
+    return {
+        "syntax_score": 1.0 if syntax_ok else 0.0,
+        "errors": errors,
+        "syntax_ok": syntax_ok
+    }</code></pre>
+            </div>
+          </div>
+
+          <div class="tab-panel">
+            <h4 style="color:var(--text-primary);margin-bottom:1rem">Feedback Signal 2: Functional Simulation</h4>
+            <p>
+              Syntax-valid code is further evaluated by running a functional simulation
+              against a testbench. This catches logic errors that syntax checkers cannot:
+            </p>
+            <ul style="margin-top:1rem">
+              <li>Wrong state machine transitions</li>
+              <li>Off-by-one errors in counters</li>
+              <li>Incorrect reset behavior</li>
+              <li>Race conditions</li>
+            </ul>
+            <div class="code-block" style="margin-top:1rem">
+              <div class="code-block-header">
+                <div class="code-block-lang">
+                  <div class="code-block-dots">
+                    <div class="code-block-dot" style="background:#ff5f57"></div>
+                    <div class="code-block-dot" style="background:#febc2e"></div>
+                    <div class="code-block-dot" style="background:#28c840"></div>
+                  </div>
+                  Python — Functional Simulation Check
+                </div>
+                <button class="code-copy-btn">Copy</button>
+              </div>
+              <pre><code data-lang="python">def run_functional_sim(code: str, testbench: str) -> dict:
+    """Compile DUT + testbench and run simulation."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        dut_path = f"{tmpdir}/dut.v"
+        tb_path = f"{tmpdir}/tb.v"
+        sim_path = f"{tmpdir}/sim"
+        
+        with open(dut_path, "w") as f: f.write(code)
+        with open(tb_path, "w") as f: f.write(testbench)
+        
+        # Compile
+        compile_result = subprocess.run(
+            ["iverilog", "-o", sim_path, dut_path, tb_path],
+            capture_output=True, timeout=30
+        )
+        if compile_result.returncode != 0:
+            return {"functional_score": 0.0, "passed": 0, "total": 0}
+        
+        # Simulate
+        sim_result = subprocess.run(
+            ["vvp", sim_path],
+            capture_output=True, text=True, timeout=60
+        )
+        
+        # Parse PASS/FAIL counts from testbench output
+        output = sim_result.stdout
+        passed = output.count("PASS")
+        failed = output.count("FAIL")
+        total = passed + failed
+        
+        return {
+            "functional_score": passed / total if total > 0 else 0.0,
+            "passed": passed,
+            "total": total
+        }</code></pre>
+            </div>
+          </div>
+
+          <div class="tab-panel">
+            <h4 style="color:var(--text-primary);margin-bottom:1rem">Reward Function</h4>
+            <p>
+              The combined quality score weights functional correctness more heavily
+              than syntax — since syntactically correct but logically wrong code is
+              arguably worse than obvious syntax errors (which are easier to debug):
+            </p>
+            <div class="code-block" style="margin-top:1rem">
+              <div class="code-block-header">
+                <div class="code-block-lang">
+                  <div class="code-block-dots">
+                    <div class="code-block-dot" style="background:#ff5f57"></div>
+                    <div class="code-block-dot" style="background:#febc2e"></div>
+                    <div class="code-block-dot" style="background:#28c840"></div>
+                  </div>
+                  Python — Quality Reward Function
+                </div>
+                <button class="code-copy-btn">Copy</button>
+              </div>
+              <pre><code data-lang="python">def compute_quality_reward(code: str, testbench: str) -> float:
+    """Compute the combined quality reward for RTL code."""
+    syntax = check_verilog_syntax(code)
+    
+    if not syntax["syntax_ok"]:
+        # Syntax failure: partial credit based on error count
+        error_count = len(syntax["errors"].split("\n"))
+        return max(0.0, 0.2 - 0.02 * error_count)
+    
+    functional = run_functional_sim(code, testbench)
+    
+    # Weighted combination: syntax 30%, functional 70%
+    reward = 0.3 * syntax["syntax_score"] + 0.7 * functional["functional_score"]
+    
+    return reward
+
+def quality_weighted_loss(candidates: list[dict]) -> float:
+    """Weight training loss inversely by quality."""
+    # High quality → lower loss weight (model already learned this)
+    # Low quality → higher loss weight (model needs to learn)
+    losses = []
+    for c in candidates:
+        quality = compute_quality_reward(c["code"], c["testbench"])
+        # Invert: reward high quality by down-weighting its loss
+        loss_weight = 1.0 - quality * 0.8
+        losses.append(c["loss"] * loss_weight)
+    return sum(losses) / len(losses)</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="color:var(--text-primary);margin:1.5rem 0 1rem">Privacy Architecture</h3>
+        <p>
+          RTLCoder's local deployment model directly addresses IP privacy concerns —
+          a major barrier to cloud-based EDA AI in the semiconductor industry:
+        </p>
+        <div class="info-box warning scroll-reveal">
+          <div class="info-box-header">⚠ IP Privacy in EDA</div>
+          <p>
+            Semiconductor companies cannot send proprietary RTL designs or SPICE netlists
+            to cloud APIs. A single design leak could cost billions in competitive
+            advantage. RTLCoder's <strong>4GB local deployment</strong> resolves this:
+            sensitive designs never leave the secure design environment.
+          </p>
+        </div>
+      </section>
+
+      <!-- Section 4: EDAid -->
+      <section class="content-section" id="edaid">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(245,158,11,0.1)">🧠</div>
+          <h2>EDAid: Divergent Thought Collaboration</h2>
+        </div>
+
+        <p>
+          EDAid is a multi-agent system built on <strong>ChipLlama</strong>, a foundation
+          model trained on chip design data. Its key innovation is the <em>Divergent
+          Thought Collaboration</em> architecture — a sophisticated approach to avoiding
+          the failure modes of single-agent systems.
+        </p>
+
+        <h3 style="color:var(--text-primary);margin:1.5rem 0 1rem">The Divergent Thought Problem</h3>
+
+        <p>
+          Single-agent systems can get "stuck" — once the agent commits to an erroneous
+          planning pathway (e.g., "this design needs a differential pair"), it becomes
+          hard to escape that local minimum. EDAid addresses this with:
+        </p>
+
+        <div class="concept-grid scroll-reveal">
+          <div class="concept-card">
+            <div class="concept-card-header">
+              <div class="concept-card-icon" style="background:rgba(59,130,246,0.1)">🔀</div>
+              <div class="concept-card-title">Diverse CoT Prompts</div>
+            </div>
+            <div class="concept-card-body">
+              Each agent in EDAid is given a <strong>different few-shot
+              Chain-of-Thought prompt</strong> that biases it toward a different
+              design approach. Agent A might be biased toward current-mode designs,
+              Agent B toward voltage-mode, Agent C toward topology exploration.
+            </div>
+          </div>
+          <div class="concept-card">
+            <div class="concept-card-header">
+              <div class="concept-card-icon" style="background:rgba(16,185,129,0.1)">🎯</div>
+              <div class="concept-card-title">Converging on One Goal</div>
+            </div>
+            <div class="concept-card-body">
+              Despite divergent starting points, all agents share the <strong>same
+              objective function</strong> — the PPA targets. The collaboration
+              mechanism synthesizes the best insights from each divergent path.
+            </div>
+          </div>
+          <div class="concept-card">
+            <div class="concept-card-header">
+              <div class="concept-card-icon" style="background:rgba(245,158,11,0.1)">⚙</div>
+              <div class="concept-card-title">ChipLlama Foundation</div>
+            </div>
+            <div class="concept-card-body">
+              A Llama-based model fine-tuned specifically on chip design literature,
+              HDL repositories, and EDA tool documentation. All EDAid agents use
+              ChipLlama as their shared reasoning backbone.
+            </div>
+          </div>
+        </div>
+
+        <h3 style="color:var(--text-primary);margin:1.5rem 0 1rem">EDAid Architecture Diagram</h3>
+
+        <div class="diagram-container scroll-reveal">
+          <svg viewBox="0 0 680 380" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="edaid-arrow" viewBox="0 0 10 10" refX="9" refY="5"
+                markerWidth="5" markerHeight="5" orient="auto">
+                <path d="M0 0L10 5L0 10z" fill="rgba(59,130,246,0.7)"/>
+              </marker>
+              <marker id="edaid-arrow-g" viewBox="0 0 10 10" refX="9" refY="5"
+                markerWidth="5" markerHeight="5" orient="auto">
+                <path d="M0 0L10 5L0 10z" fill="rgba(16,185,129,0.7)"/>
+              </marker>
+            </defs>
+
+            <!-- Input -->
+            <rect x="260" y="20" width="160" height="50" rx="8" fill="#1a2540" stroke="rgba(59,130,246,0.4)" stroke-width="1.5"/>
+            <text x="340" y="42" text-anchor="middle" fill="#60a5fa" font-family="Inter" font-size="11" font-weight="700">DESIGN SPEC</text>
+            <text x="340" y="57" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">"Design a 60dB OTA, &lt;1mW"</text>
+
+            <!-- Divergent agents -->
+            <rect x="40" y="130" width="160" height="70" rx="8" fill="#141d35" stroke="rgba(245,158,11,0.4)" stroke-width="1.5"/>
+            <text x="120" y="153" text-anchor="middle" fill="#fbbf24" font-family="Inter" font-size="10" font-weight="700">AGENT A</text>
+            <text x="120" y="169" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">CoT: Differential-pair</text>
+            <text x="120" y="183" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">biased approach</text>
+
+            <rect x="260" y="130" width="160" height="70" rx="8" fill="#141d35" stroke="rgba(245,158,11,0.4)" stroke-width="1.5"/>
+            <text x="340" y="153" text-anchor="middle" fill="#fbbf24" font-family="Inter" font-size="10" font-weight="700">AGENT B</text>
+            <text x="340" y="169" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">CoT: Folded-cascode</text>
+            <text x="340" y="183" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">biased approach</text>
+
+            <rect x="480" y="130" width="160" height="70" rx="8" fill="#141d35" stroke="rgba(245,158,11,0.4)" stroke-width="1.5"/>
+            <text x="560" y="153" text-anchor="middle" fill="#fbbf24" font-family="Inter" font-size="10" font-weight="700">AGENT C</text>
+            <text x="560" y="169" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">CoT: Current-mirror</text>
+            <text x="560" y="183" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">topology exploration</text>
+
+            <!-- Arrows from spec to agents -->
+            <line x1="310" y1="70" x2="170" y2="129" stroke="rgba(59,130,246,0.5)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#edaid-arrow)"/>
+            <line x1="340" y1="71" x2="340" y2="129" stroke="rgba(59,130,246,0.5)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#edaid-arrow)"/>
+            <line x1="370" y1="70" x2="510" y2="129" stroke="rgba(59,130,246,0.5)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#edaid-arrow)"/>
+
+            <!-- ChipLlama shared -->
+            <rect x="200" y="250" width="280" height="50" rx="8" fill="#1a1030" stroke="rgba(139,92,246,0.5)" stroke-width="1.5"/>
+            <text x="340" y="272" text-anchor="middle" fill="#a78bfa" font-family="Inter" font-size="11" font-weight="700">CHIPLLLAMA BACKBONE</text>
+            <text x="340" y="288" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">Shared reasoning foundation (all agents)</text>
+
+            <!-- Agent proposals to ChipLlama -->
+            <line x1="120" y1="200" x2="270" y2="249" stroke="rgba(16,185,129,0.5)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#edaid-arrow-g)"/>
+            <line x1="340" y1="200" x2="340" y2="249" stroke="rgba(16,185,129,0.5)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#edaid-arrow-g)"/>
+            <line x1="560" y1="200" x2="410" y2="249" stroke="rgba(16,185,129,0.5)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#edaid-arrow-g)"/>
+
+            <!-- Output -->
+            <rect x="240" y="340" width="200" height="35" rx="8" fill="#0d2818" stroke="rgba(16,185,129,0.5)" stroke-width="1.5"/>
+            <text x="340" y="362" text-anchor="middle" fill="#10b981" font-family="Inter" font-size="11" font-weight="700">OPTIMAL DESIGN</text>
+            <line x1="340" y1="300" x2="340" y2="339" stroke="rgba(16,185,129,0.5)" stroke-width="1.5" marker-end="url(#edaid-arrow-g)"/>
+
+            <!-- Labels -->
+            <text x="120" y="118" text-anchor="middle" fill="#6b7280" font-family="Inter" font-size="9">Divergent CoT 1</text>
+            <text x="340" y="118" text-anchor="middle" fill="#6b7280" font-family="Inter" font-size="9">Divergent CoT 2</text>
+            <text x="560" y="118" text-anchor="middle" fill="#6b7280" font-family="Inter" font-size="9">Divergent CoT 3</text>
+          </svg>
+        </div>
+
+        <div class="code-block scroll-reveal">
+          <div class="code-block-header">
+            <div class="code-block-lang">
+              <div class="code-block-dots">
+                <div class="code-block-dot" style="background:#ff5f57"></div>
+                <div class="code-block-dot" style="background:#febc2e"></div>
+                <div class="code-block-dot" style="background:#28c840"></div>
+              </div>
+              Python — EDAid Divergent Thought Implementation
+            </div>
+            <button class="code-copy-btn">Copy</button>
+          </div>
+          <pre><code data-lang="python">from langchain_community.llms import Ollama
+from langgraph.graph import Send, StateGraph
+from typing import Annotated, List
+import operator
+
+# Different CoT prompts create divergent reasoning paths
+COT_PROMPTS = {
+    "differential_pair": """Think step by step as an analog designer who prefers 
+    differential pair topologies. Consider source-coupled pairs first.
+    Examples: {differential_pair_examples}""",
+    
+    "folded_cascode": """Think step by step as a designer who favors folded-cascode
+    architectures for high gain without compromising bandwidth.
+    Examples: {folded_cascode_examples}""",
+    
+    "current_mirror": """Think step by step focusing on current-mirror biasing
+    and systematic design of operating points from bias currents.
+    Examples: {current_mirror_examples}"""
+}
+
+class EDAidState(TypedDict):
+    spec: str
+    proposals: Annotated[List[dict], operator.add]  # Collects from all agents
+
+def divergent_agent(state: dict) -> dict:
+    """Single divergent agent with a specific CoT bias."""
+    cot_type = state["cot_type"]
+    cot_prompt = COT_PROMPTS[cot_type].format(**state.get("examples", {}))
+    
+    chiplllama = Ollama(model="chiplllama-7b")
+    
+    prompt = f"""{cot_prompt}
+
+Design specification: {state['spec']}
+
+Generate: topology name, transistor sizing rationale, 
+estimated PPA, and key design tradeoffs."""
+    
+    proposal = chiplllama.invoke(prompt)
+    ppa = simulate_proposal(proposal)  # Quick pre-simulation
+    
+    return {"proposals": [{"type": cot_type, "design": proposal, "ppa": ppa}]}
+
+def fan_out_to_divergent_agents(state: EDAidState):
+    """Launch all divergent agents in parallel."""
+    return [
+        Send("divergent_agent", {**state, "cot_type": cot_type})
+        for cot_type in COT_PROMPTS.keys()
+    ]
+
+def consensus_arbiter(state: EDAidState) -> dict:
+    """Synthesize all proposals and select the best."""
+    proposals = state["proposals"]
+    
+    # Score each proposal by PPA
+    scored = sorted(proposals, 
+                   key=lambda p: p["ppa"]["composite_score"], 
+                   reverse=True)
+    
+    # Extract insights from each divergent path
+    synthesis_prompt = f"""Given these {len(proposals)} design proposals:
+    {[p['design'] for p in proposals]}
+    
+    Create an optimal synthesis combining the best aspects of each.
+    Winner PPA target: {scored[0]['ppa']}"""
+    
+    chiplllama = Ollama(model="chiplllama-7b")
+    final_design = chiplllama.invoke(synthesis_prompt)
+    
+    return {"final_design": final_design, "winning_approach": scored[0]["type"]}</code></pre>
+        </div>
+      </section>
+
+      <!-- Section 5: Comparison -->
+      <section class="content-section" id="comparison">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(245,158,11,0.1)">📊</div>
+          <h2>System Comparison</h2>
+        </div>
+
+        <div style="overflow-x:auto" class="scroll-reveal">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>ChatEDA / AutoMage</th>
+                <th>RTLCoder</th>
+                <th>EDAid</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Base Model</td>
+                <td>Llama 2 (fine-tuned)</td>
+                <td>Deepseek / Mistral 7B</td>
+                <td>ChipLlama</td>
+              </tr>
+              <tr>
+                <td>Model Size</td>
+                <td>~13B</td>
+                <td><span class="table-badge badge-green">7B (4GB RAM)</span></td>
+                <td>~7B</td>
+              </tr>
+              <tr>
+                <td>Training Method</td>
+                <td>Self-instruction (GPT-4 synthetic data)</td>
+                <td><span class="table-badge badge-blue">Quality-Based (simulator feedback)</span></td>
+                <td>Domain fine-tuning</td>
+              </tr>
+              <tr>
+                <td>Target Task</td>
+                <td>Full EDA flow (Tcl/Python scripts)</td>
+                <td>RTL code generation (Verilog)</td>
+                <td>Multi-domain EDA + analog</td>
+              </tr>
+              <tr>
+                <td>Privacy</td>
+                <td>Cloud API (potential IP concern)</td>
+                <td><span class="table-badge badge-green">Local deployment ✓</span></td>
+                <td>Local deployment ✓</td>
+              </tr>
+              <tr>
+                <td>Multi-Agent</td>
+                <td>Single controller</td>
+                <td>Single model</td>
+                <td><span class="table-badge badge-purple">Divergent multi-agent ✓</span></td>
+              </tr>
+              <tr>
+                <td>Verification</td>
+                <td>Tool execution logs</td>
+                <td>Icarus Verilog feedback</td>
+                <td>PPA simulation</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Quiz -->
+      <section class="content-section" id="quiz">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(245,158,11,0.1)">🎯</div>
+          <h2>Knowledge Check</h2>
+        </div>
+        <div class="quiz-container" data-quiz="module2">
+          <div class="quiz-header">
+            <div class="quiz-icon">🎯</div>
+            <div>
+              <div class="quiz-title">Module 2 Quiz</div>
+              <div class="quiz-subtitle">Test your understanding of SOTA EDA AI systems</div>
+            </div>
+          </div>
+          <div class="quiz-body"></div>
+          <div class="quiz-nav"></div>
+        </div>
+      </section>
+
+      <!-- Module Navigation -->
+      <div class="module-nav">
+        <a href="module1.html" class="module-nav-link prev">
+          <span class="module-nav-arrow">←</span>
+          <div>
+            <div class="module-nav-label">Previous Module</div>
+            <div class="module-nav-title">Core Agentic Architectures</div>
+          </div>
+        </a>
+        <a href="module3.html" class="module-nav-link next">
+          <div style="text-align:right">
+            <div class="module-nav-label">Next Module</div>
+            <div class="module-nav-title">Specialized Analog Design</div>
+          </div>
+          <span class="module-nav-arrow">→</span>
+        </a>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">⚡ SYNAPSES</div>
+        <p class="footer-text">Module 2 — SOTA AI EDA Solutions Deep Dive</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="module1.html">← Module 1</a></li>
+        <li><a href="module3.html">Module 3 →</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+window.QUIZ_DATA["module2"] = [
+  {
+    question: "AutoMage was trained using a self-instruction paradigm. How many tuples were in its training dataset, and who generated them?",
+    options: [
+      "1,000 tuples generated by human experts",
+      "10,000 tuples generated by GPT-4",
+      "100,000 tuples from open-source EDA scripts",
+      "50,000 tuples from Llama 2 self-play"
+    ],
+    correct: 1,
+    explanation: "AutoMage used a 10,000-tuple dataset in the format <requirement, decomposition, script>, generated synthetically by GPT-4 — making it scalable without expensive human annotation."
+  },
+  {
+    question: "What makes RTLCoder's training scheme 'quality-based' compared to standard instruction fine-tuning?",
+    options: [
+      "It uses larger batch sizes during training",
+      "It uses a bigger base model (70B parameters)",
+      "It uses actual simulator feedback (Icarus Verilog + functional simulation) to reward synthesizable code, not just syntactically correct code",
+      "It trains on proprietary chip designs from top companies"
+    ],
+    correct: 2,
+    explanation: "RTLCoder's quality-based training uses dual feedback: Icarus Verilog syntax checks AND functional simulation against testbenches. This rewards truly synthesizable code, not just code that looks like valid Verilog."
+  },
+  {
+    question: "RTLCoder can run on 4GB of RAM. What critical industry concern does this local deployment address?",
+    options: [
+      "Reducing cloud computing costs",
+      "Enabling offline usage during power outages",
+      "IP privacy — semiconductor companies cannot send proprietary designs to cloud APIs",
+      "Allowing faster inference than cloud models"
+    ],
+    correct: 2,
+    explanation: "IP privacy is a major barrier to cloud-based EDA AI. Proprietary RTL designs and SPICE netlists represent billions of dollars in competitive advantage. RTLCoder's local deployment means sensitive designs never leave the secure environment."
+  },
+  {
+    question: "How does EDAid prevent agents from getting stuck in an 'erroneous planning pathway'?",
+    options: [
+      "By running agents sequentially so each can learn from the previous",
+      "By using a single agent with maximum temperature for diversity",
+      "By using multiple agents each given different few-shot Chain-of-Thought prompts that bias them toward different design approaches",
+      "By limiting the number of design iterations"
+    ],
+    correct: 2,
+    explanation: "EDAid uses divergent thought: each agent gets a different few-shot CoT prompt (e.g., differential-pair-biased, folded-cascode-biased, current-mirror-biased). This forces exploration of different design spaces simultaneously, preventing premature convergence."
+  },
+  {
+    question: "Which foundation model powers the EDAid multi-agent system?",
+    options: ["AutoMage", "RTLCoder-Deepseek", "ChipLlama", "GPT-4 Turbo"],
+    correct: 2,
+    explanation: "EDAid agents use ChipLlama — a Llama-based model fine-tuned specifically on chip design literature, HDL repositories, and EDA tool documentation — as their shared reasoning backbone."
+  }
+];
+</script>
+</body>
+</html>

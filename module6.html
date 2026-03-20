@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 6 — Self-Evolving Analog Block Designer | SYNAPSES</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-module-id="module6">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back">← Back to Course</a>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">⚡</div>
+      <span class="nav-logo-text">SYNAPSES</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#stage-a">Stage A</a></li>
+      <li><a href="#stage-b">Stage B</a></li>
+      <li><a href="#stage-c">Stage C</a></li>
+      <li><a href="#stage-d">Stage D</a></li>
+      <li><a href="#integration">Integration</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="module-page">
+  <div class="module-hero">
+    <div class="container module-hero-content">
+      <div class="module-breadcrumb">
+        <a href="index.html">SYNAPSES</a>
+        <span class="module-breadcrumb-sep">›</span>
+        <a href="module5.html">Module 5</a>
+        <span class="module-breadcrumb-sep">›</span>
+        <span>Module 6</span>
+      </div>
+      <div class="module-hero-badge" style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);color:var(--accent-orange)">
+        🛠 Capstone Project
+      </div>
+      <h1 class="module-hero-title">Pedagogical Project:<br/>Self-Evolving Analog Block Designer</h1>
+      <p class="module-hero-desc">
+        Build a complete agentic analog EDA system from scratch in four progressive stages.
+        Each stage builds on the previous, culminating in a fully autonomous pipeline from
+        natural language specs to verified physical layout.
+      </p>
+      <div class="module-objectives">
+        <span class="objective-tag">✓ Stage A: Identification Agent</span>
+        <span class="objective-tag">✓ Stage B: Netlist Generator</span>
+        <span class="objective-tag">✓ Stage C: Waveform Debugger</span>
+        <span class="objective-tag">✓ Stage D: Layout Synthesis</span>
+        <span class="objective-tag">✓ Full system integration</span>
+        <span class="objective-tag">✓ SKY130 PDK compliance</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <aside class="content-sidebar">
+      <div class="sidebar-nav">
+        <div class="sidebar-nav-title">Project Stages</div>
+        <ul class="sidebar-nav-list">
+          <li><a href="#overview">0. Project Overview</a></li>
+          <li><a href="#stage-a">A. Identification Agent</a></li>
+          <li><a href="#stage-b">B. Netlist Generator</a></li>
+          <li><a href="#stage-c">C. Waveform Debugger</a></li>
+          <li><a href="#stage-d">D. Layout Synthesis</a></li>
+          <li><a href="#integration">E. Full Integration</a></li>
+          <li><a href="#extensions">F. Extensions</a></li>
+          <li><a href="#quiz">G. Knowledge Check</a></li>
+        </ul>
+        <div class="sidebar-progress">
+          <div class="progress-label">
+            <span>Course Progress</span>
+            <span data-progress-label>0%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" data-module-progress style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="content-main">
+
+      <!-- Overview -->
+      <section class="content-section" id="overview">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(245,158,11,0.1)">🗺</div>
+          <h2>Project Architecture Overview</h2>
+        </div>
+
+        <p>
+          This chronological project brings together everything from all five previous
+          modules into a cohesive, production-ready system. You will build each component
+          independently, then wire them together into an integrated agentic pipeline.
+        </p>
+
+        <div class="diagram-container scroll-reveal">
+          <svg viewBox="0 0 700 340" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="proj-arrow" viewBox="0 0 10 10" refX="9" refY="5"
+                markerWidth="5" markerHeight="5" orient="auto">
+                <path d="M0 0L10 5L0 10z" fill="rgba(245,158,11,0.7)"/>
+              </marker>
+              <marker id="proj-arrow-g" viewBox="0 0 10 10" refX="9" refY="5"
+                markerWidth="5" markerHeight="5" orient="auto">
+                <path d="M0 0L10 5L0 10z" fill="rgba(16,185,129,0.7)"/>
+              </marker>
+              <marker id="proj-arrow-b" viewBox="0 0 10 10" refX="9" refY="5"
+                markerWidth="5" markerHeight="5" orient="auto">
+                <path d="M0 0L10 5L0 10z" fill="rgba(59,130,246,0.7)"/>
+              </marker>
+            </defs>
+
+            <!-- Input -->
+            <rect x="10" y="140" width="130" height="60" rx="8" fill="#1a2540" stroke="rgba(59,130,246,0.4)" stroke-width="1.5"/>
+            <text x="75" y="163" text-anchor="middle" fill="#f0f4ff" font-family="Inter" font-size="10" font-weight="700">NATURAL LANGUAGE</text>
+            <text x="75" y="179" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">"Design a 60dB OTA</text>
+            <text x="75" y="191" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">below 1mW"</text>
+
+            <!-- Stage A -->
+            <rect x="180" y="100" width="130" height="80" rx="8" fill="#1a1020" stroke="rgba(139,92,246,0.5)" stroke-width="2"/>
+            <text x="245" y="125" text-anchor="middle" fill="#a78bfa" font-family="Inter" font-size="9" font-weight="800">STAGE A</text>
+            <text x="245" y="141" text-anchor="middle" fill="#f0f4ff" font-family="Inter" font-size="11" font-weight="700">Identification</text>
+            <text x="245" y="157" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">NER → JSON</text>
+            <text x="245" y="171" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">Component Inventory</text>
+
+            <!-- Stage B -->
+            <rect x="360" y="60" width="130" height="80" rx="8" fill="#0d1020" stroke="rgba(59,130,246,0.5)" stroke-width="2"/>
+            <text x="425" y="85" text-anchor="middle" fill="#60a5fa" font-family="Inter" font-size="9" font-weight="800">STAGE B</text>
+            <text x="425" y="101" text-anchor="middle" fill="#f0f4ff" font-family="Inter" font-size="11" font-weight="700">Netlist Gen</text>
+            <text x="425" y="117" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">PySpice + LLM</text>
+            <text x="425" y="131" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">SPICE Netlist</text>
+
+            <!-- Stage C -->
+            <rect x="360" y="180" width="130" height="80" rx="8" fill="#0d1a0a" stroke="rgba(16,185,129,0.5)" stroke-width="2"/>
+            <text x="425" y="205" text-anchor="middle" fill="#10b981" font-family="Inter" font-size="9" font-weight="800">STAGE C</text>
+            <text x="425" y="221" text-anchor="middle" fill="#f0f4ff" font-family="Inter" font-size="11" font-weight="700">Waveform Debug</text>
+            <text x="425" y="237" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">Vision LLM</text>
+            <text x="425" y="253" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">Bode Plot Analysis</text>
+
+            <!-- Stage D -->
+            <rect x="540" y="120" width="140" height="80" rx="8" fill="#1a1000" stroke="rgba(245,158,11,0.5)" stroke-width="2"/>
+            <text x="610" y="145" text-anchor="middle" fill="#fbbf24" font-family="Inter" font-size="9" font-weight="800">STAGE D</text>
+            <text x="610" y="161" text-anchor="middle" fill="#f0f4ff" font-family="Inter" font-size="11" font-weight="700">Layout Synthesis</text>
+            <text x="610" y="177" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">ALIGN / OpenROAD</text>
+            <text x="610" y="193" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="9">DRC/LVS verified</text>
+
+            <!-- Arrows -->
+            <line x1="142" y1="170" x2="178" y2="150" stroke="rgba(245,158,11,0.6)" stroke-width="1.5" marker-end="url(#proj-arrow)"/>
+            <line x1="312" y1="130" x2="358" y2="105" stroke="rgba(59,130,246,0.6)" stroke-width="1.5" marker-end="url(#proj-arrow-b)"/>
+            <line x1="312" y1="150" x2="358" y2="220" stroke="rgba(16,185,129,0.6)" stroke-width="1.5" marker-end="url(#proj-arrow-g)"/>
+            <line x1="492" y1="100" x2="538" y2="145" stroke="rgba(245,158,11,0.5)" stroke-width="1.5" marker-end="url(#proj-arrow)"/>
+            <line x1="492" y1="220" x2="538" y2="175" stroke="rgba(245,158,11,0.5)" stroke-width="1.5" marker-end="url(#proj-arrow)"/>
+
+            <!-- Feedback loop from C back to B -->
+            <path d="M 425 180 Q 425 155 425 142" stroke="rgba(16,185,129,0.4)" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#proj-arrow-g)"/>
+            <text x="438" y="162" fill="#6ee7b7" font-family="Inter" font-size="9">feedback</text>
+          </svg>
+        </div>
+
+        <div class="info-box note scroll-reveal">
+          <div class="info-box-header">🔵 Setup Requirements</div>
+          <p>Before starting, ensure you have installed:</p>
+          <div class="code-block" style="margin-top:0.75rem">
+            <div class="code-block-header">
+              <div class="code-block-lang">
+                <div class="code-block-dots">
+                  <div class="code-block-dot" style="background:#ff5f57"></div>
+                  <div class="code-block-dot" style="background:#febc2e"></div>
+                  <div class="code-block-dot" style="background:#28c840"></div>
+                </div>
+                Shell — Installation
+              </div>
+              <button class="code-copy-btn">Copy</button>
+            </div>
+            <pre><code data-lang="python"># Core dependencies
+pip install langchain langgraph langchain-anthropic langchain-openai
+pip install PySpice matplotlib numpy scipy scikit-learn
+
+# EDA tools (Ubuntu/Debian)
+sudo apt-get install ngspice
+
+# Layout tools (optional, for Stage D)
+pip install align-analog  # ALIGN layout tool Python interface
+
+# MCP support
+pip install mcp langchain-mcp-adapters
+
+# Development tools
+pip install jupyter pandas plotly</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stage A -->
+      <section class="content-section" id="stage-a">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(139,92,246,0.1)">A</div>
+          <h2>Stage A: The Identification Agent</h2>
+        </div>
+
+        <div class="stage-card scroll-reveal">
+          <div class="stage-card-header">
+            <div class="stage-badge" style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.4);color:var(--accent-purple)">
+              STAGE<br/>A
+            </div>
+            <div>
+              <div class="stage-info-title">Identification Agent</div>
+              <div class="stage-info-subtitle">Parse natural language specs into structured JSON component inventory</div>
+            </div>
+          </div>
+          <div class="stage-card-body">
+            <div>
+              <div class="stage-card-section-title">Objective</div>
+              <p>Build a module that parses natural language circuit specifications into a
+              structured JSON component list using Named Entity Recognition (NER) on
+              hardware categories.</p>
+
+              <div class="stage-card-section-title" style="margin-top:1rem">Tools Used</div>
+              <div class="tag-cloud">
+                <span class="tag tag-purple">NER Pipeline</span>
+                <span class="tag tag-blue">LangChain Output Parser</span>
+                <span class="tag tag-green">Pydantic Validation</span>
+              </div>
+            </div>
+            <div>
+              <div class="stage-card-section-title">Expected Output</div>
+              <div class="code-block">
+                <div class="code-block-header">
+                  <div class="code-block-lang">
+                    <div class="code-block-dots">
+                      <div class="code-block-dot" style="background:#ff5f57"></div>
+                      <div class="code-block-dot" style="background:#febc2e"></div>
+                      <div class="code-block-dot" style="background:#28c840"></div>
+                    </div>
+                    JSON — Component Inventory
+                  </div>
+                </div>
+                <pre><code data-lang="python">{
+  "circuit_type": "OTA",
+  "topology": "two_stage_miller",
+  "pdk": "sky130",
+  "specs": {
+    "gain_dB": 60,
+    "GBW_MHz": 10,
+    "phase_margin_deg": 60,
+    "power_budget_mW": 1.0,
+    "supply_V": 1.8,
+    "load_pF": 10
+  },
+  "components": [
+    {"type": "NMOS", "role": "input_pair", "quantity": 2},
+    {"type": "PMOS", "role": "load_mirror", "quantity": 2},
+    {"type": "NMOS", "role": "tail_current", "quantity": 1},
+    {"type": "NMOS", "role": "output_stage", "quantity": 1},
+    {"type": "capacitor", "role": "miller_comp", "quantity": 1},
+    {"type": "resistor", "role": "zero_nulling", "quantity": 1}
+  ]
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block scroll-reveal">
+          <div class="code-block-header">
+            <div class="code-block-lang">
+              <div class="code-block-dots">
+                <div class="code-block-dot" style="background:#ff5f57"></div>
+                <div class="code-block-dot" style="background:#febc2e"></div>
+                <div class="code-block-dot" style="background:#28c840"></div>
+              </div>
+              Python — Stage A: Identification Agent Implementation
+            </div>
+            <button class="code-copy-btn">Copy</button>
+          </div>
+          <pre><code data-lang="python">from langchain_anthropic import ChatAnthropic
+from langchain.output_parsers import PydanticOutputParser
+from pydantic import BaseModel, Field
+from typing import List, Optional
+
+# ── Output Schema (Pydantic) ──────────────────────────────────
+class ComponentSpec(BaseModel):
+    type: str = Field(description="Component type: NMOS, PMOS, capacitor, resistor, etc.")
+    role: str = Field(description="Functional role in the circuit")
+    quantity: int = Field(default=1)
+
+class CircuitInventory(BaseModel):
+    circuit_type: str = Field(description="OTA, ADC, LNA, etc.")
+    topology: str = Field(description="Specific circuit topology name")
+    pdk: str = Field(description="Target process design kit: sky130, gf180, tsmc28")
+    specs: dict = Field(description="Performance specifications as key-value pairs")
+    components: List[ComponentSpec] = Field(description="Required components list")
+    constraints: Optional[List[str]] = Field(default=[], description="Design constraints")
+
+# ── Identification Agent ──────────────────────────────────────
+class IdentificationAgent:
+    def __init__(self):
+        self.llm = ChatAnthropic(model="claude-opus-4-5")
+        self.parser = PydanticOutputParser(pydantic_object=CircuitInventory)
+    
+    def identify(self, natural_language_spec: str) -> CircuitInventory:
+        """Parse NL spec into structured component inventory."""
+        
+        prompt = f"""You are an expert analog IC designer. Parse the following natural 
+language circuit specification into a structured component inventory.
+
+Specification: {natural_language_spec}
+
+Extract:
+1. Circuit type and topology
+2. All performance specifications with units
+3. Required components and their functional roles
+4. Any design constraints mentioned
+5. Target process (default to sky130 if not specified)
+
+{self.parser.get_format_instructions()}"""
+        
+        response = self.llm.invoke(prompt)
+        inventory = self.parser.parse(response.content)
+        
+        # Validate extracted specs make physical sense
+        self._validate_inventory(inventory)
+        
+        return inventory
+    
+    def _validate_inventory(self, inv: CircuitInventory):
+        """Basic sanity checks on extracted specs."""
+        specs = inv.specs
+        
+        if "gain_dB" in specs and specs["gain_dB"] > 120:
+            raise ValueError(f"Gain {specs['gain_dB']} dB is unrealistic for a single-path analog circuit")
+        
+        if "phase_margin_deg" in specs and specs["phase_margin_deg"] < 30:
+            import warnings
+            warnings.warn(f"Phase margin {specs['phase_margin_deg']}° below 45° will result in ringing")
+        
+        if "power_budget_mW" in specs and specs["power_budget_mW"] < 0.001:
+            raise ValueError("Power budget below 1µW is unrealistic for active analog circuits")
+
+# ── Test it ───────────────────────────────────────────────────
+if __name__ == "__main__":
+    agent = IdentificationAgent()
+    
+    spec = """I need a two-stage operational transconductance amplifier for an audio 
+    application. It should have at least 60dB of DC gain, a gain-bandwidth product 
+    exceeding 10MHz, and a phase margin greater than 60 degrees for stability. 
+    The power supply is 1.8V and total power consumption must stay under 1mW.
+    The output must drive a 10pF capacitive load. Use the SKY130 PDK."""
+    
+    inventory = agent.identify(spec)
+    print(f"Identified: {inventory.circuit_type} — {inventory.topology}")
+    print(f"Components needed: {len(inventory.components)}")
+    print(f"Gain target: {inventory.specs['gain_dB']} dB")</code></pre>
+        </div>
+      </section>
+
+      <!-- Stage B -->
+      <section class="content-section" id="stage-b">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(59,130,246,0.1)">B</div>
+          <h2>Stage B: Feedback-Enhanced Netlist Generator</h2>
+        </div>
+
+        <div class="stage-card scroll-reveal">
+          <div class="stage-card-header">
+            <div class="stage-badge" style="background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.4);color:var(--accent-blue)">
+              STAGE<br/>B
+            </div>
+            <div>
+              <div class="stage-info-title">Feedback-Enhanced Netlist Generator</div>
+              <div class="stage-info-subtitle">Generate and iteratively refine SPICE netlists using simulation feedback</div>
+            </div>
+          </div>
+          <div class="stage-card-body">
+            <div>
+              <div class="stage-card-section-title">Objective</div>
+              <p>Build a closed-loop that generates a SPICE netlist using AnalogCoder principles,
+              runs simulation, and iteratively improves until PPA targets are met.</p>
+
+              <div class="stage-card-section-title" style="margin-top:1rem">Tools Used</div>
+              <div class="tag-cloud">
+                <span class="tag tag-blue">PySpice</span>
+                <span class="tag tag-purple">LangGraph</span>
+                <span class="tag tag-green">Ngspice</span>
+                <span class="tag tag-orange">SKY130 PDK</span>
+              </div>
+            </div>
+            <div>
+              <div class="stage-card-section-title">Loop Logic</div>
+              <ol style="color:var(--text-secondary);font-size:0.9rem">
+                <li style="margin-bottom:0.5rem">LLM generates initial PySpice code</li>
+                <li style="margin-bottom:0.5rem">Execute code → SPICE netlist</li>
+                <li style="margin-bottom:0.5rem">Run Ngspice simulation</li>
+                <li style="margin-bottom:0.5rem">Extract metrics (gain, GBW, PM)</li>
+                <li style="margin-bottom:0.5rem">Compare to PPA targets</li>
+                <li>If fails → LLM refines with error context</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block scroll-reveal">
+          <div class="code-block-header">
+            <div class="code-block-lang">
+              <div class="code-block-dots">
+                <div class="code-block-dot" style="background:#ff5f57"></div>
+                <div class="code-block-dot" style="background:#febc2e"></div>
+                <div class="code-block-dot" style="background:#28c840"></div>
+              </div>
+              Python — Stage B: Netlist Generator with Feedback Loop
+            </div>
+            <button class="code-copy-btn">Copy</button>
+          </div>
+          <pre><code data-lang="python">from langgraph.graph import StateGraph, END
+from langgraph.checkpoint.sqlite import SqliteSaver
+from langchain_anthropic import ChatAnthropic
+from typing import TypedDict, List, Optional, Annotated
+import operator, subprocess, tempfile, os
+
+class NetlistState(TypedDict):
+    inventory: dict          # From Stage A
+    pyspice_code: str        # Generated Python code
+    spice_netlist: str       # Executed output
+    sim_results: dict        # Ngspice output
+    ppa_achieved: dict       # Extracted metrics
+    ppa_targets: dict        # From inventory
+    errors: Annotated[List[str], operator.add]
+    iteration: int
+    max_iterations: int
+
+llm = ChatAnthropic(model="claude-opus-4-5")
+
+def generate_netlist_code(state: NetlistState) -> dict:
+    """Generate PySpice code for the circuit."""
+    
+    previous_error = state["errors"][-1] if state["errors"] else "None"
+    iteration = state["iteration"]
+    
+    prompt = f"""Generate PySpice Python code for this analog circuit:
+
+Circuit inventory: {state['inventory']}
+Iteration: {iteration}
+Previous error/feedback: {previous_error}
+
+Generate complete PySpice code that:
+1. Creates the circuit using PySpice netlist API
+2. Includes all components from the inventory
+3. Uses SKY130 MOSFET models (NMOS_SKY130, PMOS_SKY130)
+4. Targets: Gain={state['ppa_targets'].get('gain_dB', 60)}dB, 
+           GBW={state['ppa_targets'].get('GBW_MHz', 10)}MHz,
+           PM>{state['ppa_targets'].get('phase_margin_deg', 60)}°
+5. Includes .ac analysis from 1Hz to 1GHz
+
+Output ONLY executable Python code."""
+    
+    response = llm.invoke(prompt)
+    code = extract_python_code(response.content)
+    return {"pyspice_code": code, "iteration": iteration + 1}
+
+def execute_and_simulate(state: NetlistState) -> dict:
+    """Execute PySpice code and run Ngspice."""
+    
+    # Execute the PySpice code to get SPICE netlist
+    namespace = {}
+    try:
+        exec(state["pyspice_code"], {"__name__": "__main__"}, namespace)
+        circuit = namespace.get("circuit")
+        if not circuit:
+            return {"errors": ["PySpice code did not create a 'circuit' object"]}
+        spice_netlist = str(circuit)
+    except Exception as e:
+        return {"errors": [f"PySpice execution error: {e}"]}
+    
+    # Run Ngspice simulation
+    with tempfile.NamedTemporaryFile(suffix=".sp", mode="w", delete=False) as f:
+        f.write(spice_netlist)
+        netlist_path = f.name
+    
+    result = subprocess.run(
+        ["ngspice", "-b", "-o", "/tmp/sim.txt", netlist_path],
+        capture_output=True, text=True, timeout=120
+    )
+    os.unlink(netlist_path)
+    
+    if result.returncode != 0:
+        return {
+            "spice_netlist": spice_netlist,
+            "errors": [f"Ngspice failed: {result.stderr[:500]}"]
+        }
+    
+    # Parse simulation results
+    sim_data = parse_ngspice_ac_results("/tmp/sim.txt")
+    ppa = extract_ppa_metrics(sim_data)
+    
+    return {
+        "spice_netlist": spice_netlist,
+        "sim_results": sim_data,
+        "ppa_achieved": ppa
+    }
+
+def check_ppa(state: NetlistState) -> str:
+    """Routing: met targets? → Stage C. Max iter? → DONE. Else → retry."""
+    achieved = state["ppa_achieved"]
+    targets = state["ppa_targets"]
+    
+    all_met = all(achieved.get(k, 0) >= v for k, v in targets.items())
+    
+    if all_met:
+        return "success"
+    elif state["iteration"] >= state["max_iterations"]:
+        return "max_iterations"
+    else:
+        return "retry"
+
+# Build Stage B graph
+stage_b = StateGraph(NetlistState)
+stage_b.add_node("generate", generate_netlist_code)
+stage_b.add_node("simulate", execute_and_simulate)
+stage_b.set_entry_point("generate")
+stage_b.add_edge("generate", "simulate")
+stage_b.add_conditional_edges("simulate", check_ppa, {
+    "success": END,
+    "retry": "generate",
+    "max_iterations": END
+})
+
+checkpointer = SqliteSaver.from_conn_string("./stage_b_checkpoint.db")
+stage_b_app = stage_b.compile(checkpointer=checkpointer)</code></pre>
+        </div>
+      </section>
+
+      <!-- Stage C -->
+      <section class="content-section" id="stage-c">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(16,185,129,0.1)">C</div>
+          <h2>Stage C: Multimodal Waveform Debugger</h2>
+        </div>
+
+        <div class="stage-card scroll-reveal">
+          <div class="stage-card-header">
+            <div class="stage-badge" style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.4);color:var(--accent-green)">
+              STAGE<br/>C
+            </div>
+            <div>
+              <div class="stage-info-title">Multimodal Waveform Debugger</div>
+              <div class="stage-info-subtitle">Implement an agent that "looks at" output waveforms using a vision LLM</div>
+            </div>
+          </div>
+          <div class="stage-card-body">
+            <div>
+              <div class="stage-card-section-title">Objective</div>
+              <p>Build an agent that generates a PNG of the Bode plot, identifies
+              instability or spec violations visually, and suggests specific
+              parameter changes (bias currents, compensation values).</p>
+
+              <div class="stage-card-section-title" style="margin-top:1rem">Vision Models</div>
+              <div class="tag-cloud">
+                <span class="tag tag-purple">Claude 4.5 Vision</span>
+                <span class="tag tag-blue">GPT-5 Vision</span>
+                <span class="tag tag-green">Gemini 3 Pro</span>
+              </div>
+            </div>
+            <div>
+              <div class="stage-card-section-title">What the Agent Looks For</div>
+              <ul style="color:var(--text-secondary);font-size:0.9rem">
+                <li style="margin-bottom:0.35rem">DC gain value (flat region)</li>
+                <li style="margin-bottom:0.35rem">GBW (0dB crossover frequency)</li>
+                <li style="margin-bottom:0.35rem">Phase margin at GBW</li>
+                <li style="margin-bottom:0.35rem">Gain peaking (instability)</li>
+                <li style="margin-bottom:0.35rem">Second pole location</li>
+                <li>Unity gain stability</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block scroll-reveal">
+          <div class="code-block-header">
+            <div class="code-block-lang">
+              <div class="code-block-dots">
+                <div class="code-block-dot" style="background:#ff5f57"></div>
+                <div class="code-block-dot" style="background:#febc2e"></div>
+                <div class="code-block-dot" style="background:#28c840"></div>
+              </div>
+              Python — Stage C: Multimodal Waveform Debugger
+            </div>
+            <button class="code-copy-btn">Copy</button>
+          </div>
+          <pre><code data-lang="python">import base64
+import json
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+import numpy as np
+from langchain_anthropic import ChatAnthropic
+from langchain_core.messages import HumanMessage
+from pydantic import BaseModel, Field
+from typing import List, Optional
+
+class BodeAnalysis(BaseModel):
+    dc_gain_dB: float = Field(description="DC gain extracted from plot")
+    gwb_MHz: float = Field(description="Gain-bandwidth product in MHz")
+    phase_margin_deg: float = Field(description="Phase margin at GBW crossing")
+    has_gain_peaking: bool = Field(description="Whether gain peaking is visible")
+    instability_risk: str = Field(description="low/medium/high")
+    parameter_suggestions: List[str] = Field(description="Specific parameter changes to improve")
+
+class WaveformDebugAgent:
+    
+    def __init__(self):
+        self.vision_llm = ChatAnthropic(model="claude-opus-4-5")
+    
+    def generate_bode_png(self, frequencies: np.ndarray, 
+                           gain_dB: np.ndarray, phase_deg: np.ndarray) -> bytes:
+        """Generate a publication-quality Bode plot PNG."""
+        fig, axes = plt.subplots(2, 1, figsize=(10, 8))
+        fig.patch.set_facecolor('#0a0e1a')
+        
+        for ax in axes:
+            ax.set_facecolor('#141d35')
+            ax.tick_params(colors='#94a3b8')
+            ax.xaxis.label.set_color('#94a3b8')
+            ax.yaxis.label.set_color('#94a3b8')
+            for spine in ax.spines.values():
+                spine.set_edgecolor('#2d3748')
+        
+        # Gain plot
+        axes[0].semilogx(frequencies, gain_dB, '#60a5fa', linewidth=2.5)
+        axes[0].axhline(y=0, color='#ef4444', linestyle='--', alpha=0.7, label='0 dB')
+        axes[0].axhline(y=3, color='#fbbf24', linestyle=':', alpha=0.5, label='+3 dB')
+        axes[0].set_ylabel('Gain (dB)', color='#f0f4ff')
+        axes[0].set_title('Bode Plot Analysis', color='#f0f4ff', fontweight='bold')
+        axes[0].legend(facecolor='#1a2540', edgecolor='#2d3748', labelcolor='#94a3b8')
+        axes[0].grid(True, which='both', alpha=0.2, color='#2d3748')
+        
+        # Phase plot
+        axes[1].semilogx(frequencies, phase_deg, '#10b981', linewidth=2.5)
+        axes[1].axhline(y=-180, color='#ef4444', linestyle='--', alpha=0.7, label='-180°')
+        axes[1].axhline(y=-135, color='#fbbf24', linestyle=':', alpha=0.5, label='-135° (45° PM)')
+        axes[1].set_ylabel('Phase (degrees)', color='#f0f4ff')
+        axes[1].set_xlabel('Frequency (Hz)', color='#f0f4ff')
+        axes[1].legend(facecolor='#1a2540', edgecolor='#2d3748', labelcolor='#94a3b8')
+        axes[1].grid(True, which='both', alpha=0.2, color='#2d3748')
+        
+        plt.tight_layout()
+        
+        import io
+        buf = io.BytesIO()
+        plt.savefig(buf, format='png', dpi=150, bbox_inches='tight',
+                    facecolor='#0a0e1a')
+        plt.close()
+        buf.seek(0)
+        return buf.read()
+    
+    def analyze_visually(self, frequencies: np.ndarray,
+                          gain_dB: np.ndarray, phase_deg: np.ndarray,
+                          targets: dict) -> BodeAnalysis:
+        """Analyze Bode plot using vision LLM."""
+        
+        # Generate the plot
+        png_bytes = self.generate_bode_png(frequencies, gain_dB, phase_deg)
+        image_b64 = base64.b64encode(png_bytes).decode('utf-8')
+        
+        analysis_prompt = f"""You are analyzing a Bode plot for a two-stage Miller OTA.
+
+Design targets:
+- DC Gain: ≥ {targets.get('gain_dB', 60)} dB
+- GBW: ≥ {targets.get('GBW_MHz', 10)} MHz  
+- Phase Margin: ≥ {targets.get('phase_margin_deg', 60)}°
+
+Carefully examine the Bode plot and provide:
+1. Measured DC gain (flat region value in dB)
+2. GBW — frequency where gain crosses 0 dB
+3. Phase at the GBW crossing frequency → phase margin = 180° + phase_at_GBW
+4. Whether you observe gain peaking (instability warning)
+5. Instability risk assessment: low/medium/high
+6. Specific circuit parameter changes to improve performance:
+   - If phase margin < 60°: suggest Miller capacitor adjustment
+   - If GBW too low: suggest bias current or W/L ratio changes
+   - If DC gain too low: suggest adding a cascode stage
+
+Output as JSON matching the BodeAnalysis schema."""
+        
+        response = self.vision_llm.invoke([HumanMessage(content=[
+            {"type": "image", "source": {
+                "type": "base64", "media_type": "image/png", "data": image_b64
+            }},
+            {"type": "text", "text": analysis_prompt}
+        ])])
+        
+        # Parse JSON from response
+        analysis_text = response.content
+        data = json.loads(extract_json(analysis_text))
+        return BodeAnalysis(**data)
+
+# ── Usage in the agentic workflow ─────────────────────────────
+debugger = WaveformDebugAgent()
+analysis = debugger.analyze_visually(frequencies, gain_dB, phase_deg, targets)
+
+print(f"DC Gain: {analysis.dc_gain_dB:.1f} dB")
+print(f"GBW: {analysis.gwb_MHz:.1f} MHz")
+print(f"Phase Margin: {analysis.phase_margin_deg:.1f}°")
+print(f"Instability Risk: {analysis.instability_risk}")
+print("Suggested improvements:")
+for suggestion in analysis.parameter_suggestions:
+    print(f"  → {suggestion}")</code></pre>
+        </div>
+      </section>
+
+      <!-- Stage D -->
+      <section class="content-section" id="stage-d">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(245,158,11,0.1)">D</div>
+          <h2>Stage D: Autonomous Layout Synthesis</h2>
+        </div>
+
+        <div class="stage-card scroll-reveal">
+          <div class="stage-card-header">
+            <div class="stage-badge" style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.4);color:var(--accent-orange)">
+              STAGE<br/>D
+            </div>
+            <div>
+              <div class="stage-info-title">Autonomous Layout Synthesis</div>
+              <div class="stage-info-subtitle">Automate physical design with DRC/LVS verification and iterative correction</div>
+            </div>
+          </div>
+          <div class="stage-card-body">
+            <div>
+              <div class="stage-card-section-title">Objective</div>
+              <p>Use ALIGN or OpenROAD to generate physical layout from the verified netlist.
+              The agent uses a "proofreading strategy" to check DRC/LVS results and
+              adjust placement constraints iteratively.</p>
+
+              <div class="stage-card-section-title" style="margin-top:1rem">Tools</div>
+              <div class="tag-cloud">
+                <span class="tag tag-orange">ALIGN</span>
+                <span class="tag tag-orange">OpenROAD</span>
+                <span class="tag tag-green">KLayout DRC</span>
+              </div>
+            </div>
+            <div>
+              <div class="stage-card-section-title">Proofreading Strategy</div>
+              <ol style="color:var(--text-secondary);font-size:0.9rem">
+                <li style="margin-bottom:0.5rem">Generate initial layout with ALIGN</li>
+                <li style="margin-bottom:0.5rem">Run KLayout DRC check</li>
+                <li style="margin-bottom:0.5rem">Parse DRC violations</li>
+                <li style="margin-bottom:0.5rem">LLM analyzes violations → suggests constraint edits</li>
+                <li style="margin-bottom:0.5rem">Update placement constraints file</li>
+                <li>Re-run ALIGN with new constraints</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block scroll-reveal">
+          <div class="code-block-header">
+            <div class="code-block-lang">
+              <div class="code-block-dots">
+                <div class="code-block-dot" style="background:#ff5f57"></div>
+                <div class="code-block-dot" style="background:#febc2e"></div>
+                <div class="code-block-dot" style="background:#28c840"></div>
+              </div>
+              Python — Stage D: Layout Synthesis with Proofreading
+            </div>
+            <button class="code-copy-btn">Copy</button>
+          </div>
+          <pre><code data-lang="python">import subprocess
+import json
+from langchain_anthropic import ChatAnthropic
+from typing import TypedDict, List, Annotated
+import operator
+
+class LayoutState(TypedDict):
+    spice_netlist: str
+    constraints: dict          # ALIGN constraint file content
+    gds_file: str              # Path to generated layout
+    drc_violations: List[dict]
+    lvs_status: str
+    errors: Annotated[List[str], operator.add]
+    iteration: int
+
+llm = ChatAnthropic(model="claude-opus-4-5")
+
+def generate_align_constraints(state: LayoutState) -> dict:
+    """LLM generates ALIGN constraint file for analog layout."""
+    
+    prompt = f"""Generate ALIGN constraints for this OTA netlist.
+    
+Netlist summary: {summarize_netlist(state['spice_netlist'])}
+Previous DRC violations: {state.get('drc_violations', [])}
+
+Generate JSON constraints for ALIGN specifying:
+1. Symmetry constraints (matched transistor pairs must be symmetric)
+2. Ordering constraints (place tail current below diff pair)  
+3. Guard ring requirements
+4. WPE mitigation: set min_well_distance for all NMOS devices
+5. Interdigitation for M3/M4 current mirror matching
+
+Key rules:
+- Differential pair M1/M2 must have SYMMETRIC constraint
+- All matched pairs must use INTERDIGITATED placement
+- Set GUARD_RING: true for all sensitive nodes
+
+Output valid ALIGN JSON constraint format."""
+    
+    response = llm.invoke(prompt)
+    constraints = json.loads(extract_json(response.content))
+    return {"constraints": constraints}
+
+def run_align_layout(state: LayoutState) -> dict:
+    """Execute ALIGN to generate layout from netlist + constraints."""
+    import tempfile, os
+    
+    # Write netlist and constraints to temp directory
+    with tempfile.TemporaryDirectory() as tmpdir:
+        netlist_path = f"{tmpdir}/ota.sp"
+        constraint_path = f"{tmpdir}/ota.const.json"
+        
+        with open(netlist_path, "w") as f:
+            f.write(state["spice_netlist"])
+        with open(constraint_path, "w") as f:
+            json.dump(state["constraints"], f)
+        
+        # Run ALIGN
+        result = subprocess.run([
+            "python", "-m", "align",
+            "--pdk_dir", "/pdk/sky130",
+            "--netlist", netlist_path,
+            "--constraint", constraint_path,
+            "--output_dir", tmpdir
+        ], capture_output=True, text=True, timeout=600)
+        
+        if result.returncode != 0:
+            return {"errors": [f"ALIGN failed: {result.stderr[:500]}"]}
+        
+        gds_path = f"{tmpdir}/ota.gds"
+        if not os.path.exists(gds_path):
+            return {"errors": ["ALIGN did not produce GDS output"]}
+        
+        # Copy GDS to permanent location
+        import shutil
+        final_gds = f"./outputs/ota_iter{state['iteration']}.gds"
+        shutil.copy(gds_path, final_gds)
+        return {"gds_file": final_gds}
+
+def run_drc(state: LayoutState) -> dict:
+    """Run KLayout DRC on generated layout."""
+    result = subprocess.run([
+        "klayout", "-b", "-r", "/pdk/sky130/sky130.lydrc",
+        "-rd", f"input={state['gds_file']}",
+        "-rd", "output=/tmp/drc_results.xml"
+    ], capture_output=True, text=True, timeout=300)
+    
+    violations = parse_drc_xml("/tmp/drc_results.xml")
+    return {
+        "drc_violations": violations,
+        "lvs_status": "pending" if violations else "drc_clean"
+    }
+
+def analyze_and_fix_violations(state: LayoutState) -> dict:
+    """LLM analyzes DRC violations and suggests constraint updates."""
+    
+    if not state["drc_violations"]:
+        return {}  # No violations to fix
+    
+    prompt = f"""Analyze these DRC violations and update the ALIGN constraints to fix them.
+
+DRC violations:
+{json.dumps(state['drc_violations'][:10], indent=2)}
+
+Current constraints:
+{json.dumps(state['constraints'], indent=2)}
+
+For each violation:
+1. Identify the root cause (insufficient spacing, missing guard ring, etc.)
+2. Specify which constraint needs updating
+3. Provide the corrected constraint value
+
+Return the complete updated constraint JSON."""
+    
+    response = llm.invoke(prompt)
+    updated_constraints = json.loads(extract_json(response.content))
+    return {"constraints": updated_constraints, "iteration": state["iteration"] + 1}
+
+def check_drc_routing(state: LayoutState) -> str:
+    if not state["drc_violations"]:
+        return "drc_clean"
+    elif state["iteration"] >= 5:
+        return "max_attempts"
+    return "fix_and_retry"</code></pre>
+        </div>
+      </section>
+
+      <!-- Full Integration -->
+      <section class="content-section" id="integration">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(16,185,129,0.1)">🔗</div>
+          <h2>Full System Integration</h2>
+        </div>
+
+        <p>
+          Wire all four stages together into a single LangGraph workflow that autonomously
+          takes a natural language specification all the way to a verified physical layout.
+        </p>
+
+        <div class="code-block scroll-reveal">
+          <div class="code-block-header">
+            <div class="code-block-lang">
+              <div class="code-block-dots">
+                <div class="code-block-dot" style="background:#ff5f57"></div>
+                <div class="code-block-dot" style="background:#febc2e"></div>
+                <div class="code-block-dot" style="background:#28c840"></div>
+              </div>
+              Python — Full Integrated Pipeline
+            </div>
+            <button class="code-copy-btn">Copy</button>
+          </div>
+          <pre><code data-lang="python">from langgraph.graph import StateGraph, END
+from langgraph.checkpoint.postgres import PostgresSaver
+from typing import TypedDict, List, Optional, Annotated
+import operator
+
+class FullEDAState(TypedDict):
+    """Combined state for all four stages."""
+    # Input
+    nl_spec: str
+    
+    # Stage A outputs
+    inventory: Optional[dict]
+    ppa_targets: dict
+    
+    # Stage B outputs
+    pyspice_code: str
+    spice_netlist: str
+    sim_results: dict
+    ppa_achieved: dict
+    
+    # Stage C outputs
+    bode_analysis: Optional[dict]
+    waveform_feedback: List[str]
+    
+    # Stage D outputs
+    layout_constraints: dict
+    gds_file: Optional[str]
+    drc_clean: bool
+    
+    # Control
+    errors: Annotated[List[str], operator.add]
+    stage_a_iterations: int
+    stage_b_iterations: int
+    stage_d_iterations: int
+
+# ── Full Pipeline Graph ───────────────────────────────────────
+pipeline = StateGraph(FullEDAState)
+
+# Add all nodes
+pipeline.add_node("identify",       identification_agent_node)    # Stage A
+pipeline.add_node("generate",       generate_netlist_code)        # Stage B  
+pipeline.add_node("simulate",       execute_and_simulate)         # Stage B
+pipeline.add_node("debug_waveform", waveform_debug_node)          # Stage C
+pipeline.add_node("gen_constraints",generate_align_constraints)   # Stage D
+pipeline.add_node("layout",         run_align_layout)             # Stage D
+pipeline.add_node("drc",            run_drc)                      # Stage D
+pipeline.add_node("fix_violations", analyze_and_fix_violations)   # Stage D
+
+# Define flow
+pipeline.set_entry_point("identify")
+pipeline.add_edge("identify", "generate")
+pipeline.add_edge("generate", "simulate")
+
+# Stage B conditional: sim pass/fail
+pipeline.add_conditional_edges("simulate", check_ppa, {
+    "success": "debug_waveform",
+    "retry": "generate",
+    "max_iterations": END
+})
+
+# Stage C: visual analysis → possible return to Stage B
+pipeline.add_conditional_edges("debug_waveform", check_visual_analysis, {
+    "approved": "gen_constraints",
+    "needs_refinement": "generate"  # Back to Stage B with visual feedback
+})
+
+# Stage D: layout → DRC → fix loop
+pipeline.add_edge("gen_constraints", "layout")
+pipeline.add_edge("layout", "drc")
+pipeline.add_conditional_edges("drc", check_drc_routing, {
+    "drc_clean": END,
+    "fix_and_retry": "fix_violations",
+    "max_attempts": END
+})
+pipeline.add_edge("fix_violations", "layout")
+
+# Compile with checkpointing
+checkpointer = PostgresSaver.from_conn_string(
+    "postgresql://eda:secret@localhost/eda_workflows"
+)
+full_pipeline = pipeline.compile(checkpointer=checkpointer,
+                                  interrupt_before=["layout"])  # Human approval
+
+# ── Run the Pipeline ──────────────────────────────────────────
+config = {"configurable": {"thread_id": "ota-design-001"}}
+
+result = full_pipeline.invoke({
+    "nl_spec": """Design a two-stage Miller OTA with 60dB gain, GBW > 10MHz,
+    phase margin > 60 degrees, power < 1mW, VDD=1.8V, load=10pF, SKY130 PDK.""",
+    "errors": [],
+    "stage_a_iterations": 0,
+    "stage_b_iterations": 0,
+    "stage_d_iterations": 0
+}, config=config)
+
+print("✓ Design complete!")
+print(f"  GDS file: {result['gds_file']}")
+print(f"  DRC clean: {result['drc_clean']}")
+print(f"  Final PPA: {result['ppa_achieved']}")</code></pre>
+        </div>
+
+        <div class="info-box success scroll-reveal">
+          <div class="info-box-header">✓ Congratulations!</div>
+          <p>
+            You have built a complete, production-aware agentic EDA system covering:
+            natural language specification parsing, iterative SPICE-in-the-loop netlist
+            optimization, multimodal waveform analysis, and autonomous physical layout
+            with DRC verification. This represents the state of the art in Agentic EDA
+            as of 2026.
+          </p>
+        </div>
+      </section>
+
+      <!-- Extensions -->
+      <section class="content-section" id="extensions">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(139,92,246,0.1)">🚀</div>
+          <h2>Extensions &amp; Advanced Challenges</h2>
+        </div>
+
+        <div class="accordion scroll-reveal">
+
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-header-content">
+                <span class="accordion-icon">🧬</span>
+                <span class="accordion-title">Extension 1: Add AnalogSAGE Memory</span>
+              </div>
+              <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-body">
+              <p>
+                Integrate the Stratified Memory Hierarchy from Module 3 into the Stage B
+                generator. After each design session, compress the reasoning trace into
+                Fusion Memory and extract cross-task insights for Evolution Memory.
+                Future designs should start from the stored insights rather than from scratch.
+              </p>
+              <div class="info-box note">
+                <div class="info-box-header">📋 Challenge</div>
+                <p>Design 5 different OTA specifications in sequence. Measure how many
+                iterations Stage B needs for designs 1, 3, and 5. The memory-augmented
+                system should need fewer iterations as it learns design patterns.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-header-content">
+                <span class="accordion-icon">🌡</span>
+                <span class="accordion-title">Extension 2: Multi-Corner Verification</span>
+              </div>
+              <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-body">
+              <p>
+                Extend Stage B's simulation to include multi-corner analysis:
+                run simulations across the 5 corners (TT, SS, FF, SF, FS) and all
+                temperature points (-40°C, 27°C, 85°C, 125°C). The agent must ensure
+                PPA specs are met across all 20 corner-temperature combinations.
+              </p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-header-content">
+                <span class="accordion-icon">🤝</span>
+                <span class="accordion-title">Extension 3: Multi-Agent Collaboration</span>
+              </div>
+              <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-body">
+              <p>
+                Add a <strong>Critic Agent</strong> alongside the Stage B generator.
+                The critic evaluates every generated netlist before simulation — checking
+                for obvious violations (Vgs &lt; Vth issues, current density violations)
+                and rejecting clearly invalid designs without wasting SPICE runtime.
+                Measure the reduction in total simulation calls.
+              </p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <div class="accordion-header-content">
+                <span class="accordion-icon">📡</span>
+                <span class="accordion-title">Extension 4: MCP Integration</span>
+              </div>
+              <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-body">
+              <p>
+                Replace direct subprocess calls in Stages B and D with MCP tool calls,
+                as covered in Module 5. Implement the Ngspice MCP Server and KLayout
+                MCP Server. Test that the same pipeline works with Claude Desktop as
+                the MCP Host — demonstrating the portability of MCP-based tools.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Knowledge Check -->
+      <section class="content-section" id="quiz">
+        <div class="content-section-title">
+          <div class="content-section-icon" style="background:rgba(245,158,11,0.1)">🎯</div>
+          <h2>Knowledge Check</h2>
+        </div>
+        <div class="quiz-container" data-quiz="module6">
+          <div class="quiz-header">
+            <div class="quiz-icon">🏆</div>
+            <div>
+              <div class="quiz-title">Module 6 Quiz — Final Assessment</div>
+              <div class="quiz-subtitle">Validate your understanding of the Self-Evolving Analog Block Designer project</div>
+            </div>
+          </div>
+          <div class="quiz-body"></div>
+          <div class="quiz-nav"></div>
+        </div>
+      </section>
+
+      <div class="module-nav">
+        <a href="module5.html" class="module-nav-link prev">
+          <span class="module-nav-arrow">←</span>
+          <div><div class="module-nav-label">Previous</div><div class="module-nav-title">Mastery Modules</div></div>
+        </a>
+        <a href="index.html" class="module-nav-link next">
+          <div style="text-align:right"><div class="module-nav-label">Course Complete!</div><div class="module-nav-title">Return to Overview</div></div>
+          <span class="module-nav-arrow">🏆</span>
+        </a>
+      </div>
+    </main>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">⚡ SYNAPSES</div>
+        <p class="footer-text">Module 6 — Self-Evolving Analog Block Designer · Course Complete</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="module5.html">← Module 5</a></li>
+        <li><a href="index.html">Course Overview</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+window.QUIZ_DATA["module6"] = [
+  {
+    question: "What is the primary output of Stage A (The Identification Agent) and what tool does it rely on for parsing?",
+    options: [
+      "A synthesized netlist file (.sp); uses Icarus Verilog",
+      "A 'Component Inventory' JSON object; uses Named Entity Recognition (NER) on hardware categories",
+      "A DRC-clean layout GDS; uses KLayout",
+      "A simulation waveform PNG; uses Matplotlib"
+    ],
+    correct: 1,
+    explanation: "Stage A parses natural language specifications into structured data. It uses Named Entity Recognition (NER) trained on hardware categories (transistor types, bias conditions, topology names) and outputs a 'Component Inventory' JSON that downstream stages consume."
+  },
+  {
+    question: "In Stage B (Feedback-Enhanced Netlist Generator), what principle from AnalogCoder drives the generation loop?",
+    options: [
+      "Random search over topology parameter spaces",
+      "Human-in-the-loop review of each netlist before simulation",
+      "Iterative Python-based code generation guided by SPICE simulation feedback and SKY130 PDK constraints",
+      "Static template selection from a fixed library of 100 pre-designed circuits"
+    ],
+    correct: 2,
+    explanation: "Following AnalogCoder's code-generation paradigm, Stage B generates SPICE netlists as Python code (via PySpice), runs Ngspice simulation, and feeds back error messages and PPA metrics to the LLM to iteratively refine the design — all grounded in SKY130 PDK component rules."
+  },
+  {
+    question: "Stage C uses a multimodal LLM to analyze circuit waveforms. What key analog stability indicator does it look for visually?",
+    options: [
+      "The color saturation of the waveform plot background",
+      "The phase margin on the Bode plot — a value below 45° indicates potential instability",
+      "The pixel count of the gain curve above 0 dB",
+      "Whether the waveform title text matches the specification string"
+    ],
+    correct: 1,
+    explanation: "Stage C (Waveform Debugger) generates gain/phase Bode plots and uses a vision LLM (Gemini 3 Pro or Claude 4.5) to read the phase margin from the phase plot. A phase margin below 45° indicates the amplifier is approaching instability, triggering a prompt to adjust bias currents or compensation capacitors."
+  },
+  {
+    question: "In Stage D (Autonomous Layout Synthesis), what 'proofreading strategy' does the Layout Agent apply after initial P&R?",
+    options: [
+      "It asks a human designer to manually inspect the layout before proceeding",
+      "It reruns synthesis from scratch with a different random seed until the layout passes",
+      "It reads DRC/LVS violation reports and iteratively adjusts placement/routing rules, looping until a clean run is achieved",
+      "It exports the GDS and runs a commercial sign-off tool only once at the end"
+    ],
+    correct: 2,
+    explanation: "The Stage D agent applies a 'proofreading strategy': after ALIGN or OpenROAD generates a layout, it parses the DRC/LVS report, identifies specific violations (spacing errors, unconnected nets), formulates targeted fixes, re-runs the layout tool with adjusted constraints, and loops until the design passes clean — mimicking how a human designer would iterate."
+  },
+  {
+    question: "The 'Full Integration' section of the project wires all stages into a single LangGraph graph. What mechanism ensures the pipeline can resume after a 48-hour simulation is interrupted?",
+    options: [
+      "An external cron job that periodically saves the Python process memory to disk",
+      "LangGraph's persistent checkpointing with PostgresSaver, storing the full agent state after every node execution",
+      "A bash script that re-runs the entire pipeline from Stage A each time it is interrupted",
+      "The MemorySaver in-process checkpointer, which stores state in RAM"
+    ],
+    correct: 1,
+    explanation: "The integrated pipeline uses LangGraph's persistent checkpointing with PostgresSaver. After every node (Stage A → B → C → D) the complete graph state is serialized to PostgreSQL. If the machine crashes mid-simulation, running the graph again with the same thread_id resumes from the last committed checkpoint — critical for long-running EDA workflows."
+  },
+  {
+    question: "Extension 3 asks you to add a Critic Agent before SPICE simulation. What is the primary engineering benefit measured in this extension?",
+    options: [
+      "A reduction in the number of LLM API calls required to generate netlists",
+      "A reduction in total SPICE simulation calls by pre-filtering obviously invalid netlists (e.g., Vgs < Vth violations)",
+      "An increase in layout density by compacting the final GDS",
+      "A reduction in memory usage by compressing checkpoint data"
+    ],
+    correct: 1,
+    explanation: "The Critic Agent acts as a fast pre-filter that checks netlists for obvious analog violations (transistor bias violations, current density out of range, topology mismatches) before invoking the slow SPICE simulator. By catching ~30-50% of bad designs early, it significantly reduces total simulation wall-clock time — the key metric of Extension 3."
+  }
+];
+</script>
+</html>
